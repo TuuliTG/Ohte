@@ -4,8 +4,8 @@ This project is a part of a course *Ohjelmistotekniikka* in the University of He
 
 ### Documents
 
-* [Requirements analysis](https://github.com/TuuliTG/Ohte/blob/main/RequirementsAnalysis.md)
-* [Tuntikirjanpito]()
+* [Requirements analysis](https://github.com/TuuliTG/Ohte/blob/main/Documents/RequirementsAnalysis.md)
+* [Work hours](https://github.com/TuuliTG/Ohte/blob/main/Documents/workhours.md)
 
 ### Exercises
 #### Week 1
