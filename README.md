@@ -1,10 +1,11 @@
 # Ohjelmistotekniikka 2020
 
-[**Requirements analysis**](https://github.com/TuuliTG/Ohte/blob/main/RequirementsAnalysis.md)
+This project is a part of a course *Ohjelmistotekniikka* in the University of Helsinki. The software is a classic Master Mind game. 
 
-### Project specification
+### Documents
 
-The project will be a Master Mind game. 
+* [Requirements analysis](https://github.com/TuuliTG/Ohte/blob/main/RequirementsAnalysis.md)
+* [Tuntikirjanpito]()
 
 ### Exercises
 #### Week 1
