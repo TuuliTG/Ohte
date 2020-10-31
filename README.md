@@ -6,5 +6,5 @@
 [komentorivi.txt](https://github.com/TuuliTG/Ohte/blob/main/laskarit/viikko1/komentorivi.txt)
 ## Project specification
 
-Here will be **more information** about the project when I decide the *subject*  
+The project will be a Master Mind game. 
 
