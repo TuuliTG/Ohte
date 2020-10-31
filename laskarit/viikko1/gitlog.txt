@@ -2,7 +2,7 @@ commit f0cdcdb385b23b19615bc2d53d26147e554ac3a6
 Author: Tuuli TG <tuuli.k.toivanen@gmail.com>
 Date:   Mon Oct 26 16:12:24 2020 +0200
 
-    tiedotoihin muutoksia
+    tiedostoihin muutoksia
 
  tiedostoja/file1  | 0
  tiedostoja/file2  | 0
