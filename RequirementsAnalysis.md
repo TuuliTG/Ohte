@@ -4,8 +4,8 @@
 
 ## About the game
 * A Decoding board, 12 rows of 4 holes on each row. 4 additional small holes on each row for key pegs.  
- * Code pegs : 6 different colours, will be places on the bigger holes on the board. 
- * Black and white *key pegs* for the feedback
+  * Code pegs : 6 different colours, will be places on the bigger holes on the board. 
+  * Black and white *key pegs* for the feedback
 * The *codemaker* will give feedback after each guess: a black key peg is for a right colour in a right position and a white key peg is for a right colour in a wrong position. 
 * The game will end if the *codebreaker* breaks the code or if there are no more guesses left. 
 
@@ -21,9 +21,8 @@
 * The game will count how many guesses the player does before getting the right solution. 
 * The game will time the duration of the game and possibly also the duration of each guess
 * Settings:
- * Are blanks and/or duplicates allowed on the *code*. 
- * how many guesses are allowed
- * 
+  * Are blanks and/or duplicates allowed on the *code*. 
+  * how many guesses are allowed 
 
 ## References
 https://en.wikipedia.org/wiki/Mastermind_(board_game)
