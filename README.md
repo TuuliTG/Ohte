@@ -1,11 +1,16 @@
 # Ohjelmistotekniikka 2020
-## Exercises
-### Week 1
-[gitlog.txt](https://github.com/TuuliTG/Ohte/blob/main/laskarit/viikko1/gitlog.txt)
 
-[komentorivi.txt](https://github.com/TuuliTG/Ohte/blob/main/laskarit/viikko1/komentorivi.txt)
-## Project specification
+[**Requirements analysis**](https://github.com/TuuliTG/Ohte/blob/main/RequirementsAnalysis.md)
+
+### Project specification
 
 The project will be a Master Mind game. 
 
-[**Requirements analysis**]()
+### Exercises
+#### Week 1
+
+[gitlog.txt](https://github.com/TuuliTG/Ohte/blob/main/laskarit/viikko1/gitlog.txt)
+
+[komentorivi.txt](https://github.com/TuuliTG/Ohte/blob/main/laskarit/viikko1/komentorivi.txt)
+
+
