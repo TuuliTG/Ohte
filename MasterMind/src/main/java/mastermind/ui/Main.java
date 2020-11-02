@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mastermind.UI;
+package mastermind.ui;
 
 import java.util.Scanner;
-import mastermind.Code;
+import mastermind.domain.Code;
 
 /**
  *
