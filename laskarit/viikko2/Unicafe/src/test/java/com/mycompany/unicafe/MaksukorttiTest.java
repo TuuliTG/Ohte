@@ -35,6 +35,12 @@ public class MaksukorttiTest {
     }
     
     @Test
+    public void negatiivistaSummaEiLadataKortille() {
+        kortti.lataaRahaa(-10);
+        assertEquals("saldo: 10.0", kortti.toString());
+    }
+    
+    @Test
     public void otaRahaaToimii() {
         kortti.otaRahaa(100);
         assertEquals("saldo: 9.0", kortti.toString());
