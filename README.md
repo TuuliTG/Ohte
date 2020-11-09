@@ -14,4 +14,9 @@ This project is a part of a course *Ohjelmistotekniikka* in the University of He
 
 [komentorivi.txt](https://github.com/TuuliTG/Ohte/blob/main/laskarit/viikko1/komentorivi.txt)
 
+#### Week 2
+[Click here to see week 2 exercises](https://github.com/TuuliTG/Ohte/tree/main/laskarit/viikko2)
+
+
+
 
