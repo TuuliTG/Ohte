@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package mastermind.ui;
 
 import java.util.Scanner;
@@ -33,7 +29,7 @@ public class Main {
         Code code = new Code();
         String[] guess = new String[4];
         code.setRandomCode();
-        GamePlay g = new GamePlay();
+        GameLogic g = new GameLogic();
         g.setCode(code);
         int round = 0;
         while (g.isGameIsOver() == false) {

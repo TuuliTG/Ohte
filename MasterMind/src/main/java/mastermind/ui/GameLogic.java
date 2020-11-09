@@ -1,42 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package mastermind.ui;
 
 import java.util.HashMap;
 import mastermind.domain.Code;
 
 /**
- *
- * @author tgtuuli
+ * 
+ * 
  */
-public class GamePlay {
+public class GameLogic {
     
     private Code code;
     private String[] guess = new String[4];
     private HashMap<String, Integer> coloursAndOccurances;
     private boolean gameIsOver;
 
-    public GamePlay() {
-        this.coloursAndOccurances = new HashMap<>();
+    public GameLogic() {
         code = new Code();
-        coloursAndOccurances.put("red", 0);
-        coloursAndOccurances.put("green", 0);
-        coloursAndOccurances.put("yellow", 0);
-        coloursAndOccurances.put("blue", 0);
-        coloursAndOccurances.put("white", 0);
-        coloursAndOccurances.put("black", 0);
         gameIsOver = false;
 
     }
     
     public void setCode(Code code) {
         this.code = code;
-        for (int i = 0; i < 4; i++) {
-            coloursAndOccurances.put(code.getCode()[i], coloursAndOccurances.get(code.getCode()[i])+1);
-        }
     }
 
     public void setGuess(String[] guess) {
@@ -46,7 +32,7 @@ public class GamePlay {
      *  black (right color, right position) is marked 1 and 
      * white (right color, wrong position) is marked 0
      * wrong colour and wrong position is marked with 2
-     * @return 
+     * @return int[] feedback, array size is 4
      */
     public int[] getFeedback() {
         int[] feedback = new int[4];
@@ -95,12 +81,6 @@ public class GamePlay {
         return feedback;
     }
     
-    public void printOccurances() {
-        System.out.println("red " + this.coloursAndOccurances.get("red"));
-        System.out.println("blue" + this.coloursAndOccurances.get("blue"));
-        System.out.println("white " + this.coloursAndOccurances.get("white"));
-    }
-
     public boolean isGameIsOver() {
         return gameIsOver;
     }
