@@ -115,6 +115,19 @@ public class MasterMindApplication2 extends Application {
         
         Label feedbackLabel = new Label();
         
+        //Start a new game button THIS IS NOT READY!!
+        
+        Button startButton = new Button();
+        startButton.setText("Start a New Game");
+        startButton.setOnAction(e -> {
+            primaryStage.close();
+            Scene scene = new Scene(grid, 700, 700);
+
+            primaryStage.setTitle("TESTIPELI");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        });
+        
         //submit Button gets feedback
         
         Button submitButton = new Button();
@@ -152,6 +165,7 @@ public class MasterMindApplication2 extends Application {
         GridPane.setConstraints(feedbackLabel, 1, 7);
         GridPane.setConstraints(endGameButton, 1, 8);
         GridPane.setConstraints(resultLabel, 1, 9);
+        //GridPane.setConstraints(startButton, 3, 8);
         
         grid.getChildren().add(l1);
         grid.getChildren().add(l2);
@@ -165,6 +179,7 @@ public class MasterMindApplication2 extends Application {
         grid.getChildren().add(feedbackLabel);
         grid.getChildren().add(endGameButton);
         grid.getChildren().add(resultLabel);
+        //grid.getChildren().add(startButton);
         
         
         Scene scene = new Scene(grid, 700, 700);

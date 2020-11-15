@@ -1,7 +1,9 @@
 
 package mastermind.ui;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Random;
 import mastermind.domain.Code;
 
 /**
@@ -78,6 +80,7 @@ public class GameLogic {
             System.out.println("YOU HAVE SOLVED THE CODE");
             gameIsOver = true;
         }
+        feedback = shuffle(feedback);
         return feedback;
     }
     
@@ -87,6 +90,18 @@ public class GameLogic {
 
     public String[] getCode() {
         return code.getCode();
+    }
+    
+    private int[] shuffle(int[] array) {
+        int index, temp;
+        Random random = new Random();
+        for (int i = array.length -1; i > 0; i--) {
+            index =  random.nextInt(i+1);
+            temp = array[index];
+            array[index] = array[i];
+            array[i] = temp;
+        }
+        return array;
     }
     
     
