@@ -10,7 +10,7 @@ import java.util.Random;
 public class Code {
     
     private String[] code;
-    private String[] colors = {"red", "green", "yellow", "blue", "black", "white"};
+    private String[] colors = {"Red", "Green", "Yellow", "Blue", "Black", "White"};
     private boolean blanksAreAllowed;
 
     public Code() {

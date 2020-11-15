@@ -7,16 +7,15 @@ This project is a part of a course *Ohjelmistotekniikka* in the University of He
 * [Requirements analysis](https://github.com/TuuliTG/Ohte/blob/main/Documents/RequirementsAnalysis.md)
 * [Work hours](https://github.com/TuuliTG/Ohte/blob/main/Documents/workhours.md)
 
-### Exercises
-#### Week 1
+### Command Line commands
+run tests:
+`mvn test`
 
-[gitlog.txt](https://github.com/TuuliTG/Ohte/blob/main/laskarit/viikko1/gitlog.txt)
+get test codecoverage reports
+`mvn jacoco:report`
 
-[komentorivi.txt](https://github.com/TuuliTG/Ohte/blob/main/laskarit/viikko1/komentorivi.txt)
+you can view the report by opening the file `target/site/jacoco/index.html` on your browser. 
 
-#### Week 2
-[Click here to see week 2 exercises](https://github.com/TuuliTG/Ohte/tree/main/laskarit/viikko2)
+###JavaDoc
 
-
-
-
+### Checkstyle

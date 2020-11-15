@@ -17,14 +17,11 @@ public class GameLogic {
 
     public GameLogic() {
         code = new Code();
+        code.setRandomCode();
         gameIsOver = false;
 
     }
     
-    public void setCode(Code code) {
-        this.code = code;
-    }
-
     public void setGuess(String[] guess) {
         this.guess = guess;
     }
@@ -38,6 +35,9 @@ public class GameLogic {
         int[] feedback = new int[4];
         int nrOfCorrects = 0;
         
+        String[] copyGuess = new String[4];
+        System.arraycopy(guess, 0, copyGuess, 0, 4);
+        
         String[] copycode = new String[4];
         System.arraycopy(code.getCode(), 0, copycode, 0, 4);
         
@@ -45,7 +45,7 @@ public class GameLogic {
             if (code.getCode()[i].equals(guess[i])){
                 feedback[i]=1;
                 nrOfCorrects++;
-                guess[i]= "*";
+                copyGuess[i]= "*";
                 copycode[i] = "*";                
             }
         }
@@ -56,9 +56,9 @@ public class GameLogic {
         System.out.println("");
         */
         for (int i = 0; i < 4; i++) {
-            if (!guess[i].equals("*")){
+            if (!copyGuess[i].equals("*")){
                 for (int j = 0; j < 4; j++) {
-                    if (copycode[j].equals(guess[i])) {
+                    if (copycode[j].equals(copyGuess[i])) {
                         feedback[i] = 0;
                         copycode[j] = "*";
                         break;
@@ -84,5 +84,11 @@ public class GameLogic {
     public boolean isGameIsOver() {
         return gameIsOver;
     }
+
+    public String[] getCode() {
+        return code.getCode();
+    }
+    
+    
     
 }

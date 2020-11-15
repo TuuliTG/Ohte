@@ -3,12 +3,25 @@ package mastermind.ui;
 
 import java.util.Scanner;
 import mastermind.domain.Code;
+import javafx.application.Application;
+import javafx.stage.Stage;
+
 
 /**
  *
  * @author tgtuuli
  */
-public class Main {
+
+public class MasterMindApplication extends Application {
+
+    @Override
+    public void start(Stage ikkuna) {
+        ikkuna.setTitle("Hei Maailma!");
+        ikkuna.show();
+    }
+
+    
+
     
     public static void main(String[] args) {
         
@@ -26,11 +39,8 @@ public class Main {
     
     public static void start() {
         Scanner scan = new Scanner(System.in);
-        Code code = new Code();
         String[] guess = new String[4];
-        code.setRandomCode();
         GameLogic g = new GameLogic();
-        g.setCode(code);
         int round = 0;
         while (g.isGameIsOver() == false) {
             round++;
@@ -70,7 +80,7 @@ public class Main {
         System.out.println("-----------------------");
 
         for (int i = 0 ; i < 4; i++) {
-            System.out.print(code.getCode()[i] + ", " );
+            System.out.print(g.getCode()[i] + ", " );
         }
         
         
