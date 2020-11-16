@@ -104,6 +104,10 @@ public class GameLogic {
         return array;
     }
     
+    public void setCode(String[] colors) {
+        this.code.setCode(colors);
+    }
+    
     
     
 }
