@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package mastermind.ui;
+package mastermind.gui;
 
 import mastermind.domain.*;
 import javafx.application.Application;
@@ -44,7 +44,7 @@ public class MasterMindApplication2 extends Application {
         root = new Pane();
         
         try {
-             board = new Board(root);
+            board = new Board(root);
         } catch (Exception e) {
             
         }
@@ -63,7 +63,7 @@ public class MasterMindApplication2 extends Application {
     private void mouseEvents() {
         root.setOnMouseMoved(e -> {
             Tile t = findTile(e.getX(), e.getY());
-            if (t!= null) {
+            if (t != null) {
                 t.setFillLight();
                 board.setOtherOnRowBrown(t.getPlace());
             } else {
@@ -78,12 +78,12 @@ public class MasterMindApplication2 extends Application {
         });
     }
     
-     private Tile findTile(double x, double y) {
+    private Tile findTile(double x, double y) {
         Tile[][] tiles = board.getTiles();
         int row = board.getActiveRow();
         //System.out.println("current active row: " + row);
-        if (y > row*constants.TILE_SIZE && y < row*constants.TILE_SIZE + constants.TILE_SIZE) {
-            int tileNr = (int) x / constants.TILE_SIZE;
+        if (y > row * Constants.TILE_SIZE && y < row * Constants.TILE_SIZE + Constants.TILE_SIZE) {
+            int tileNr = (int) x / Constants.TILE_SIZE;
             if (tileNr < 4) {
                 return tiles[tileNr][row];
             }

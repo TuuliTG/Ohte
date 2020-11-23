@@ -28,7 +28,7 @@ package mastermind.domain;
  *
  * @author tgtuuli
  */
-public interface constants {
+public interface Constants {
     public static final int TILE_SIZE = 50;
     public static final int PIECE_SIZE = 15;
     public static final int WIDTH = 5;

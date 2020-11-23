@@ -26,7 +26,7 @@ public class Code {
         Random rand = new Random();
         for (int i = 0; i < 4; i++) {
             int next = rand.nextInt(6);
-            code[i]=colors[next];
+            code[i] = colors[next];
         }
         
     }

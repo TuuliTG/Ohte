@@ -30,7 +30,7 @@ public class Tile extends Region {
     public boolean hasPiece() {
         return piece != null;
     }
-     public Piece getPiece() {
+    public Piece getPiece() {
         return piece;
     }
 
@@ -39,19 +39,19 @@ public class Tile extends Region {
     }
     
     public Tile(int x, int y) {
-        setWidth(constants.TILE_SIZE);
-        setHeight(constants.TILE_SIZE);
+        setWidth(Constants.TILE_SIZE);
+        setHeight(Constants.TILE_SIZE);
 
-        relocate(x * constants.TILE_SIZE, y * constants.TILE_SIZE);
-        this.xMin = x * constants.TILE_SIZE;
-        this.xMax = xMin + constants.TILE_SIZE-1;
-        this.yMin = y * constants.TILE_SIZE;
-        this.yMax = yMin + constants.TILE_SIZE-1;
+        relocate(x * Constants.TILE_SIZE, y * Constants.TILE_SIZE);
+        this.xMin = x * Constants.TILE_SIZE;
+        this.xMax = xMin + Constants.TILE_SIZE - 1;
+        this.yMin = y * Constants.TILE_SIZE;
+        this.yMax = yMin + Constants.TILE_SIZE - 1;
 
         setStyle("-fx-background-color: BURLYWOOD; -fx-border-style:solid; -fx-border-width: 2; -fx-border-color:black; "
-                + "-fx-min-height:" + constants.TILE_SIZE + ";-fx-min-width:" + constants.TILE_SIZE + ";"
-                + "-fx-max-height: " + constants.TILE_SIZE + ";"
-                        + "-fx-max-widh:" + constants.TILE_SIZE + ";");
+                + "-fx-min-height:" + Constants.TILE_SIZE + ";-fx-min-width:" + Constants.TILE_SIZE + ";"
+                + "-fx-max-height: " + Constants.TILE_SIZE + ";"
+                        + "-fx-max-widh:" + Constants.TILE_SIZE + ";");
     }
 
     public int getxMin() {
@@ -74,18 +74,18 @@ public class Tile extends Region {
         this.isFeedbackTile = isFeedbackTile;
     }
     
-    public void setFillLight(){
-         setStyle("-fx-background-color: BLANCHEDALMOND; -fx-border-style:solid; -fx-border-width: 2; -fx-border-color:black; "
-                + "-fx-min-height:" + constants.TILE_SIZE + ";-fx-min-width:" + constants.TILE_SIZE + ";"
-                + "-fx-max-height: " + constants.TILE_SIZE + ";"
-                        + "-fx-max-widh:" + constants.TILE_SIZE + ";");
+    public void setFillLight() {
+        setStyle("-fx-background-color: BLANCHEDALMOND; -fx-border-style:solid; -fx-border-width: 2; -fx-border-color:black; "
+                + "-fx-min-height:" + Constants.TILE_SIZE + ";-fx-min-width:" + Constants.TILE_SIZE + ";"
+                + "-fx-max-height: " + Constants.TILE_SIZE + ";"
+                        + "-fx-max-widh:" + Constants.TILE_SIZE + ";");
     }
     
-    public void setFillDark(){
-         setStyle("-fx-background-color: BURLYWOOD; -fx-border-style:solid; -fx-border-width: 2; -fx-border-color:black; "
-                + "-fx-min-height:" + constants.TILE_SIZE + ";-fx-min-width:" + constants.TILE_SIZE + ";"
-                + "-fx-max-height: " + constants.TILE_SIZE + ";"
-                        + "-fx-max-widh:" + constants.TILE_SIZE + ";");
+    public void setFillDark() {
+        setStyle("-fx-background-color: BURLYWOOD; -fx-border-style:solid; -fx-border-width: 2; -fx-border-color:black; "
+                + "-fx-min-height:" + Constants.TILE_SIZE + ";-fx-min-width:" + Constants.TILE_SIZE + ";"
+                + "-fx-max-height: " + Constants.TILE_SIZE + ";"
+                        + "-fx-max-widh:" + Constants.TILE_SIZE + ";");
     }
 
     public void setPlace(int place) {
