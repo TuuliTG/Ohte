@@ -18,4 +18,4 @@ Tunteja 6
 * luokkien siivousta
 * turhien luokkien poistamista
 * checkstylen asennus, luokkien siivous sen avulla
-* 
+* lisää testejä
