@@ -41,6 +41,7 @@
                 <configuration>
                     <excludes>
                         <exclude>mastermind.gui/*</exclude>
+                        <exclude>mastermind.domain/Constants.java</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -83,7 +84,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>mastermind.ui.MasterMindApplication2</mainClass>
+                                    <mainClass>mastermind.gui.MasterMindApplication2</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
@@ -103,7 +104,7 @@
                     </execution>
                 </executions>
                 <configuration>                         
-                    <mainClass>mastermind.ui.MasterMindApplication2</mainClass>
+                    <mainClass>mastermind.gui.MasterMindApplication2</mainClass>
                 </configuration>
              </plugin>     
         </plugins>   
