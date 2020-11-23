@@ -15,18 +15,16 @@ import javafx.scene.shape.Circle;
  */
 public class Piece extends Circle {
     
-    private boolean isChangeable;
     private Color color;
     private int colorIndex;
     private String colorInText;
     
-    public Piece(int radius, boolean isChangeable, Color color, int locationX, int locationY) {
+    public Piece(int radius, Color color, int locationX, int locationY) {
         this.setCenterX(locationX);
         this.setCenterY(locationY);
         this.setFill(color);
         this.color = color;
         this.setRadius(radius);
-        this.isChangeable = isChangeable;
         this.colorIndex = 0;
     }
     
@@ -34,16 +32,12 @@ public class Piece extends Circle {
         return this.color;
     }
     
-    public boolean isChangeable() {
-        return isChangeable;
-    }
-    
-    public void setIsChangeable(boolean isChangeable) {
-        this.isChangeable = isChangeable;
-    }
-    
     public void setNextColor() {
         this.setFill(nextColor());
+    }
+
+    public int getColorIndex() {
+        return colorIndex;
     }
     
     private Color nextColor() {

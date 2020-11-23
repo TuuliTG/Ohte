@@ -15,7 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import gamelogic.GameLogic;
+import mastermind.gamelogic.GameLogic;
 
 /**
  *
@@ -36,7 +36,7 @@ public class Board {
     private GameLogic game;
     private Button acceptGuessButton;
     
-    public Board(Pane pane) throws FileNotFoundException {
+    public Board(Pane pane) {
         root = pane;
         
         root.setPrefSize(Constants.WIDTH * Constants.TILE_SIZE * 2 ,  Constants.HEIGHT * Constants.TILE_SIZE * 1.5);
@@ -53,7 +53,12 @@ public class Board {
         guessesLeft = new Label();
        
         gameOver = new Label();
-        this.setArrowSign();
+        try {
+            this.setArrowSign();
+        } catch (Exception e) {
+            
+        }
+        
         this.setUpLabels();
         this.setUpTilesAndPieces();
         
@@ -124,7 +129,7 @@ public class Board {
                 if (x < Constants.WIDTH - 1) {
                     Tile tile = new Tile(x, y);
                     tile.setIsFeedbackTile(false);
-                    Piece piece = new Piece(Constants.PIECE_SIZE, false, 
+                    Piece piece = new Piece(Constants.PIECE_SIZE, 
                             Color.GREY, x * Constants.TILE_SIZE + Constants.TILE_SIZE / 2, 
                             y * Constants.TILE_SIZE + Constants.TILE_SIZE / 2);
                     pieceGroup.getChildren().add(piece);
@@ -209,10 +214,10 @@ public class Board {
     }
     
     private ArrayList<Piece> setFeedbackPieces(int x, int y) {
-        Piece piece1 = new Piece(5, false, Color.GREY, x * Constants.TILE_SIZE + 10, y * Constants.TILE_SIZE + 10);
-        Piece piece2 = new Piece(5, false, Color.GREY, x * Constants.TILE_SIZE + Constants.TILE_SIZE - 10, y * Constants.TILE_SIZE + Constants.TILE_SIZE - 10);
-        Piece piece3 = new Piece(5, false, Color.GREY, x * Constants.TILE_SIZE + 10, y * Constants.TILE_SIZE + Constants.TILE_SIZE - 10);
-        Piece piece4 = new Piece(5, false, Color.GREY, x * Constants.TILE_SIZE + Constants.TILE_SIZE - 10, y * Constants.TILE_SIZE + 10);
+        Piece piece1 = new Piece(5, Color.GREY, x * Constants.TILE_SIZE + 10, y * Constants.TILE_SIZE + 10);
+        Piece piece2 = new Piece(5, Color.GREY, x * Constants.TILE_SIZE + Constants.TILE_SIZE - 10, y * Constants.TILE_SIZE + Constants.TILE_SIZE - 10);
+        Piece piece3 = new Piece(5, Color.GREY, x * Constants.TILE_SIZE + 10, y * Constants.TILE_SIZE + Constants.TILE_SIZE - 10);
+        Piece piece4 = new Piece(5, Color.GREY, x * Constants.TILE_SIZE + Constants.TILE_SIZE - 10, y * Constants.TILE_SIZE + 10);
         feedBackPlaceGroup.getChildren().add(piece1);
         feedBackPlaceGroup.getChildren().add(piece2);
         feedBackPlaceGroup.getChildren().add(piece3);

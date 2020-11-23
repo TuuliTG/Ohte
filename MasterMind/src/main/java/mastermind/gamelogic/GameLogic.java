@@ -1,5 +1,5 @@
 
-package gamelogic;
+package mastermind.gamelogic;
 
 import java.util.Collections;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-/*
+    /*
  * The MIT License
  *
  * Copyright 2020 tgtuuli.
@@ -42,12 +42,8 @@ public class MasterMindApplication2 extends Application {
     public MasterMindApplication2() {
         
         root = new Pane();
+        board = new Board(root);
         
-        try {
-            board = new Board(root);
-        } catch (Exception e) {
-            
-        }
     }
     
     @Override
