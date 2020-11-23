@@ -40,7 +40,7 @@
                 <version>0.8.3</version>
                 <configuration>
                     <excludes>
-                        
+                        <exclude>mastermind.gui/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
