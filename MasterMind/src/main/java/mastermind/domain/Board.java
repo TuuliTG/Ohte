@@ -5,15 +5,17 @@
  */
 package mastermind.domain;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import static mastermind.ui.MasterMindApplication2.HEIGHT;
-import static mastermind.ui.MasterMindApplication2.PIECE_SIZE;
-import static mastermind.ui.MasterMindApplication2.TILE_SIZE;
-import static mastermind.ui.MasterMindApplication2.WIDTH;
+import mastermind.ui.GameLogic;
 
 /**
  *
@@ -26,64 +28,35 @@ public class Board {
     private Group pieceGroup = new Group();
     private Group feedBackPlaceGroup = new Group();
     private int activeRow;
-    private Tile[][] tiles = new Tile[WIDTH][HEIGHT];
+    private Tile[][] tiles = new Tile[constants.WIDTH][constants.HEIGHT];
     private Label roundLabel;
     private Label guessesLeft;
     private Label gameOver;
+    private ImageView arrow;
+    private GameLogic game;
+    private Button acceptGuessButton;
     
-    public Board(Pane pane) {
+    public Board(Pane pane) throws FileNotFoundException {
         root = pane;
         
-        root.setPrefSize(WIDTH * TILE_SIZE * 1.5 ,  HEIGHT * TILE_SIZE * 1.5);
+        root.setPrefSize(constants.WIDTH * constants.TILE_SIZE * 2 ,  constants.HEIGHT * constants.TILE_SIZE * 1.5);
         root.getChildren().addAll(tileGroup, pieceGroup, feedBackPlaceGroup);
         
+        this.game = new GameLogic();
         this.activeRow = 0;
         
-        //Set text for round
+        this.acceptGuessButton = new Button();
+        setUpButtons();
+        
         roundLabel = new Label();
-        roundLabel.setText("ROUND: " + 1);
-        roundLabel.setTranslateX(WIDTH * TILE_SIZE + 10);
-        roundLabel.setTranslateY(20);
-        root.getChildren().add(roundLabel);
         
-        //Set text for guesses left
         guessesLeft = new Label();
-        guessesLeft.setText("Guesses left: " + HEIGHT);
-        guessesLeft.setTranslateX(WIDTH * TILE_SIZE + 10);
-        guessesLeft.setTranslateY(40);
-        root.getChildren().add(guessesLeft);
-        
-        //Set gameover Label
+       
         gameOver = new Label();
-        roundLabel.setTranslateX(WIDTH * TILE_SIZE + 10);
-        roundLabel.setTranslateY(70);
-       root.getChildren().add(gameOver);
+        this.setArrowSign();
+        this.setUpLabels();
+        this.setUpTilesAndPieces();
         
-        //Set tiles and pieces:
-        for (int y = 0; y < HEIGHT; y++) {
-            for (int x = 0; x < WIDTH; x++) {
-                
-                if (x < WIDTH-1) {
-                    Tile tile = new Tile(x,y);
-                    tile.setIsFeedbackTile(false);
-                    Piece piece = new Piece(PIECE_SIZE, false, Color.GREY, x*TILE_SIZE + TILE_SIZE/2, y*TILE_SIZE + TILE_SIZE/2);
-                    pieceGroup.getChildren().add(piece);
-                    tile.setPiece(piece);
-                    tiles[x][y] = tile;
-                    tile.setPlace(x);
-                    tileGroup.getChildren().add(tile);
-                } else {
-                    Tile tile = new Tile(x,y);
-                    tile.setIsFeedbackTile(true);
-                    ArrayList<Piece> pieces = this.setFeedbackPieces(x, y);
-                    tile.setFeedbackPieces(pieces);
-                    tileGroup.getChildren().add(tile);
-                    tile.setPlace(x);
-                    tiles[x][y] = tile;
-                }
-            }
-                
-        }
     }
 
     public Tile[][] getTiles() {
@@ -93,7 +66,7 @@ public class Board {
     public void setNextActiveRow() {
         this.activeRow++;
         this.roundLabel.setText("ROUND: " + (activeRow + 1));
-        this.guessesLeft.setText("Guesses left: " + (HEIGHT - activeRow));
+        this.guessesLeft.setText("Guesses left: " + (constants.HEIGHT - activeRow));
     }
     
     public int getActiveRow() {
@@ -125,16 +98,123 @@ public class Board {
     }
     
     public Tile getCurrentActiveFeedbackTile() {
-        Tile t = tiles[WIDTH-1][activeRow];
+        Tile t = tiles[constants.WIDTH-1][activeRow];
         System.out.println(t.getPlace());
-        return this.tiles[WIDTH-1][activeRow];
+        return this.tiles[constants.WIDTH-1][activeRow];
+    }
+    
+    private void setArrowSign() throws FileNotFoundException {
+        Image image = new Image(new FileInputStream("public/arrowLeft.png"));
+        
+        arrow = new ImageView(image);
+        arrow.setX(constants.TILE_SIZE*constants.WIDTH + 10);
+        arrow.setY(-10);
+        arrow.setFitHeight(70);
+        arrow.setFitWidth(70);
+        arrow.setRotate(180);
+        root.getChildren().add(arrow);
+        
+    }
+    
+    private void setUpTilesAndPieces() {
+        
+        for (int y = 0; y < constants.HEIGHT; y++) {
+            for (int x = 0; x < constants.WIDTH; x++) {
+                
+                if (x < constants.WIDTH-1) {
+                    Tile tile = new Tile(x,y);
+                    tile.setIsFeedbackTile(false);
+                    Piece piece = new Piece(constants.PIECE_SIZE, false, 
+                            Color.GREY, x*constants.TILE_SIZE + constants.TILE_SIZE/2, 
+                            y*constants.TILE_SIZE + constants.TILE_SIZE/2);
+                    pieceGroup.getChildren().add(piece);
+                    tile.setPiece(piece);
+                    tiles[x][y] = tile;
+                    tile.setPlace(x);
+                    tileGroup.getChildren().add(tile);
+                } else {
+                    Tile tile = new Tile(x,y);
+                    tile.setIsFeedbackTile(true);
+                    ArrayList<Piece> pieces = this.setFeedbackPieces(x, y);
+                    tile.setFeedbackPieces(pieces);
+                    tileGroup.getChildren().add(tile);
+                    tile.setPlace(x);
+                    tiles[x][y] = tile;
+                }
+            }
+                
+        }
+    }
+    
+    private void setFeedBackPieces() {
+        int[] feedback = game.getFeedback();
+        boolean gameIsOver = game.isGameIsOver();
+        if (gameIsOver) {
+            Label gameover = getGameOver();
+            gameover.setText("GAME OVER");
+            
+        }
+        Tile t = getCurrentActiveFeedbackTile();
+        System.out.println(t.getPlace());
+        t.setFillLight();
+        Piece[] feedbackPieces = t.getFeedbackPieces();
+        for (int i = 0; i < 4; i++) {
+            if (feedback[i] == 1) {
+                feedbackPieces[i].setFeebackPieceColor(Color.BLACK);
+            } else if (feedback[i] == 0) {
+                feedbackPieces[i].setFeebackPieceColor(Color.WHITE);
+            } else if (feedback[i] == 2) {
+                
+            }
+        }
+    }
+    
+    private void moveAcceptButtonDown() {
+        this.acceptGuessButton.setLayoutY(acceptGuessButton.getLayoutY() + constants.TILE_SIZE);
+    }
+    
+    private void setUpButtons() {
+        
+        acceptGuessButton.setText("Accept Guess");
+        acceptGuessButton.setOnAction(e -> {
+            String[] guess = guessedColors();
+            game.setGuess(guess);
+            this.setFeedBackPieces();
+            setNextActiveRow();
+            moveArrowDown();
+            moveAcceptButtonDown();
+            
+        });
+        
+        acceptGuessButton.setLayoutX(constants.WIDTH * constants.TILE_SIZE + 100);
+        acceptGuessButton.setLayoutY(20);
+        root.getChildren().add(acceptGuessButton);
+        
+    }
+    
+    private void setUpLabels() {
+        
+        roundLabel.setText("ROUND: " + 1);
+        roundLabel.setTranslateX(10);
+        roundLabel.setTranslateY(constants.HEIGHT * constants.TILE_SIZE + constants.TILE_SIZE);
+        root.getChildren().add(roundLabel);
+        
+        guessesLeft.setText("Guesses left: " + constants.HEIGHT);
+        guessesLeft.setTranslateX(010);
+        guessesLeft.setTranslateY(constants.HEIGHT * constants.TILE_SIZE + constants.TILE_SIZE + 50);
+        root.getChildren().add(guessesLeft);
+        
+        gameOver.setTranslateX(constants.WIDTH * constants.TILE_SIZE / 2);
+        gameOver.setTranslateY(constants.HEIGHT * constants.TILE_SIZE / 2);
+        
+        root.getChildren().add(gameOver);
     }
     
     private ArrayList<Piece> setFeedbackPieces(int x, int y){
-        Piece piece1 = new Piece(5, false, Color.GREY, x*TILE_SIZE + 10, y*TILE_SIZE + 10);
-        Piece piece2 = new Piece(5, false, Color.GREY, x*TILE_SIZE + TILE_SIZE-10, y*TILE_SIZE + TILE_SIZE-10);
-        Piece piece3 = new Piece(5, false, Color.GREY, x*TILE_SIZE + 10, y*TILE_SIZE + TILE_SIZE -10);
-        Piece piece4 = new Piece(5, false, Color.GREY, x*TILE_SIZE + TILE_SIZE-10, y*TILE_SIZE + 10);
+        Piece piece1 = new Piece(5, false, Color.GREY, x*constants.TILE_SIZE + 10, y*constants.TILE_SIZE + 10);
+        Piece piece2 = new Piece(5, false, Color.GREY, x*constants.TILE_SIZE + constants.TILE_SIZE-10, y*constants.TILE_SIZE + constants.TILE_SIZE-10);
+        Piece piece3 = new Piece(5, false, Color.GREY, x*constants.TILE_SIZE + 10, y*constants.TILE_SIZE + constants.TILE_SIZE -10);
+        Piece piece4 = new Piece(5, false, Color.GREY, x*constants.TILE_SIZE + constants.TILE_SIZE-10, y*constants.TILE_SIZE + 10);
         feedBackPlaceGroup.getChildren().add(piece1);
         feedBackPlaceGroup.getChildren().add(piece2);
         feedBackPlaceGroup.getChildren().add(piece3);
@@ -151,6 +231,8 @@ public class Board {
         return gameOver;
     }
     
-    
+    public void moveArrowDown() {
+        this.arrow.setY(arrow.getY()+constants.TILE_SIZE);
+    }
     
 }
