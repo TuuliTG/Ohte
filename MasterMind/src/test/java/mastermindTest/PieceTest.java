@@ -1,5 +1,3 @@
-package mastermindTest;
-
 /*
  * The MIT License
  *
@@ -23,8 +21,10 @@ package mastermindTest;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+package mastermindTest;
 
-import mastermind.gamelogic.GameLogic;
+import javafx.scene.paint.Color;
+import mastermind.domain.Piece;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -33,52 +33,35 @@ import org.junit.Before;
  *
  * @author tgtuuli
  */
-public class GameLogicTest {
-    private GameLogic game;
+public class PieceTest {
     
+    private Piece p;
     @Before
     public void setUp() {
-        game = new GameLogic();
+        p = new Piece(20, Color.GREY, 10, 10);
+    }
+    
+    @Test
+    public void createdPieceHasColorIndex0Test() {
+        int index = p.getColorIndex();
+        assertEquals(0, index);
+    }
+    
+    @Test
+    public void nextColorIsBlackTest() {
+        Color expected = Color.BLACK;
+        p.setNextColor();
+        assertEquals(expected, p.getColor());
         
     }
     
     @Test
-    public void feedbackTest1() {
-        String[] c = {"Blue", "Blue", "Blue", "Blue"};
-        game.setCode(c);
-        String[] g = {"Blue", "Blue", "Blue", "Blue"};
-        game.setGuess(g);
-        int[] feedback = game.getFeedback();
-        int[] expectedFeedback = {1,1,1,1};
-        assertArrayEquals(expectedFeedback, feedback);
-    }
-    
-     @Test
-    public void feedbackTest2() {
-        String[] c = {"Blue", "Red", "Yellow", "Black"};
-        game.setCode(c);
-        String[] g = {"Blue", "Blue", "Black", "White"};
-        game.setGuess(g);
-        int[] feedback = game.getFeedback();
-        int onesExp = 1;
-        int twosExp = 2;
-        int zerosExp = 1;
-        int ones = 0;
-        int twos = 0;
-        int zeros = 0;
-        
-        for (int i = 0; i < 4; i++) {
-            if (feedback[i] == 1) {
-                ones++;
-            } else if (feedback[i] == 2) {
-                twos++;
-            } else if (feedback[i] == 0) {
-                zeros++;
-            }
+    public void afterLastColorNextIsGrey() {
+        Color expected = Color.GREY;
+        for (int i = 0; i < 7; i++) {
+            p.setNextColor();
         }
-         assertEquals(onesExp, ones);
-         assertEquals(twosExp, twos);
-         assertEquals(zerosExp, zeros);
+        assertEquals(expected, p.getColor());
     }
     
 }

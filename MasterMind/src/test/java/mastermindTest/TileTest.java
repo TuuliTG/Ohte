@@ -1,5 +1,3 @@
-package mastermindTest;
-
 /*
  * The MIT License
  *
@@ -23,54 +21,39 @@ package mastermindTest;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+package mastermindTest;
 
-import jdk.internal.net.http.hpack.NaiveHuffman;
-import mastermind.domain.Code;
+import mastermind.domain.Tile;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Before;
 
 /**
  *
  * @author tgtuuli
  */
-public class CodeTest {
-    private Code code;
-    @Before
-    public void setUp() {
-        code = new Code();
-        code.setRandomCode();
+public class TileTest {
+    
+    @Test
+    public void newTileGetsCreatedTest() {
+        Tile t = new Tile(0, 0);
+        assertNotNull(t);
     }
     
     @Test
-    public void getCodeGivesRightSizeArray() {
-        
-        
-        assertEquals(4, code.getCode().length);
+    public void tileIsTheRightSizeXTest() {
+        Tile t = new Tile(0, 0);
+        Tile t2 = new Tile(1, 0);
+        Tile t3 = new Tile(0, 1);
+        assertEquals(50, (int) t2.getLayoutX());
     }
     
     @Test
-    public void codeHasColors() {
-        boolean hasColors = true;
-        for (int i = 0; i < 4; i++) {
-            if(!isColor(code.getCode()[i])) {
-                hasColors = false;
-            }
-        }
-        assertTrue(hasColors);
+    public void tileIsTheRightSIzeYTest() {
+        Tile t = new Tile(0, 0);
+        Tile t2 = new Tile(1, 0);
+        Tile t3 = new Tile(0, 1);
+        assertEquals(50, (int) t3.getLayoutY());
     }
     
-    private boolean isColor(String s) {
-        boolean isColor = false;
-        String[] colors = {"Red", "Green", "Yellow", "Blue", "Black", "White"};
-        for (int i = 0; i < colors.length; i++) {
-            if (s.equals(colors[i])) {
-                isColor = true;
-                return isColor;
-            }
-                
-        }
-        return isColor;
-    }
     
 }

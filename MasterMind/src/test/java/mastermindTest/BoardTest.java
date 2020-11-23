@@ -1,5 +1,3 @@
-package mastermindTest;
-
 /*
  * The MIT License
  *
@@ -23,8 +21,12 @@ package mastermindTest;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+package mastermindTest;
 
-import mastermind.gamelogic.GameLogic;
+import javafx.scene.layout.Pane;
+import mastermind.domain.Board;
+import mastermind.domain.Tile;
+import mastermind.domain.Constants;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -33,52 +35,27 @@ import org.junit.Before;
  *
  * @author tgtuuli
  */
-public class GameLogicTest {
-    private GameLogic game;
-    
+public class BoardTest {
+    private Board b;
     @Before
     public void setUp() {
-        game = new GameLogic();
-        
+        b = new Board(new Pane());
     }
     
     @Test
-    public void feedbackTest1() {
-        String[] c = {"Blue", "Blue", "Blue", "Blue"};
-        game.setCode(c);
-        String[] g = {"Blue", "Blue", "Blue", "Blue"};
-        game.setGuess(g);
-        int[] feedback = game.getFeedback();
-        int[] expectedFeedback = {1,1,1,1};
-        assertArrayEquals(expectedFeedback, feedback);
+    public void boardGetsCreatedTest() {
+        
+        
+        assertNotNull(b);
     }
     
-     @Test
-    public void feedbackTest2() {
-        String[] c = {"Blue", "Red", "Yellow", "Black"};
-        game.setCode(c);
-        String[] g = {"Blue", "Blue", "Black", "White"};
-        game.setGuess(g);
-        int[] feedback = game.getFeedback();
-        int onesExp = 1;
-        int twosExp = 2;
-        int zerosExp = 1;
-        int ones = 0;
-        int twos = 0;
-        int zeros = 0;
-        
-        for (int i = 0; i < 4; i++) {
-            if (feedback[i] == 1) {
-                ones++;
-            } else if (feedback[i] == 2) {
-                twos++;
-            } else if (feedback[i] == 0) {
-                zeros++;
-            }
-        }
-         assertEquals(onesExp, ones);
-         assertEquals(twosExp, twos);
-         assertEquals(zerosExp, zeros);
+    @Test
+    public void boardHasRightAmountOfTilesTest() {
+        Tile[][] tiles = b.getTiles();
+        int x = tiles.length;
+        int y = tiles[0].length;
+        assertEquals(Constants.WIDTH, x);
+        assertEquals(Constants.HEIGHT, y);
     }
     
 }
