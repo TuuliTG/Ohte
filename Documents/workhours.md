@@ -1,5 +1,12 @@
-### Viikko 1
+### Viikko 2
 
-la 31.10. tunteja 4
+tunteja 5
 
-ma 2.11. tunteja 1
+### Viikko 3
+
+tunteja 14
+
+### Viikko 4
+su 22.11. tunteja 6
+Loin ohjelmaan graafisen käyttöliittymän: Pelilaudan, mahdollisuuden
+ värien vaihtamiseen ja arvauksen lähettämiseen. 
