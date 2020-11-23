@@ -23,6 +23,8 @@
  */
 package mastermind.ui;
 
+import java.util.ArrayList;
+import mastermind.domain.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -31,8 +33,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
@@ -42,151 +47,95 @@ import javafx.stage.Stage;
  */
 public class MasterMindApplication2 extends Application {
     
+    public static final int TILE_SIZE = 50;
+    public static final int PIECE_SIZE = 15;
+    public static final int WIDTH = 5;
+    public static final int HEIGHT = 12;
+    
+     
+    private Pane root = new Pane();
+    
+    private Board board = new Board(root);
     private GameLogic game = new GameLogic();
+
     
     
     @Override
     public void start(Stage primaryStage) {
         
-        GridPane grid = new GridPane();
-        grid.setPadding(new Insets(10, 10, 10, 10));
-        grid.setVgap(8);
-        grid.setHgap(10);
-        //grid.setStyle("-fx-background-color: Brown");
-        
-        Label l1 = new Label();
-        l1.setShape(new Circle(5));
-        l1.setStyle("-fx-background-color: Grey");
-        l1.setText("  ");
-        Label l2 = new Label();
-        l2.setShape(new Circle(5));
-        l2.setStyle("-fx-background-color: Grey");
-        l2.setText("  ");
-        Label l3 = new Label();
-        l3.setShape(new Circle(5));
-        l3.setStyle("-fx-background-color: Grey");
-        l3.setText("  ");
-        Label l4 = new Label();
-        l4.setShape(new Circle(5));
-        l4.setStyle("-fx-background-color: Grey");
-        l4.setText("  ");
-        
-        ChoiceBox<String> cb1 = new ChoiceBox();
-        ChoiceBox<String> cb2 = new ChoiceBox();
-        ChoiceBox<String> cb3 = new ChoiceBox();
-        ChoiceBox<String> cb4 = new ChoiceBox();
-        
-        String[] varit = {"Red", "Blue", "Black", "Green", "White", "Yellow"};
-        
-        cb1.getItems().addAll(varit);
-        cb1.getItems().add("valitse väri 1");
-        cb2.getItems().addAll(varit);
-        cb2.getItems().add("valitse väri 2");
-        cb3.getItems().addAll(varit);
-        cb3.getItems().add("valitse väri 3");
-        cb4.getItems().addAll(varit);
-        cb4.getItems().add("valitse väri 4");
-        
-        
-        cb1.setValue("valitse väri 1");
-        cb2.setValue("valitse väri 2");
-        cb3.setValue("valitse väri 3");
-        cb4.setValue("valitse väri 4");
-        
-        String[] colors = new String[4];
-        
-        cb1.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
-            colors[0]= newValue;
-            l1.setStyle("-fx-background-color: " + newValue);
-        });
-        cb2.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
-            l2.setStyle("-fx-background-color: " + newValue);
-            colors[1] = newValue;
-                });
-        cb3.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
-            l3.setStyle("-fx-background-color: " + newValue);
-            colors[2] = newValue;
-                });
-        cb4.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) ->  {
-            l4.setStyle("-fx-background-color: " + newValue);
-            colors[3] = newValue;
-                });
-        
-        
-        Label feedbackLabel = new Label();
-        
-        //Start a new game button THIS IS NOT READY!!
-        
-        Button startButton = new Button();
-        startButton.setText("Start a New Game");
-        startButton.setOnAction(e -> {
-            primaryStage.close();
-            Scene scene = new Scene(grid, 700, 700);
-
-            primaryStage.setTitle("TESTIPELI");
-            primaryStage.setScene(scene);
-            primaryStage.show();
+        Button acceptGuessButton = new Button();
+        acceptGuessButton.setText("Accept Guess");
+        acceptGuessButton.setOnAction(e -> {
+            String[] guess = board.guessedColors();
+            game.setGuess(guess);
+            this.setFeedBackPieces();
+            board.setNextActiveRow();
         });
         
-        //submit Button gets feedback
-        
-        Button submitButton = new Button();
-        submitButton.setText("Submit!");
-        submitButton.setOnAction(e -> {
-            String feedback = getFeedback(colors);
-            feedbackLabel.setText(feedback);
-            String testPrint = "";
-            for (int i = 0; i < 4; i++) {
-                testPrint += colors[i] + " : ";
-            }
-            System.out.println(testPrint);
-                });
-        
-        Label resultLabel = new Label();
-        
-        // End game button prints the right answer
-        
-        Button endGameButton = new Button();
-        endGameButton.setText("End the Game");
-        
-        endGameButton.setOnAction(e -> {
-            resultLabel.setText(endGame());
-        });
-       
-        GridPane.setConstraints(l1, 1, 4);
-        GridPane.setConstraints(l2, 2, 4);
-        GridPane.setConstraints(l3, 3, 4);
-        GridPane.setConstraints(l4, 4, 4);
-        GridPane.setConstraints(cb1, 1, 5);
-        GridPane.setConstraints(cb2, 2, 5);
-        GridPane.setConstraints(cb3, 3, 5);
-        GridPane.setConstraints(cb4, 4, 5);
-        GridPane.setConstraints(submitButton, 1, 6);
-        GridPane.setConstraints(feedbackLabel, 1, 7);
-        GridPane.setConstraints(endGameButton, 1, 8);
-        GridPane.setConstraints(resultLabel, 1, 9);
-        //GridPane.setConstraints(startButton, 3, 8);
-        
-        grid.getChildren().add(l1);
-        grid.getChildren().add(l2);
-        grid.getChildren().add(l3);
-        grid.getChildren().add(l4);
-        grid.getChildren().add(cb1);
-        grid.getChildren().add(cb2);
-        grid.getChildren().add(cb3);
-        grid.getChildren().add(cb4);
-        grid.getChildren().add(submitButton);
-        grid.getChildren().add(feedbackLabel);
-        grid.getChildren().add(endGameButton);
-        grid.getChildren().add(resultLabel);
-        //grid.getChildren().add(startButton);
+        acceptGuessButton.setLayoutX(20);
+        acceptGuessButton.setLayoutY(HEIGHT*TILE_SIZE + 20);
+        root.getChildren().add(acceptGuessButton);
         
         
-        Scene scene = new Scene(grid, 700, 700);
-        
-        primaryStage.setTitle("TESTIPELI");
+        mouseEvents();
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("MASTERMIND");
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+    
+    private void setFeedBackPieces() {
+        int[] feedback = game.getFeedback();
+        boolean gameIsOver = game.isGameIsOver();
+        if (gameIsOver) {
+            Label gameover = board.getGameOver();
+            gameover.setText("GAME OVER");
+            
+        }
+        Tile t = board.getCurrentActiveFeedbackTile();
+        System.out.println(t.getPlace());
+        t.setFillLight();
+        Piece[] feedbackPieces = t.getFeedbackPieces();
+        for (int i = 0; i < 4; i++) {
+            if (feedback[i] == 1) {
+                feedbackPieces[i].setFeebackPieceColor(Color.BLACK);
+            } else if (feedback[i] == 0) {
+                feedbackPieces[i].setFeebackPieceColor(Color.WHITE);
+            } else if (feedback[i] == 2) {
+                
+            }
+        }
+    }
+    
+    private void mouseEvents() {
+        root.setOnMouseMoved(e -> {
+            Tile t = findTile(e.getX(), e.getY());
+            if (t!= null) {
+                t.setFillLight();
+                board.setOtherOnRowBrown(t.getPlace());
+            } else {
+                board.setAllBrown();
+            }
+            
+        });
+        root.setOnMouseClicked(e -> {
+            Tile t = findTile(e.getX(), e.getY());
+            Piece p = t.getPiece();
+            p.setNextColor();
+        });
+    }
+    
+     private Tile findTile(double x, double y) {
+        Tile[][] tiles = board.getTiles();
+        int row = board.getActiveRow();
+        //System.out.println("current active row: " + row);
+        if (y > row*TILE_SIZE && y < row*TILE_SIZE + TILE_SIZE) {
+            int tileNr = (int) x / TILE_SIZE;
+            if (tileNr < 5) {
+                return tiles[tileNr][row];
+            }
+        }
+        return null;
     }
     
     private String getFeedback(String[] guess) {

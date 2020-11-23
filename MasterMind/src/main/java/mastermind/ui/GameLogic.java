@@ -14,7 +14,6 @@ public class GameLogic {
     
     private Code code;
     private String[] guess = new String[4];
-    private HashMap<String, Integer> coloursAndOccurances;
     private boolean gameIsOver;
 
     public GameLogic() {
@@ -25,7 +24,10 @@ public class GameLogic {
     }
     
     public void setGuess(String[] guess) {
+        
         this.guess = guess;
+        for(int i = 0; i < guess.length; i++) {
+        }
     }
     /**
      *  black (right color, right position) is marked 1 and 
