@@ -19,3 +19,4 @@ Tunteja 6
 * turhien luokkien poistamista
 * checkstylen asennus, luokkien siivous sen avulla
 * lisää testejä
+* luokkakaavion piirtäminen
