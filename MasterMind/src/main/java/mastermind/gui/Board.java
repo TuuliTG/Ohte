@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mastermind.domain;
+package mastermind.gui;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,6 +15,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import mastermind.domain.Constants;
+import mastermind.domain.Piece;
+import mastermind.domain.Tile;
 import mastermind.gamelogic.GameLogic;
 
 /**
