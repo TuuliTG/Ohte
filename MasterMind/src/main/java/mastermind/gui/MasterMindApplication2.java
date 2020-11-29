@@ -27,12 +27,16 @@ import mastermind.domain.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import jdk.internal.net.http.common.Utils;
 
 
 /**
@@ -40,36 +44,24 @@ import javafx.stage.Stage;
  * @author tgtuuli
  */
 public class MasterMindApplication2 extends Application {
-    
-    private Stage window;
-    private Board board;
-    private BorderPane borderPane;
-    private Scene gameScene, optionsScene;
-            
-    public MasterMindApplication2() {
-        
-        borderPane = new BorderPane();
-        board = new Board(borderPane);
-        
-        
-    }
+           
+ 
     
     @Override
     public void start(Stage primaryStage) {
-        window = primaryStage;
-        this.setUpGameScene();
-        window.show();
+        GameScene gameScene = new GameScene(primaryStage);
+        
     }
-    
+    /*
     private void mouseEvents() {
         
         borderPane.setOnMouseMoved(e -> {
             Tile t = findTile(e.getX(), e.getY());
             if (t != null) {
                 t.setFillLight();
-                board.setOtherOnRowBrown(t.getPlace());
+             //   board.setOtherOnRowBrown(t.getPlace());
             } else {
-                board.setAllBrown();
+               // board.setAllBrown();
             }
             
         });
@@ -79,7 +71,8 @@ public class MasterMindApplication2 extends Application {
             p.setNextColor();
         });
     }
-    
+    */
+    /*
     private Tile findTile(double x, double y) {
         Tile[][] tiles = board.getTiles();
         int row = board.getActiveRow();
@@ -92,8 +85,8 @@ public class MasterMindApplication2 extends Application {
         }
         return null;
     }
-    
-        
+    */
+        /*
     private void setMenuBar() {
         Menu gameMenu = new Menu("Game");
         MenuItem newGame = new MenuItem("New Game");
@@ -102,7 +95,7 @@ public class MasterMindApplication2 extends Application {
             window.close();
             
             this.borderPane = new BorderPane();
-            this.board = new Board(borderPane);
+            //this.board = new Board(borderPane);
             this.setUpGameScene();
             window.show();
         });
@@ -116,7 +109,7 @@ public class MasterMindApplication2 extends Application {
         
         MenuItem options = new MenuItem("Options...");
         options.setOnAction(e -> {
-            showOptionsPage();
+            displayOptions();
         });
         gameMenu.getItems().add(options);
         
@@ -124,34 +117,70 @@ public class MasterMindApplication2 extends Application {
         menuBar.getMenus().addAll(gameMenu);
         this.borderPane.setTop(menuBar);
     }
-    
-    private void showOptionsPage() {
-        setUpOptionsScene();
-        window.setScene(optionsScene);
-    }
-    
-    private void setUpGameScene() {
+    */
+    /*
+    public void setUpGameScene() {
         setMenuBar();
         mouseEvents();
         gameScene = new Scene(borderPane);
         window.setTitle("MASTERMIND");
         window.setScene(gameScene);
     }
-    
-    private void setUpOptionsScene() {
+    */
+   /*
+    public void displayOptions() {
+        this.optionsWindow = new Stage();
+        optionsWindow.initModality(Modality.APPLICATION_MODAL);
+        optionsWindow.setTitle("Options");
+        
         BorderPane optionsBPane = new BorderPane();
-        optionsScene = new Scene(optionsBPane, 300, 300);
+        this.optionsScene = new Scene(optionsBPane, 300, 300);
+        
+        
         
         Button startGameButton = new Button("Start game");
+        Button closeButton = new Button("Close");
+        closeButton.setOnAction(e -> optionsWindow.close());
+        
+        Label guessSizeLabel = new Label("How many guesses");
+        
+        guessesChoicebox = new ChoiceBox<>(); 
+        guessesChoicebox.getItems().addAll(6,8,10,12,14);
+        guessesChoicebox.setValue(12);
+        
+        
         startGameButton.setOnAction(e -> {
-            this.borderPane = new BorderPane();
-            this.board = new Board(borderPane);
+            borderPane = new BorderPane();
+            this.numberOfGuesses = guessesChoicebox.getValue();
+           // board = new Board(borderPane, numberOfGuesses);
             setUpGameScene();
-            });
-        optionsBPane.setCenter(startGameButton);
+            this.optionsWindow.close();
+        });
+        
+        
+        HBox hbox2 = new HBox();
+        hbox2.getChildren().add(guessSizeLabel);
+        hbox2.getChildren().add(guessesChoicebox);
+        
+        HBox hbox = new HBox();
+        hbox.getChildren().add(startGameButton);
+        hbox.getChildren().add(closeButton);
+        
+        optionsBPane.setBottom(hbox);
+        optionsBPane.setTop(hbox2);
+        optionsWindow.setScene(optionsScene);
+        optionsWindow.showAndWait();
         
     }
 
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public void setBorderPane(BorderPane borderPane) {
+        this.borderPane = borderPane;
+    }
+    */
     /**
      * @param args the command line arguments
      */

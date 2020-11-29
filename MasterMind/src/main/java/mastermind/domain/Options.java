@@ -1,5 +1,3 @@
-package mastermind.domain;
-
 /*
  * The MIT License
  *
@@ -23,16 +21,30 @@ package mastermind.domain;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+package mastermind.domain;
 
 /**
  *
  * @author tgtuuli
  */
-public interface Constants {
-    public static final int TILE_SIZE = 50;
-    public static final int PIECE_SIZE = 15;
-    public static final int WIDTH = 5;
-    public static final int HEIGHT = 12;
+public class Options {
+    
+    private int height;
+
+    public Options() {
+        this.height = 12;
+    }
+    
+    
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+    
     
     
 }

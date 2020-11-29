@@ -1,5 +1,3 @@
-package mastermind.domain;
-
 /*
  * The MIT License
  *
@@ -23,16 +21,42 @@ package mastermind.domain;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+package mastermind.gui;
+
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  *
  * @author tgtuuli
  */
-public interface Constants {
-    public static final int TILE_SIZE = 50;
-    public static final int PIECE_SIZE = 15;
-    public static final int WIDTH = 5;
-    public static final int HEIGHT = 12;
-    
-    
+public class GameOverWindow {
+    public void showGameOverWindow() {
+        Stage gameOverWindow = new Stage();
+        gameOverWindow.setTitle("GAME OVER");
+        gameOverWindow.initModality(Modality.APPLICATION_MODAL);
+        StackPane layout = new StackPane();
+        Scene gameOverScene = new Scene(layout);
+        
+        Button newGameButton = new Button("New Game");
+        newGameButton.setOnAction(e -> {
+            
+        });
+        
+        Button quitGameButton = new Button("Quit");
+        
+        HBox gameOverBox = new HBox(10);
+        gameOverBox.getChildren().add(newGameButton);
+        gameOverBox.getChildren().add(quitGameButton);
+        
+        layout.getChildren().add(gameOverBox);
+        
+        gameOverWindow.setScene(gameOverScene);
+        gameOverWindow.showAndWait();
+        
+    }
 }
