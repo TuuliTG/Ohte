@@ -26,7 +26,12 @@ package mastermind.gui;
 import mastermind.domain.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 
@@ -35,29 +40,30 @@ import javafx.stage.Stage;
  * @author tgtuuli
  */
 public class MasterMindApplication2 extends Application {
-   
-    private Pane root;
+    
+    private Stage window;
     private Board board;
+    private BorderPane borderPane;
+    private Scene gameScene, optionsScene;
             
     public MasterMindApplication2() {
         
-        root = new Pane();
-        board = new Board(root);
+        borderPane = new BorderPane();
+        board = new Board(borderPane);
+        
         
     }
     
     @Override
     public void start(Stage primaryStage) {
-        
-        mouseEvents();
-        Scene scene = new Scene(root);
-        primaryStage.setTitle("MASTERMIND");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        window = primaryStage;
+        this.setUpGameScene();
+        window.show();
     }
     
     private void mouseEvents() {
-        root.setOnMouseMoved(e -> {
+        
+        borderPane.setOnMouseMoved(e -> {
             Tile t = findTile(e.getX(), e.getY());
             if (t != null) {
                 t.setFillLight();
@@ -67,7 +73,7 @@ public class MasterMindApplication2 extends Application {
             }
             
         });
-        root.setOnMouseClicked(e -> {
+        borderPane.setOnMouseClicked(e -> {
             Tile t = findTile(e.getX(), e.getY());
             Piece p = t.getPiece();
             p.setNextColor();
@@ -77,8 +83,8 @@ public class MasterMindApplication2 extends Application {
     private Tile findTile(double x, double y) {
         Tile[][] tiles = board.getTiles();
         int row = board.getActiveRow();
-        //System.out.println("current active row: " + row);
-        if (y > row * Constants.TILE_SIZE && y < row * Constants.TILE_SIZE + Constants.TILE_SIZE) {
+        double boardsStartingPoint = board.getPane().getLayoutY();
+        if (y > boardsStartingPoint + row * Constants.TILE_SIZE && y < boardsStartingPoint + row * Constants.TILE_SIZE + Constants.TILE_SIZE) {
             int tileNr = (int) x / Constants.TILE_SIZE;
             if (tileNr < 4) {
                 return tiles[tileNr][row];
@@ -87,6 +93,64 @@ public class MasterMindApplication2 extends Application {
         return null;
     }
     
+        
+    private void setMenuBar() {
+        Menu gameMenu = new Menu("Game");
+        MenuItem newGame = new MenuItem("New Game");
+        
+        newGame.setOnAction(e -> {
+            window.close();
+            
+            this.borderPane = new BorderPane();
+            this.board = new Board(borderPane);
+            this.setUpGameScene();
+            window.show();
+        });
+        gameMenu.getItems().add(newGame);
+        MenuItem endGame = new MenuItem("End Game");
+        endGame.setOnAction(e -> {
+            window.close();
+        });
+        
+        gameMenu.getItems().add(endGame);
+        
+        MenuItem options = new MenuItem("Options...");
+        options.setOnAction(e -> {
+            showOptionsPage();
+        });
+        gameMenu.getItems().add(options);
+        
+        MenuBar menuBar = new MenuBar();
+        menuBar.getMenus().addAll(gameMenu);
+        this.borderPane.setTop(menuBar);
+    }
+    
+    private void showOptionsPage() {
+        setUpOptionsScene();
+        window.setScene(optionsScene);
+    }
+    
+    private void setUpGameScene() {
+        setMenuBar();
+        mouseEvents();
+        gameScene = new Scene(borderPane);
+        window.setTitle("MASTERMIND");
+        window.setScene(gameScene);
+    }
+    
+    private void setUpOptionsScene() {
+        BorderPane optionsBPane = new BorderPane();
+        optionsScene = new Scene(optionsBPane, 300, 300);
+        
+        Button startGameButton = new Button("Start game");
+        startGameButton.setOnAction(e -> {
+            this.borderPane = new BorderPane();
+            this.board = new Board(borderPane);
+            setUpGameScene();
+            });
+        optionsBPane.setCenter(startGameButton);
+        
+    }
 
     /**
      * @param args the command line arguments

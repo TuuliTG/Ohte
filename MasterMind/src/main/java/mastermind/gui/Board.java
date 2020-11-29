@@ -8,13 +8,22 @@ package mastermind.gui;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import mastermind.domain.Constants;
 import mastermind.domain.Piece;
 import mastermind.domain.Tile;
@@ -26,7 +35,7 @@ import mastermind.gamelogic.GameLogic;
  */
 public class Board {
     
-    private Pane root;
+    private BorderPane bPane;
     private Group tileGroup = new Group();
     private Group pieceGroup = new Group();
     private Group feedBackPlaceGroup = new Group();
@@ -38,15 +47,27 @@ public class Board {
     private ImageView arrow;
     private GameLogic game;
     private Button acceptGuessButton;
+    private HBox hBox;
+    private VBox vBox;
+    private Pane pane;
     
-    public Board(Pane pane) {
-        root = pane;
+    public Board(BorderPane bordepane) {
+        Insets insets = new Insets(10);
         
-        root.setPrefSize(Constants.WIDTH * Constants.TILE_SIZE * 2 ,  Constants.HEIGHT * Constants.TILE_SIZE * 1.5);
-        root.getChildren().addAll(tileGroup, pieceGroup, feedBackPlaceGroup);
+        this.bPane = bordepane;
+        hBox = new HBox(8);
         
+        this.pane = new Pane();
+        pane.setPrefSize(Constants.WIDTH * Constants.TILE_SIZE * 2 ,  Constants.HEIGHT * Constants.TILE_SIZE * 1.5);
+        pane.getChildren().addAll(tileGroup, pieceGroup, feedBackPlaceGroup);
+        this.bPane.setBottom(pane);
+        BorderPane.setMargin(pane, insets);
+        BorderPane.setMargin(hBox, insets);
+
         this.game = new GameLogic();
         this.activeRow = 0;
+        
+        
         
         this.acceptGuessButton = new Button();
         setUpButtons();
@@ -65,6 +86,7 @@ public class Board {
         this.setUpLabels();
         this.setUpTilesAndPieces();
         
+        this.bPane.setCenter(hBox);
     }
 
     public Tile[][] getTiles() {
@@ -107,7 +129,6 @@ public class Board {
     
     public Tile getCurrentActiveFeedbackTile() {
         Tile t = tiles[Constants.WIDTH - 1][activeRow];
-        System.out.println(t.getPlace());
         return this.tiles[Constants.WIDTH - 1][activeRow];
     }
     
@@ -116,11 +137,11 @@ public class Board {
         
         arrow = new ImageView(image);
         arrow.setX(Constants.TILE_SIZE * Constants.WIDTH + 10);
-        arrow.setY(-10);
+        arrow.setY(this.pane.getLayoutY()-10);
         arrow.setFitHeight(70);
         arrow.setFitWidth(70);
         arrow.setRotate(180);
-        root.getChildren().add(arrow);
+        pane.getChildren().add(arrow);
         
     }
     
@@ -163,7 +184,6 @@ public class Board {
             
         }
         Tile t = getCurrentActiveFeedbackTile();
-        System.out.println(t.getPlace());
         t.setFillLight();
         Piece[] feedbackPieces = t.getFeedbackPieces();
         for (int i = 0; i < 4; i++) {
@@ -182,6 +202,7 @@ public class Board {
     private void setUpButtons() {
         
         acceptGuessButton.setText("Accept Guess");
+        acceptGuessButton.setPadding(new Insets(10));
         acceptGuessButton.setOnAction(e -> {
             String[] guess = guessedColors();
             game.setGuess(guess);
@@ -194,26 +215,29 @@ public class Board {
         
         acceptGuessButton.setLayoutX(Constants.WIDTH * Constants.TILE_SIZE + 100);
         acceptGuessButton.setLayoutY(20);
-        root.getChildren().add(acceptGuessButton);
-        
+        //root.getChildren().add(acceptGuessButton);
+        hBox.getChildren().add(acceptGuessButton);
     }
     
     private void setUpLabels() {
         
         roundLabel.setText("ROUND: " + 1);
-        roundLabel.setTranslateX(10);
-        roundLabel.setTranslateY(Constants.HEIGHT * Constants.TILE_SIZE + Constants.TILE_SIZE);
-        root.getChildren().add(roundLabel);
+        roundLabel.setPadding(new Insets(10));
+        //roundLabel.setTranslateX(10);
+        //roundLabel.setTranslateY(Constants.HEIGHT * Constants.TILE_SIZE + Constants.TILE_SIZE);
+        hBox.getChildren().add(roundLabel);
         
         guessesLeft.setText("Guesses left: " + Constants.HEIGHT);
-        guessesLeft.setTranslateX(010);
-        guessesLeft.setTranslateY(Constants.HEIGHT * Constants.TILE_SIZE + Constants.TILE_SIZE + 50);
-        root.getChildren().add(guessesLeft);
+        guessesLeft.setPadding(new Insets(10));
+        //guessesLeft.setTranslateX(010);
+        //guessesLeft.setTranslateY(Constants.HEIGHT * Constants.TILE_SIZE + Constants.TILE_SIZE + 50);
+        hBox.getChildren().add(guessesLeft);
         
-        gameOver.setTranslateX(Constants.WIDTH * Constants.TILE_SIZE / 2);
-        gameOver.setTranslateY(Constants.HEIGHT * Constants.TILE_SIZE / 2);
+        //gameOver.setTranslateX(Constants.WIDTH * Constants.TILE_SIZE / 2);
+        //gameOver.setTranslateY(Constants.HEIGHT * Constants.TILE_SIZE / 2);
         
-        root.getChildren().add(gameOver);
+        hBox.getChildren().add(gameOver);
+        
     }
     
     private ArrayList<Piece> setFeedbackPieces(int x, int y) {
@@ -233,6 +257,7 @@ public class Board {
         return p;
     }
 
+
     public Label getGameOver() {
         return gameOver;
     }
@@ -240,5 +265,14 @@ public class Board {
     public void moveArrowDown() {
         this.arrow.setY(arrow.getY() + Constants.TILE_SIZE);
     }
+
+    public Pane getPane() {
+        return pane;
+    }
+    
+    public boolean gameIsover() {
+        return game.isGameIsOver();
+    }
+
     
 }
