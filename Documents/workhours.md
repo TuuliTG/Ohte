@@ -20,3 +20,16 @@ Tunteja 6
 * checkstylen asennus, luokkien siivous sen avulla
 * lisää testejä
 * luokkakaavion piirtäminen
+Yhteensä: 12 tuntia
+
+### viikko 5 
+la 28.11.
+tunteja 4
+* MenuBarin lisäys käyttöliittymään, options,
+ new game, end game ym. ominaisuuksia
+
+su 29.11.
+tunteja 6
+* Käyttöliittymän näkymien eriyttäminen omiin luokkiinsa
+
+
