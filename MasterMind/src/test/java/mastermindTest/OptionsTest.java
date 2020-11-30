@@ -1,5 +1,3 @@
-package mastermindTest;
-
 /*
  * The MIT License
  *
@@ -23,8 +21,9 @@ package mastermindTest;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+package mastermindTest;
 
-import mastermind.domain.Code;
+import mastermind.domain.Options;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -33,43 +32,16 @@ import org.junit.Before;
  *
  * @author tgtuuli
  */
-public class CodeTest {
-    private Code code;
+public class OptionsTest {
+    private Options options;
     @Before
     public void setUp() {
-        code = new Code();
-        code.setRandomCode();
+        options = new Options();
     }
-    
     @Test
-    public void getCodeGivesRightSizeArray() {
-        
-        
-        assertEquals(4, code.getCode().length);
-    }
-    
-    @Test
-    public void codeHasColors() {
-        boolean hasColors = true;
-        for (int i = 0; i < 4; i++) {
-            if(!isColor(code.getCode()[i])) {
-                hasColors = false;
-            }
-        }
-        assertTrue(hasColors);
-    }
-    
-    private boolean isColor(String s) {
-        boolean isColor = false;
-        String[] colors = {"Red", "Green", "Yellow", "Blue", "Black", "White"};
-        for (int i = 0; i < colors.length; i++) {
-            if (s.equals(colors[i])) {
-                isColor = true;
-                return isColor;
-            }
-                
-        }
-        return isColor;
+    public void setHeightSetsTheRightHeightTest() {
+        options.setHeight(8);
+        assertEquals(8, options.getHeight());
     }
     
 }
