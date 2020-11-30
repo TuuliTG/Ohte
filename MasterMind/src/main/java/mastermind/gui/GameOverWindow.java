@@ -26,6 +26,7 @@ package mastermind.gui;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
@@ -41,34 +42,66 @@ public class GameOverWindow {
     private Stage primaryStage;
     private Button newGameButton, quitGameButton;
     private HBox gameOverBox;
+    private Label gameWonLabel, noGuessesLeftLabel;
+    private BorderPane layout;
+    private boolean codeSolved;
+
+    public GameOverWindow(boolean codeSolved) {
+        gameOverWindow = new Stage();
+        layout = new BorderPane();
+        this.codeSolved = codeSolved;
+        
+    }
+    
+    
     
     public void showGameOverWindow(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        gameOverWindow = new Stage();
+        
         gameOverWindow.initStyle(StageStyle.UNDECORATED);
         
         gameOverWindow.setTitle("GAME OVER");
         gameOverWindow.initModality(Modality.APPLICATION_MODAL);
         
-        BorderPane layout = new BorderPane();
-        Scene gameOverScene = new Scene(layout, 200, 200);
+        
+        Scene gameOverScene = new Scene(layout, 400, 400);
         
         gameOverBox = new HBox();
         gameOverBox.setPadding(new Insets(20));
         
         layout.setCenter(gameOverBox);
+        setUpLabels();
         
         layout.setStyle("-fx-background-color: CORNSILK; -fx-border-style:solid; -fx-border-width: 2; -fx-border-color:black;");
+        setUpButtons();
         
         gameOverWindow.setScene(gameOverScene);
         gameOverWindow.showAndWait();
+    }
+    
+    private void setUpLabels() {
+        this.gameWonLabel = new Label("CONGRATULATIONS! YOU HAVE SOLVED THE CODE!");
+        gameWonLabel.setPadding(new Insets(20));
+        
+        this.noGuessesLeftLabel = new Label("SORRY! NO GUESSES LEFT!");
+        noGuessesLeftLabel.setPadding(new Insets(20));
+        
+        if(codeSolved) {
+            layout.setTop(gameWonLabel);
+        } else {
+            layout.setTop(noGuessesLeftLabel);
+        }
+        
+        
     }
     
     private void setUpButtons() {
         newGameButton = new Button("New Game");
         newGameButton.setPadding(new Insets(10));
         newGameButton.setOnAction(e -> {
-            GameScene gameScene = new GameScene(new Stage());
+            gameOverWindow.close();
+            primaryStage.close();
+            GameScene newGameScene = new GameScene(new Stage());
         });
         
         quitGameButton = new Button("Quit");

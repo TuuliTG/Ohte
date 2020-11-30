@@ -257,7 +257,7 @@ public class GameScene {
         
         if (board.getGuessesLeft() == 0 || board.gameIsover()) {
             this.timer.getTimeline().stop();
-            GameOverWindow gameOverWindow = new GameOverWindow();
+            GameOverWindow gameOverWindow = new GameOverWindow(board.gameIsover());
             gameOverWindow.showGameOverWindow(window);
 
         }
