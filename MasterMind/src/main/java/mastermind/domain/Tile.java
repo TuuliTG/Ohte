@@ -17,7 +17,6 @@ public class Tile extends Region {
    
     private Piece piece;
     
-    private boolean isFeedbackTile;
     private int place;
     private Piece[] feedbackPieces = new Piece[4];
     
@@ -41,9 +40,6 @@ public class Tile extends Region {
                         + "-fx-max-widh:" + Constants.TILE_SIZE + ";");
     }
 
-    public void setIsFeedbackTile(boolean isFeedbackTile) {
-        this.isFeedbackTile = isFeedbackTile;
-    }
     
     public void setFillLight() {
         setStyle("-fx-background-color: BLANCHEDALMOND; -fx-border-style:solid; -fx-border-width: 2; -fx-border-color:black; "

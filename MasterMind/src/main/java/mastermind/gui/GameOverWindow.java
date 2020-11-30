@@ -31,7 +31,6 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 /**
  *
  * @author tgtuuli
@@ -39,34 +38,23 @@ import javafx.stage.StageStyle;
 public class GameOverWindow {
     
     private Stage gameOverWindow;
+    private Stage primaryStage;
+    private Button newGameButton, quitGameButton;
+    private HBox gameOverBox;
     
     public void showGameOverWindow(Stage primaryStage) {
+        this.primaryStage = primaryStage;
         gameOverWindow = new Stage();
         gameOverWindow.initStyle(StageStyle.UNDECORATED);
         
-        
         gameOverWindow.setTitle("GAME OVER");
         gameOverWindow.initModality(Modality.APPLICATION_MODAL);
+        
         BorderPane layout = new BorderPane();
         Scene gameOverScene = new Scene(layout, 200, 200);
         
-        Button newGameButton = new Button("New Game");
-        newGameButton.setPadding(new Insets(10));
-        newGameButton.setOnAction(e -> {
-            GameScene gameScene = new GameScene(new Stage());
-        });
-        
-        Button quitGameButton = new Button("Quit");
-        quitGameButton.setPadding(new Insets(10));
-        quitGameButton.setOnAction(e -> {
-            gameOverWindow.close();
-            primaryStage.close();
-                });
-        
-        HBox gameOverBox = new HBox();
+        gameOverBox = new HBox();
         gameOverBox.setPadding(new Insets(20));
-        gameOverBox.getChildren().add(newGameButton);
-        gameOverBox.getChildren().add(quitGameButton);
         
         layout.setCenter(gameOverBox);
         
@@ -74,6 +62,23 @@ public class GameOverWindow {
         
         gameOverWindow.setScene(gameOverScene);
         gameOverWindow.showAndWait();
+    }
+    
+    private void setUpButtons() {
+        newGameButton = new Button("New Game");
+        newGameButton.setPadding(new Insets(10));
+        newGameButton.setOnAction(e -> {
+            GameScene gameScene = new GameScene(new Stage());
+        });
         
+        quitGameButton = new Button("Quit");
+        quitGameButton.setPadding(new Insets(10));
+        quitGameButton.setOnAction(e -> {
+            gameOverWindow.close();
+            primaryStage.close();
+        });
+        
+        gameOverBox.getChildren().add(newGameButton);
+        gameOverBox.getChildren().add(quitGameButton);
     }
 }

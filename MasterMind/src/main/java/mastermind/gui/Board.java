@@ -32,8 +32,6 @@ public class Board {
     private Group feedBackPlaceGroup;
     private int activeRow;
     private Tile[][] tiles = new Tile[Constants.WIDTH][Constants.HEIGHT];
-    private Label roundLabel;
-    private Label guessesLeftLabel;
     private Label gameOver;
     private GameLogic game;
     private Pane pane;
@@ -47,7 +45,7 @@ public class Board {
     }
     
     public Board(int height) {
-       this.height = height;
+        this.height = height;
        
     }
 
@@ -119,35 +117,38 @@ public class Board {
         this.tileGroup = new Group();
         for (int y = 0; y < this.height; y++) {
             for (int x = 0; x < Constants.WIDTH; x++) {
-                
                 if (x < Constants.WIDTH - 1) {
-                    Tile tile = new Tile(x, y);
-                    tile.setIsFeedbackTile(false);
-                    Piece piece = new Piece(Constants.PIECE_SIZE, 
-                            Color.GREY, x * Constants.TILE_SIZE + Constants.TILE_SIZE / 2, 
-                            y * Constants.TILE_SIZE + Constants.TILE_SIZE / 2);
+                    Tile tile = setUpTile(x, y);
+                    Piece piece = makePiece(x, y);
                     pieceGroup.getChildren().add(piece);
                     tile.setPiece(piece);
-                    tiles[x][y] = tile;
-                    tile.setPlace(x);
-                    tileGroup.getChildren().add(tile);
                 } else {
-                    Tile tile = new Tile(x, y);
-                    tile.setIsFeedbackTile(true);
+                    Tile tile = setUpTile(x, y);
                     ArrayList<Piece> pieces = this.setFeedbackPieces(x, y);
                     tile.setFeedbackPieces(pieces);
-                    tileGroup.getChildren().add(tile);
-                    tile.setPlace(x);
-                    tiles[x][y] = tile;
                 }
             }
-                
         }
+    }
+    
+    private Piece makePiece(int x, int y) {
+        Piece piece = new Piece(Constants.PIECE_SIZE, 
+                            Color.GREY, x * Constants.TILE_SIZE + Constants.TILE_SIZE / 2, 
+                            y * Constants.TILE_SIZE + Constants.TILE_SIZE / 2);
+        return piece;
+    }
+    
+    private Tile setUpTile(int x, int y) {
+        Tile tile = new Tile(x, y);
+        tile.setPlace(x);
+        tiles[x][y] = tile;
+        tileGroup.getChildren().add(tile);
+        return tile;
     }
     
     public void giveFeedback() {
         int[] feedback = game.getFeedback();
-        boolean gameIsOver = game.isGameIsOver();
+        boolean gameIsOver = game.gameIsOver();
        
         Tile t = getCurrentActiveFeedbackTile();
         t.setFillLight();
@@ -183,7 +184,7 @@ public class Board {
     }
     
     public boolean gameIsover() {
-        return game.isGameIsOver();
+        return game.gameIsOver();
     }
 
     public int getGuessesLeft() {

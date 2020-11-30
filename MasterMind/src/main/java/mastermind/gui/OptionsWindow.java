@@ -23,12 +23,15 @@
  */
 package mastermind.gui;
 
+import com.sun.imageio.plugins.common.I18N;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mastermind.domain.Options;
@@ -41,70 +44,88 @@ public class OptionsWindow {
     
     private ChoiceBox<Integer> guessesChoicebox;
     private Stage optionsWindow;
-    private Scene optionsScene;
+    private Stage primaryStage;
+    private Scene optionsScene, gameScene;
     private Options options;
     private Boolean isNewGame;
     private StopWatch timer;
+    private Button startGameButton, closeButton; 
+    private HBox buttonsBox, optionsBox;
+    private VBox vbox;
+    private Label guessSizeLabel, titleLabel;
+    private BorderPane optionsBPane;
+    
 
-    public OptionsWindow(StopWatch timer) {
+    public OptionsWindow(StopWatch timer, Stage primaryStage, Scene gameScene) {
+        this.primaryStage = primaryStage;
+        optionsBPane = new BorderPane();
+        this.gameScene = gameScene;
         this.timer = timer;
         options = new Options();
+        vbox = new VBox();
+        optionsBox = new HBox();
+        buttonsBox = new HBox();
     }
     
-    
-    
     public boolean displayOptions() {
-        this.optionsWindow = new Stage();
-        optionsWindow.initModality(Modality.APPLICATION_MODAL);
-        optionsWindow.setTitle("Options");
         
-        BorderPane optionsBPane = new BorderPane();
-        this.optionsScene = new Scene(optionsBPane, 300, 300);
+        this.optionsScene = new Scene(optionsBPane, primaryStage.getWidth(), primaryStage.getHeight());
+        setUpLabels();
+        setUpChoiceBox();
         
+        Insets insets = new Insets(10);
+        BorderPane.setMargin(buttonsBox, insets);
+        BorderPane.setMargin(vbox, insets);
+        optionsBPane.setCenter(buttonsBox);
+        optionsBPane.setTop(vbox);
+        this.setUpButtons();
         
+        vbox.getChildren().add(optionsBox);
+        this.primaryStage.setScene(optionsScene);
         
-        Button startGameButton = new Button("Start game");
-        Button closeButton = new Button("Close");
-        closeButton.setOnAction(e -> {
-            this.isNewGame = false;
-            timer.getTimeline().play();
-            optionsWindow.close();
-                });
-        
-        Label guessSizeLabel = new Label("How many guesses");
-        
-        guessesChoicebox = new ChoiceBox<>(); 
-        guessesChoicebox.getItems().addAll(6,8,10,12,14);
-        guessesChoicebox.setValue(12);
-        
-        
-        startGameButton.setOnAction(e -> {
-            
-            newGameWithOptions();
-            this.isNewGame = true;
-            
-            
-            this.optionsWindow.close();
-        });
-        
-        
-        HBox hbox2 = new HBox();
-        hbox2.getChildren().add(guessSizeLabel);
-        hbox2.getChildren().add(guessesChoicebox);
-        
-        HBox hbox = new HBox();
-        hbox.getChildren().add(startGameButton);
-        hbox.getChildren().add(closeButton);
-        
-        optionsBPane.setBottom(hbox);
-        optionsBPane.setTop(hbox2);
-        optionsWindow.setScene(optionsScene);
-        optionsWindow.showAndWait();
         return isNewGame;
         
     }
     
-    private void newGameWithOptions() {
+    private void setUpLabels() {
+        guessSizeLabel = new Label("How many guesses");
+        guessSizeLabel.setPadding(new Insets(10));
+        optionsBox.getChildren().add(guessSizeLabel);
+        
+        titleLabel = new Label("OPTIONS");
+        vbox.getChildren().add(titleLabel);
+        
+    }
+    
+    private void setUpChoiceBox() {
+        guessesChoicebox = new ChoiceBox<>(); 
+        guessesChoicebox.getItems().addAll(6,8,10,12,14);
+        guessesChoicebox.setValue(12);
+        optionsBox.getChildren().add(guessesChoicebox);
+    }
+    
+    private void setUpButtons() {
+        startGameButton = new Button("Start a new game");
+        startGameButton.setPadding(new Insets(10));
+        closeButton = new Button("Close");
+        closeButton.setPadding(new Insets(10));
+        closeButton.setOnAction(e -> {
+            this.isNewGame = false;
+            timer.getTimeline().play();
+            primaryStage.setScene(gameScene);
+        });
+        startGameButton.setOnAction(e -> {
+            setNewOptions();
+            this.isNewGame = true;
+            this.primaryStage.close();
+            GameScene newGameScene = new GameScene(new Stage(), options);
+            //this.primaryStage.setScene(newGameScene.getGameScene());
+        });
+        buttonsBox.getChildren().add(startGameButton);
+        buttonsBox.getChildren().add(closeButton);
+    }
+    
+    private void setNewOptions() {
         int numberOfGuesses = guessesChoicebox.getValue();
         options.setHeight(numberOfGuesses);
         

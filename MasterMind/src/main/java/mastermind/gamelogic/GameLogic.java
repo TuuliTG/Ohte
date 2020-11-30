@@ -64,14 +64,14 @@ public class GameLogic {
 
         }
         if (nrOfCorrects == 4) {
-            //System.out.println("YOU HAVE SOLVED THE CODE");
             gameIsOver = true;
         }
         feedback = shuffle(feedback);
         return feedback;
     }
     
-    public boolean isGameIsOver() {
+    
+    public boolean gameIsOver() {
         return gameIsOver;
     }
 
