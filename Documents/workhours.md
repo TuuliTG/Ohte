@@ -39,7 +39,7 @@ tunteja 6
 * Checkstyle-korjauksia
 	* metodien lyhentämistä
 * Uusia ominaisuusia: peliajan kellotus ym.
-
+* uusia testejä
 
 
 
