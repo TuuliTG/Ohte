@@ -23,6 +23,7 @@ Tunteja 6
 Yhteensä: 12 tuntia
 
 ### viikko 5 
+YHTEENSÄ: 16 tuntia
 la 28.11.
 tunteja 4
 * MenuBarin lisäys käyttöliittymään, options,
@@ -31,5 +32,14 @@ tunteja 4
 su 29.11.
 tunteja 6
 * Käyttöliittymän näkymien eriyttäminen omiin luokkiinsa
+
+ma 30.11.
+tunteja 6
+* Sekvenssikaavio
+* Checkstyle-korjauksia
+	* metodien lyhentämistä
+* Uusia ominaisuusia: peliajan kellotus ym.
+
+
 
 

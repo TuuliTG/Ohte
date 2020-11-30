@@ -9,14 +9,28 @@ This project is a part of a course *Ohjelmistotekniikka* in the University of He
 * [architecture](https://github.com/TuuliTG/Ohte/blob/main/Documents/arkkitehtuuri.md)
 
 ### Command Line commands
-run tests:
+
+#### run tests:
+
 `mvn test`
 
-get test codecoverage reports
+#### get test codecoverage reports
+
 `mvn jacoco:report`
 
 you can view the report by opening the file `target/site/jacoco/index.html` on your browser. 
 
-### JavaDoc
+#### Generate excecutable jar
+Command for creating jar: 
+`mvn package`
+Jar file will be created in target folder. Jar file will be named  Mastermind-1.0-SNAPSHOT.jar
+You can run the jar file on the command line by `java -jar Mastermind.10-SNAPSHOT.jar`
 
-### Checkstyle
+#### Checkstyle
+Command for getting the checkstyle report:
+`mvn jxr:jxr checkstyle:checkstyle`
+
+The report is found in target/site/checkstyle.html
+
+
+
