@@ -1,8 +1,6 @@
 
 package mastermind.gamelogic;
 
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Random;
 import mastermind.domain.Code;
 
@@ -66,7 +64,7 @@ public class GameLogic {
 
         }
         if (nrOfCorrects == 4) {
-            System.out.println("YOU HAVE SOLVED THE CODE");
+            //System.out.println("YOU HAVE SOLVED THE CODE");
             gameIsOver = true;
         }
         feedback = shuffle(feedback);

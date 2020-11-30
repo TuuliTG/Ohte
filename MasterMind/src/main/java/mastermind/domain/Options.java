@@ -35,8 +35,6 @@ public class Options {
         this.height = 12;
     }
     
-    
-
     public void setHeight(int height) {
         this.height = height;
     }

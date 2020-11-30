@@ -25,9 +25,11 @@ package mastermind.gui;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -40,8 +42,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import mastermind.domain.Constants;
 import mastermind.domain.Options;
 import mastermind.domain.Piece;
@@ -68,10 +70,12 @@ public class GameScene {
     private ChoiceBox<Integer> guessesChoicebox;
     private Board board;
     private Options newGameOptions;
+    private StopWatch timer;
 
     public GameScene(Stage stage) {
         this.window = stage;
         board = new Board();
+        timer = new StopWatch();
         newGameOptions = new Options();
         this.newGame();
         
@@ -82,11 +86,12 @@ public class GameScene {
         this.arrow.setY(arrow.getY() + Constants.TILE_SIZE);
     }
     
-    public void setUpGameScene() {
-        System.out.println("showing scene");
+    private void setUpGameScene() {
+        //System.out.println("showing scene");
         
         setMenuBar();
         mouseEvents();
+        
         gameScene = new Scene(bPane);
         window.setTitle("MASTERMIND");
         window.setScene(gameScene);
@@ -116,7 +121,8 @@ public class GameScene {
         
         
         options.setOnAction(e -> {
-            OptionsWindow optionsWindow = new OptionsWindow();
+            this.timer.getTimeline().pause();
+            OptionsWindow optionsWindow = new OptionsWindow(timer);
             boolean isNewGame = optionsWindow.displayOptions();
             
             if(isNewGame) {
@@ -159,8 +165,7 @@ public class GameScene {
         gameOver = new Label();
         roundLabel.setText("ROUND: " + 1);
         roundLabel.setPadding(new Insets(10));
-        //roundLabel.setTranslateX(10);
-        //roundLabel.setTranslateY(this.height * Constants.TILE_SIZE + Constants.TILE_SIZE);
+       
         hBox.getChildren().add(roundLabel);
         
         guessesLeftLabel.setText("Guesses left: " + this.newGameOptions.getHeight());
@@ -168,8 +173,6 @@ public class GameScene {
         
         hBox.getChildren().add(guessesLeftLabel);
         
-        //gameOver.setTranslateX(Constants.WIDTH * Constants.TILE_SIZE / 2);
-        //gameOver.setTranslateY(this.height * Constants.TILE_SIZE / 2);
         
         hBox.getChildren().add(gameOver);
         
@@ -190,8 +193,9 @@ public class GameScene {
             System.out.println("game is over " + board.gameIsover());
             if(board.getGuessesLeft() == 0 || board.gameIsover()) {
                 System.out.println("game over");
+                this.timer.getTimeline().stop();
                 GameOverWindow goverw = new GameOverWindow();
-                goverw.showGameOverWindow();
+                goverw.showGameOverWindow(window);
                 
             }
             moveArrowDown();
@@ -238,11 +242,42 @@ public class GameScene {
         try {
             this.setArrowSign();
         } catch (Exception e) {
-            
+            System.out.println("kuvan lataaminen ei onnistunut");
         }
          this.bPane.setCenter(hBox);
+         this.startTimer();
          this.setUpGameScene();
+         
     }
     
-    
+    private void startTimer() {
+        if (timer.getTimeline() != null) {
+            timer.setMinutes(Duration.ZERO);
+            timer.getTimeSeconds().set((int) timer.getSeconds().toMinutes());
+            
+        } else {
+            timer.setTimeline(new Timeline(
+                new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent t) {
+                        Duration duration = ((KeyFrame)t.getSource()).getTime();
+                        timer.setMinutes(timer.getMinutes().add(duration));
+                        timer.setSeconds(timer.getSeconds().add(duration));
+                        if (timer.getSeconds().greaterThan(Duration.seconds(60))) {
+                            timer.setSeconds(Duration.ZERO);
+                        }
+                        timer.getTimeMinutes().set((int) timer.getMinutes().toMinutes());
+                        timer.getTimeSeconds().set((int) timer.getSeconds().toSeconds());
+
+                    }
+                })
+            ));
+            
+            timer.getTimeline().setCycleCount(Timeline.INDEFINITE);
+            timer.getTimeline().play();
+        }
+        
+        this.hBox.getChildren().add(timer.getMinutesLabel());
+        this.hBox.getChildren().add(timer.getSecondsLabel());
+    }
 }

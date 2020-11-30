@@ -23,37 +23,54 @@
  */
 package mastermind.gui;
 
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
  * @author tgtuuli
  */
 public class GameOverWindow {
-    public void showGameOverWindow() {
-        Stage gameOverWindow = new Stage();
+    
+    private Stage gameOverWindow;
+    
+    public void showGameOverWindow(Stage primaryStage) {
+        gameOverWindow = new Stage();
+        gameOverWindow.initStyle(StageStyle.UNDECORATED);
+        
+        
         gameOverWindow.setTitle("GAME OVER");
         gameOverWindow.initModality(Modality.APPLICATION_MODAL);
-        StackPane layout = new StackPane();
-        Scene gameOverScene = new Scene(layout);
+        BorderPane layout = new BorderPane();
+        Scene gameOverScene = new Scene(layout, 200, 200);
         
         Button newGameButton = new Button("New Game");
+        newGameButton.setPadding(new Insets(10));
         newGameButton.setOnAction(e -> {
-            
+            GameScene gameScene = new GameScene(new Stage());
         });
         
         Button quitGameButton = new Button("Quit");
+        quitGameButton.setPadding(new Insets(10));
+        quitGameButton.setOnAction(e -> {
+            gameOverWindow.close();
+            primaryStage.close();
+                });
         
-        HBox gameOverBox = new HBox(10);
+        HBox gameOverBox = new HBox();
+        gameOverBox.setPadding(new Insets(20));
         gameOverBox.getChildren().add(newGameButton);
         gameOverBox.getChildren().add(quitGameButton);
         
-        layout.getChildren().add(gameOverBox);
+        layout.setCenter(gameOverBox);
+        
+        layout.setStyle("-fx-background-color: CORNSILK; -fx-border-style:solid; -fx-border-width: 2; -fx-border-color:black;");
         
         gameOverWindow.setScene(gameOverScene);
         gameOverWindow.showAndWait();

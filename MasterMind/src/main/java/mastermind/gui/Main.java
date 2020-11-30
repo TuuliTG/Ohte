@@ -1,4 +1,4 @@
-    /*
+/*
  * The MIT License
  *
  * Copyright 2020 tgtuuli.
@@ -23,30 +23,12 @@
  */
 package mastermind.gui;
 
-
-import javafx.application.Application;
-import javafx.stage.Stage;
-
-
 /**
  *
  * @author tgtuuli
  */
-public class MasterMindApplication2 extends Application {
-           
- 
-    
-    @Override
-    public void start(Stage primaryStage) {
-        GameScene gameScene = new GameScene(primaryStage);
-        
-    }
-   
-    /**
-     * @param args the command line arguments
-     */
+public class Main {
     public static void main(String[] args) {
-        launch(args);
+        MasterMindApplication2.main(args);
     }
-    
 }

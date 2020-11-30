@@ -7,8 +7,6 @@ package mastermind.domain;
 
 import java.util.ArrayList;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 
 /**

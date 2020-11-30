@@ -44,8 +44,10 @@ public class OptionsWindow {
     private Scene optionsScene;
     private Options options;
     private Boolean isNewGame;
+    private StopWatch timer;
 
-    public OptionsWindow() {
+    public OptionsWindow(StopWatch timer) {
+        this.timer = timer;
         options = new Options();
     }
     
@@ -65,6 +67,7 @@ public class OptionsWindow {
         Button closeButton = new Button("Close");
         closeButton.setOnAction(e -> {
             this.isNewGame = false;
+            timer.getTimeline().play();
             optionsWindow.close();
                 });
         
