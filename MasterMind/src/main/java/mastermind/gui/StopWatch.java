@@ -41,7 +41,7 @@ public class StopWatch {
     private Timeline timeline;
     private Label minutesLabel, secondsLabel;
     private IntegerProperty timeMinutes, timeSeconds;
-    private Duration minutes, seconds;
+    private Duration minutes, seconds, milliSeconds;
     
 
     public StopWatch() {
@@ -52,6 +52,7 @@ public class StopWatch {
         timeSeconds = new SimpleIntegerProperty();
         minutes = Duration.ZERO;
         seconds = Duration.ZERO;
+        milliSeconds = Duration.ZERO;
         configLabel();
         
         
@@ -69,6 +70,8 @@ public class StopWatch {
         
         
     }
+    
+    
 
     public Timeline getTimeline() {
         return timeline;
@@ -111,5 +114,15 @@ public class StopWatch {
     public Label getSecondsLabel() {
         return secondsLabel;
     }
+
+    public Duration getMilliSeconds() {
+        return milliSeconds;
+    }
+
+    public void setMilliSeconds(Duration milliSeconds) {
+        this.milliSeconds = milliSeconds;
+    }
+    
+    
     
 }

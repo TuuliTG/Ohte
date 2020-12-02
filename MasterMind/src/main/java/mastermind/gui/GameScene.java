@@ -59,6 +59,7 @@ public class GameScene {
     private BorderPane bPane;
     private Label roundLabel;
     private Label guessesLeftLabel;
+    private Label playerLabel;
     private Label gameOver;
     private ImageView arrow;
     private GameLogic game;
@@ -71,20 +72,26 @@ public class GameScene {
     private Board board;
     private Options newGameOptions;
     private StopWatch timer;
+    private String player;
+    private boolean programIsStarting;
 
-    public GameScene(Stage stage) {
+    public GameScene(Stage stage, String name, boolean programIsStarting) {
         this.window = stage;
         board = new Board();
-       
+        this.player = name;
         newGameOptions = new Options();
-        this.newGame();
-        
+        if (programIsStarting) {
+            NewGameWindow newGameWindow = new NewGameWindow();
+            newGameWindow.show(window);
+        } else {
+            this.newGame();
+        }
     }
     
-    public GameScene(Stage stage, Options options) {
+    public GameScene(Stage stage, Options options, String player) {
         this.window = stage;
         board = new Board();
-       
+        this.player = player;
         newGameOptions = options;
         this.newGame();
     }
@@ -111,8 +118,9 @@ public class GameScene {
         Menu gameMenu = new Menu("Game");
         MenuItem newGame = new MenuItem("New Game");
         newGame.setOnAction(e -> {
-            window.close();
-            this.newGame();
+            this.timer.getTimeline().stop();
+            NewGameWindow newGameWindow = new NewGameWindow();
+            newGameWindow.show(window);
         });
         gameMenu.getItems().add(newGame);
         MenuItem endGame = new MenuItem("End Game");
@@ -151,6 +159,7 @@ public class GameScene {
         
     private void setUpLabels() {
         roundLabel = new Label();
+        playerLabel = new Label(player);
         
         guessesLeftLabel = new Label();
        
@@ -164,6 +173,7 @@ public class GameScene {
         guessesLeftLabel.setPadding(new Insets(10));
         
         hBox.getChildren().add(guessesLeftLabel);
+        hBox.getChildren().add(playerLabel);
         
         
         hBox.getChildren().add(gameOver);
@@ -217,6 +227,7 @@ public class GameScene {
         this.bPane.setCenter(hBox);
         this.startTimer();
         this.setUpGameScene();
+        
     }
     
     private void startTimer() {
@@ -257,7 +268,7 @@ public class GameScene {
         
         if (board.getGuessesLeft() == 0 || board.gameIsover()) {
             this.timer.getTimeline().stop();
-            GameOverWindow gameOverWindow = new GameOverWindow(board.gameIsover());
+            GameOverWindow gameOverWindow = new GameOverWindow(board.gameIsover(), timer);
             gameOverWindow.showGameOverWindow(window);
 
         }
@@ -266,12 +277,14 @@ public class GameScene {
     
     private void handleTimer() {
         timer.setTimeline(new Timeline(
-                new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+                new KeyFrame(Duration.millis(1), new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent t) {
                         Duration duration = ((KeyFrame) t.getSource()).getTime();
                         timer.setMinutes(timer.getMinutes().add(duration));
                         timer.setSeconds(timer.getSeconds().add(duration));
+                        timer.setMilliSeconds(timer.getMilliSeconds().add(duration));
+                        
                         if (timer.getSeconds().greaterThan(Duration.seconds(60))) {
                             timer.setSeconds(Duration.ZERO);
                         }

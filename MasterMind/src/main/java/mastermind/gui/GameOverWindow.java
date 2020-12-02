@@ -29,6 +29,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -42,14 +43,18 @@ public class GameOverWindow {
     private Stage primaryStage;
     private Button newGameButton, quitGameButton;
     private HBox gameOverBox;
-    private Label gameWonLabel, noGuessesLeftLabel;
+    private Label gameWonLabel, noGuessesLeftLabel, timeLabel;
     private BorderPane layout;
     private boolean codeSolved;
+    private StopWatch timer;
+    private VBox vbox;
 
-    public GameOverWindow(boolean codeSolved) {
+    public GameOverWindow(boolean codeSolved, StopWatch timer) {
         gameOverWindow = new Stage();
         layout = new BorderPane();
         this.codeSolved = codeSolved;
+        this.timer = timer;
+        vbox = new VBox();
         
     }
     
@@ -82,12 +87,19 @@ public class GameOverWindow {
     private void setUpLabels() {
         this.gameWonLabel = new Label("CONGRATULATIONS! YOU HAVE SOLVED THE CODE!");
         gameWonLabel.setPadding(new Insets(20));
+        System.out.println("your time in milliseconds " + timer.getMilliSeconds());
+        this.timeLabel = new Label("Your time: " + (int) timer.getMinutes().toMinutes() + ":" + (int) timer.getSeconds().toSeconds());
+        this.timeLabel.setPadding(new Insets(20));
+        
+        vbox.getChildren().add(this.gameWonLabel);
+        vbox.getChildren().add(timeLabel);
         
         this.noGuessesLeftLabel = new Label("SORRY! NO GUESSES LEFT!");
         noGuessesLeftLabel.setPadding(new Insets(20));
-        
-        if(codeSolved) {
-            layout.setTop(gameWonLabel);
+        System.out.println("your time in milliseconds " + timer.getMilliSeconds());
+
+        if (codeSolved) {
+            layout.setTop(vbox);
         } else {
             layout.setTop(noGuessesLeftLabel);
         }
@@ -101,7 +113,7 @@ public class GameOverWindow {
         newGameButton.setOnAction(e -> {
             gameOverWindow.close();
             primaryStage.close();
-            GameScene newGameScene = new GameScene(new Stage());
+            GameScene newGameScene = new GameScene(new Stage(), "player", false);
         });
         
         quitGameButton = new Button("Quit");

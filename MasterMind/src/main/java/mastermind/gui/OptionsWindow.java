@@ -99,7 +99,7 @@ public class OptionsWindow {
     
     private void setUpChoiceBox() {
         guessesChoicebox = new ChoiceBox<>(); 
-        guessesChoicebox.getItems().addAll(6,8,10,12,14);
+        guessesChoicebox.getItems().addAll(6, 8, 10, 12, 14);
         guessesChoicebox.setValue(12);
         optionsBox.getChildren().add(guessesChoicebox);
     }
@@ -118,7 +118,7 @@ public class OptionsWindow {
             setNewOptions();
             this.isNewGame = true;
             this.primaryStage.close();
-            GameScene newGameScene = new GameScene(new Stage(), options);
+            GameScene newGameScene = new GameScene(new Stage(), options, "name");
             //this.primaryStage.setScene(newGameScene.getGameScene());
         });
         buttonsBox.getChildren().add(startGameButton);

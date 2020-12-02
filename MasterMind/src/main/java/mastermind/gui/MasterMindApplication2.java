@@ -38,7 +38,7 @@ public class MasterMindApplication2 extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        GameScene gameScene = new GameScene(primaryStage);
+        GameScene gameScene = new GameScene(primaryStage, "name", true);
         
     }
    
