@@ -24,7 +24,7 @@ Yhteensä: 12 tuntia
 
 ### viikko 5 
 
-YHTEENSÄ: 16 tuntia
+YHTEENSÄ: 20 tuntia
 
 la 28.11.
 tunteja 4
@@ -43,5 +43,8 @@ tunteja 6
 * Uusia ominaisuusia: peliajan kellotus ym.
 * uusia testejä
 
+ti 1.12.
+tunteja 4
+* New Game -ikkuna, pelaajan nimen lisäys yms.
 
 
