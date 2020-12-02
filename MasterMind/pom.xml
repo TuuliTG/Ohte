@@ -40,8 +40,8 @@
                 <version>0.8.3</version>
                 <configuration>
                     <excludes>
-                        <exclude>mastermind.gui/*</exclude>
-                        <exclude>mastermind.domain/Constants.java</exclude>
+                        <exclude>mastermind.gui.*</exclude>
+                        <exclude>mastermind.domain.Constants.java</exclude>
                     </excludes>
                 </configuration>
                 <executions>
