@@ -23,7 +23,9 @@ Tunteja 6
 Yhteensä: 12 tuntia
 
 ### viikko 5 
+
 YHTEENSÄ: 16 tuntia
+
 la 28.11.
 tunteja 4
 * MenuBarin lisäys käyttöliittymään, options,

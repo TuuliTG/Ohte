@@ -1,0 +1,48 @@
+Sequence diagram: Accept guess
+(https://www.websequencediagrams.com/)
+
+title Mastermind:Accept guess
+gameScene-->acceptButton: setOnAction(e-> acceptButtonActions())
+acceptButton-->board: guessedColors()
+board-->acceptButton: String[] guess = ["Red,"Blue","Black","Black"]
+acceptButton-->board: giveFeedback()
+board-->game: getFeedback()
+game-->board: int[] feedback = [1,1,1,1]
+board-->game: gameIsOver()
+game-->board: gameIsOver = false
+board-->board: setting feedback pieces on the board
+acceptButton-->board: setNextActiveRow()
+board-->board: activeRow++, guessesLeft--
+acceptButton-->gameScene: setting labels according to guessesLeft, and round number
+acceptButton-->board: getGuessesLeft()
+board-->acceptButton: guessesLeft = 2
+acceptButton-->board: gameIsOver()
+board-->acceptButton: gameIsOver = true
+acceptButton-->timer: getTimeline().stop()
+timer-->timer: timeline.stop()
+acceptButton-->gameOverWindow: new GameOverWindow()
+acceptButton-->gameOverWindow: showGameOverWindow()
+gameOverWindow-->newGameButton: setOnAction(e->...)
+newGameButton-->gameScene: new GameScene(new Stage)
+gameScene-->gameScene: starting a new game
+
+class diagram :
+(https://yuml.me/diagram/scruffy/class/draw)
+
+[Board]
+[Code|-String(array) code; - String(array) colors; -boolean blanksAreAllowed]
+[Piece|-Color color;-int colorIndex;-String colorInText]
+[Tile]
+[GameLogic|-Code code;-String(array) guess; -boolean gameIsOver]
+[Player]
+
+[Board]1-*[Tile]
+[Tile|-Piece piece;-feedbackPieces]1-1...4[Piece]
+[GameLogic]-[Code]
+[Player]-[GUI]-[Board]
+[GameLogic]-[Board]
+[GUI]-[GameOverWindow]
+[GUI]-[OptionsWindow]
+[GUI]-[StopWatch]
+[OptionsWindow]-[Options|-int height; -boolean blanksAreAllowed]
+
