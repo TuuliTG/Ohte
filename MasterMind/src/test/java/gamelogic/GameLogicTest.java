@@ -1,4 +1,4 @@
-package mastermindTest;
+package gamelogic;
 
 /*
  * The MIT License

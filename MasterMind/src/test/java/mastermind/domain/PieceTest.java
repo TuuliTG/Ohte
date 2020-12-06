@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package mastermindTest;
+package mastermind.domain;
 
 import javafx.scene.paint.Color;
 import mastermind.domain.Piece;

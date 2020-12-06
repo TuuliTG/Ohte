@@ -1,4 +1,6 @@
-package mastermindTest;
+package mastermind.domain;
+
+
 
 /*
  * The MIT License
