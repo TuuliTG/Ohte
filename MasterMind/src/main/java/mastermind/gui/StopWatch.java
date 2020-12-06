@@ -33,7 +33,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 /**
- *
+ * A Class for taking time in the game
  * @author tgtuuli
  */
 public class StopWatch {
@@ -71,8 +71,6 @@ public class StopWatch {
         
     }
     
-    
-
     public Timeline getTimeline() {
         return timeline;
     }
@@ -84,7 +82,6 @@ public class StopWatch {
     public IntegerProperty getTimeMinutes() {
         return timeMinutes;
     }
-    
     
 
     public IntegerProperty getTimeSeconds() {
@@ -122,7 +119,5 @@ public class StopWatch {
     public void setMilliSeconds(Duration milliSeconds) {
         this.milliSeconds = milliSeconds;
     }
-    
-    
     
 }

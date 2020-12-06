@@ -23,7 +23,6 @@
  */
 package mastermind.gui;
 
-import com.sun.imageio.plugins.common.I18N;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -32,31 +31,35 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mastermind.domain.Options;
+import mastermind.domain.Player;
+import mastermind.domain.PlayerService;
 
 /**
- *
+ * Sets up the Options window
  * @author tgtuuli
  */
 public class OptionsWindow {
     
+    private Boolean isNewGame;
+    private BorderPane optionsBPane;
+    private Button startGameButton, closeButton;
     private ChoiceBox<Integer> guessesChoicebox;
+    private HBox buttonsBox, optionsBox;
+    private Label guessSizeLabel, titleLabel;
+    private Options options;
+    private PlayerService playerService;
+    private Scene optionsScene, gameScene;
     private Stage optionsWindow;
     private Stage primaryStage;
-    private Scene optionsScene, gameScene;
-    private Options options;
-    private Boolean isNewGame;
     private StopWatch timer;
-    private Button startGameButton, closeButton; 
-    private HBox buttonsBox, optionsBox;
     private VBox vbox;
-    private Label guessSizeLabel, titleLabel;
-    private BorderPane optionsBPane;
     
 
-    public OptionsWindow(StopWatch timer, Stage primaryStage, Scene gameScene) {
+    public OptionsWindow(StopWatch timer, Stage primaryStage, Scene gameScene, PlayerService playerService) {
+        
+        this.playerService = playerService;
         this.primaryStage = primaryStage;
         optionsBPane = new BorderPane();
         this.gameScene = gameScene;
@@ -67,23 +70,9 @@ public class OptionsWindow {
         buttonsBox = new HBox();
     }
     
-    public boolean displayOptions() {
-        
-        this.optionsScene = new Scene(optionsBPane, primaryStage.getWidth(), primaryStage.getHeight());
-        setUpLabels();
-        setUpChoiceBox();
-        
-        Insets insets = new Insets(10);
-        BorderPane.setMargin(buttonsBox, insets);
-        BorderPane.setMargin(vbox, insets);
-        optionsBPane.setCenter(buttonsBox);
-        optionsBPane.setTop(vbox);
-        this.setUpButtons();
-        
-        vbox.getChildren().add(optionsBox);
-        this.primaryStage.setScene(optionsScene);
-        
-        return isNewGame;
+    private void setNewOptions() {
+        int numberOfGuesses = guessesChoicebox.getValue();
+        options.setHeight(numberOfGuesses);
         
     }
     
@@ -118,23 +107,38 @@ public class OptionsWindow {
             setNewOptions();
             this.isNewGame = true;
             this.primaryStage.close();
-            GameScene newGameScene = new GameScene(new Stage(), options, "name");
-            //this.primaryStage.setScene(newGameScene.getGameScene());
+            new GameScene(new Stage(), options, playerService);
         });
         buttonsBox.getChildren().add(startGameButton);
         buttonsBox.getChildren().add(closeButton);
     }
     
-    private void setNewOptions() {
-        int numberOfGuesses = guessesChoicebox.getValue();
-        options.setHeight(numberOfGuesses);
-        
-    }
-
     public Options getOptions() {
         return options;
     }
     
-    
+    /**
+     * Displays the options window
+     * @return boolean true if options have changed, else false
+     */
+    public boolean displayOptions() {
+        
+        this.optionsScene = new Scene(optionsBPane, primaryStage.getWidth(), primaryStage.getHeight());
+        setUpLabels();
+        setUpChoiceBox();
+        
+        Insets insets = new Insets(10);
+        BorderPane.setMargin(buttonsBox, insets);
+        BorderPane.setMargin(vbox, insets);
+        optionsBPane.setCenter(buttonsBox);
+        optionsBPane.setTop(vbox);
+        this.setUpButtons();
+        
+        vbox.getChildren().add(optionsBox);
+        this.primaryStage.setScene(optionsScene);
+        
+        return isNewGame;
+        
+    }
     
 }

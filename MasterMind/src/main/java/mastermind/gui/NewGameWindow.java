@@ -33,6 +33,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import mastermind.domain.Player;
+import mastermind.domain.PlayerService;
 
 /**
  *
@@ -40,19 +42,21 @@ import javafx.stage.Stage;
  */
 public class NewGameWindow {
     
-    private Stage newGameWindow;
-    private Stage primaryStage;
-    private Button newGameButton, quitGameButton;
-    private Label playerNameLabel, errorLabel;
     private BorderPane layout;
+    private Button newGameButton, quitGameButton;
     private HBox hbox1;
     private HBox hbox2;
-    private VBox vbox;
-    private TextField playernameInput;
+    private Label playerNameLabel, errorLabel;
+    private PlayerService playerService;
+    private Stage newGameWindow;
+    private Stage primaryStage;
     private StopWatch timer;
-
-    public NewGameWindow() {
-        
+    private TextField playernameInput;
+    private VBox vbox;
+    
+    
+    public NewGameWindow(PlayerService playerService) {
+        this.playerService = playerService;
         newGameWindow = new Stage();
         layout = new BorderPane();
         hbox1 = new HBox();
@@ -68,18 +72,6 @@ public class NewGameWindow {
         vbox.getChildren().add(errorLabel);
         vbox.getChildren().add(hbox2);
         layout.setCenter(vbox);
-        
-        
-    }
-    
-    public void show(Stage primaryStage) {
-        System.out.println("showing window");
-        this.primaryStage = primaryStage;
-        Scene newGameScene = new Scene(layout, 300, 300);
-        newGameWindow.setScene(newGameScene);
-        newGameWindow.setTitle("New Game");
-        newGameWindow.initModality(Modality.APPLICATION_MODAL);
-        newGameWindow.showAndWait();
     }
     
     private void setUpLabels() {
@@ -103,16 +95,39 @@ public class NewGameWindow {
             } else if (name.length() > 15) {
                 this.errorLabel.setText("Name too long");
             } else {
+                System.out.println("creating player");
+                if(this.playerService.getCurrentPlayer() != null) {
+                    System.out.println("current player " + this.playerService.getCurrentPlayer().getName());
+                } else {
+                    System.out.println("no current player");
+                }
+                
+                boolean created = this.playerService.createPlayer(name);
+                System.out.println("new player created : " + created);
+                this.playerService.login(name);
+                Player p = playerService.getCurrentPlayer();
                 this.newGameWindow.close();
                 primaryStage.close();
-                GameScene newGameScene = new GameScene(new Stage(), name, false);
+                GameScene newGameScene = new GameScene(new Stage(), playerService, false);
                 
             }
         });
         hbox2.getChildren().add(newGameButton);
     }
     
-    
+    /**
+     * Shows the new Game Window
+     * @param primaryStage 
+     */
+    public void show(Stage primaryStage) {
+        System.out.println("showing window");
+        this.primaryStage = primaryStage;
+        Scene newGameScene = new Scene(layout, 300, 300);
+        newGameWindow.setScene(newGameScene);
+        newGameWindow.setTitle("New Game");
+        newGameWindow.initModality(Modality.APPLICATION_MODAL);
+        newGameWindow.showAndWait();
+    }
     
     
 }

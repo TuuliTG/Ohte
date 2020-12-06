@@ -24,8 +24,14 @@
 package mastermind.gui;
 
 
+import java.io.FileInputStream;
+import java.util.Properties;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import mastermind.dao.FileGameDao;
+import mastermind.dao.FilePlayerDao;
+import mastermind.domain.Player;
+import mastermind.domain.PlayerService;
 
 
 /**
@@ -34,11 +40,24 @@ import javafx.stage.Stage;
  */
 public class MasterMindApplication2 extends Application {
            
- 
+    private PlayerService playerService;
+    
+    @Override
+    public void init() throws Exception {
+        Properties properties = new Properties();
+        properties.load(new FileInputStream("config.properties"));
+        String playerFile = properties.getProperty("playerFile");
+        String gameFile = properties.getProperty("gameFile");
+        FilePlayerDao playerDao = new FilePlayerDao(playerFile);
+        FileGameDao fileGameDao = new FileGameDao(gameFile);
+        playerService = new PlayerService(playerDao, fileGameDao);
+        
+        
+    }
     
     @Override
     public void start(Stage primaryStage) {
-        GameScene gameScene = new GameScene(primaryStage, "name", true);
+        GameScene gameScene = new GameScene(primaryStage, playerService, true);
         
     }
    

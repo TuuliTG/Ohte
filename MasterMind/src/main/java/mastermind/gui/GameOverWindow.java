@@ -33,27 +33,30 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import mastermind.domain.PlayerService;
 /**
  *
  * @author tgtuuli
  */
 public class GameOverWindow {
     
-    private Stage gameOverWindow;
-    private Stage primaryStage;
+    private boolean codeSolved;
+    private BorderPane layout;
     private Button newGameButton, quitGameButton;
     private HBox gameOverBox;
     private Label gameWonLabel, noGuessesLeftLabel, timeLabel;
-    private BorderPane layout;
-    private boolean codeSolved;
+    private PlayerService playerService;
+    private Stage gameOverWindow;
+    private Stage primaryStage;
     private StopWatch timer;
     private VBox vbox;
 
-    public GameOverWindow(boolean codeSolved, StopWatch timer) {
+    public GameOverWindow(boolean codeSolved, StopWatch timer, PlayerService playerService) {
         gameOverWindow = new Stage();
         layout = new BorderPane();
         this.codeSolved = codeSolved;
         this.timer = timer;
+        this.playerService = playerService;
         vbox = new VBox();
         
     }
@@ -113,7 +116,7 @@ public class GameOverWindow {
         newGameButton.setOnAction(e -> {
             gameOverWindow.close();
             primaryStage.close();
-            GameScene newGameScene = new GameScene(new Stage(), "player", false);
+            GameScene newGameScene = new GameScene(new Stage(), playerService, false);
         });
         
         quitGameButton = new Button("Quit");

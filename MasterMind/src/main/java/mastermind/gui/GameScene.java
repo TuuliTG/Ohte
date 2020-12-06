@@ -25,6 +25,7 @@ package mastermind.gui;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Properties;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -44,54 +45,59 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import mastermind.dao.FilePlayerDao;
+import mastermind.dao.PlayerDao;
 import mastermind.domain.Constants;
 import mastermind.domain.Options;
 import mastermind.domain.Piece;
+import mastermind.domain.Player;
+import mastermind.domain.PlayerService;
 import mastermind.domain.Tile;
 import mastermind.gamelogic.GameLogic;
 
 /**
- *
+ * 
  * @author tgtuuli
  */
 public class GameScene {
     
+    private Board board;
+    private boolean programIsStarting;
     private BorderPane bPane;
+    private Button acceptGuessButton;
+    private ChoiceBox<Integer> guessesChoicebox;
+    private GameLogic game;
+    private ImageView arrow;
+    private HBox hBox;
     private Label roundLabel;
     private Label guessesLeftLabel;
     private Label playerLabel;
-    private Label gameOver;
-    private ImageView arrow;
-    private GameLogic game;
-    private Button acceptGuessButton;
-    private HBox hBox;
-    private Pane pane;
-    private Stage window;
-    private Scene gameScene, optionsScene;
-    private ChoiceBox<Integer> guessesChoicebox;
-    private Board board;
+    private Label gameOver; 
     private Options newGameOptions;
+    private Pane pane;
+    private PlayerService playerService;
+    private Scene gameScene, optionsScene;
+    private Stage window;
     private StopWatch timer;
-    private String player;
-    private boolean programIsStarting;
 
-    public GameScene(Stage stage, String name, boolean programIsStarting) {
+    public GameScene(Stage stage, PlayerService playerService, boolean gameIsStarting) {
         this.window = stage;
         board = new Board();
-        this.player = name;
         newGameOptions = new Options();
-        if (programIsStarting) {
-            NewGameWindow newGameWindow = new NewGameWindow();
+        this.playerService = playerService;
+        if(gameIsStarting) {
+            NewGameWindow newGameWindow = new NewGameWindow(playerService);
             newGameWindow.show(window);
         } else {
             this.newGame();
         }
     }
     
-    public GameScene(Stage stage, Options options, String player) {
+    
+    public GameScene(Stage stage, Options options, PlayerService playerService) {
         this.window = stage;
         board = new Board();
-        this.player = player;
+        this.playerService = playerService;
         newGameOptions = options;
         this.newGame();
     }
@@ -102,7 +108,7 @@ public class GameScene {
     }
     
     private void setUpGameScene() {
-        //System.out.println("showing scene");
+        System.out.println("showing scene");
         
         setMenuBar();
         mouseEvents();
@@ -119,7 +125,7 @@ public class GameScene {
         MenuItem newGame = new MenuItem("New Game");
         newGame.setOnAction(e -> {
             this.timer.getTimeline().stop();
-            NewGameWindow newGameWindow = new NewGameWindow();
+            NewGameWindow newGameWindow = new NewGameWindow(playerService);
             newGameWindow.show(window);
         });
         gameMenu.getItems().add(newGame);
@@ -127,6 +133,15 @@ public class GameScene {
         endGame.setOnAction(e -> {
             window.close();
         });
+        
+        MenuItem scores = new MenuItem("Score Board");
+        scores.setOnAction(e -> {
+            this.timer.getTimeline().pause();
+            ScoreBoard scoreBoard = new ScoreBoard(window, timer,playerService, gameScene);
+            scoreBoard.displayScoreBoard();
+        });
+        gameMenu.getItems().add(scores);
+        
         gameMenu.getItems().add(endGame);
         MenuItem options = new MenuItem("Options...");
         
@@ -158,8 +173,9 @@ public class GameScene {
     }
         
     private void setUpLabels() {
+        System.out.println("setting up labels");
         roundLabel = new Label();
-        playerLabel = new Label(player);
+        playerLabel = new Label(playerService.getCurrentPlayer().getName());
         
         guessesLeftLabel = new Label();
        
@@ -181,6 +197,7 @@ public class GameScene {
     }
           
     private void setUpButtons() {
+        System.out.println("setting up board buttons");
         this.acceptGuessButton = new Button();
         acceptGuessButton.setText("Accept Guess");
         acceptGuessButton.setPadding(new Insets(10));
@@ -226,12 +243,13 @@ public class GameScene {
         }
         this.bPane.setCenter(hBox);
         this.startTimer();
+        System.out.println("timer started");
         this.setUpGameScene();
         
     }
     
     private void startTimer() {
-        
+        System.out.println("starting timer");
         if (timer.getTimeline() != null) {
             timer.setMinutes(Duration.ZERO);
             timer.getTimeSeconds().set((int) timer.getSeconds().toMinutes());
@@ -246,11 +264,11 @@ public class GameScene {
     
     private void optionsMenuActions() {
         this.timer.getTimeline().pause();
-        OptionsWindow optionsWindow = new OptionsWindow(timer, window, gameScene);
+        OptionsWindow optionsWindow = new OptionsWindow(timer, window, gameScene, playerService);
         boolean isNewGame = optionsWindow.displayOptions();
 
         if (isNewGame) {
-            System.out.println("starting a ne game");
+            System.out.println("starting a new game");
             this.newGameOptions = optionsWindow.getOptions();
             this.window.close();
             
@@ -266,9 +284,12 @@ public class GameScene {
         this.roundLabel.setText("ROUND: " + (board.getActiveRow() + 1));
         this.guessesLeftLabel.setText("Guesses left: " + board.getGuessesLeft());
         
-        if (board.getGuessesLeft() == 0 || board.gameIsover()) {
+        if (board.getGuessesLeft() == 0 || board.gameIsOver()) {
+            if (board.gameIsOver()) {
+                setScore();
+            }
             this.timer.getTimeline().stop();
-            GameOverWindow gameOverWindow = new GameOverWindow(board.gameIsover(), timer);
+            GameOverWindow gameOverWindow = new GameOverWindow(board.gameIsOver(), timer, playerService);
             gameOverWindow.showGameOverWindow(window);
 
         }
@@ -297,6 +318,11 @@ public class GameScene {
             
         timer.getTimeline().setCycleCount(Timeline.INDEFINITE);
         timer.getTimeline().play();
+    }
+    
+    private void setScore() {
+        playerService.addGame(timer.getMilliSeconds().toMillis(), this.board.getActiveRow());
+        
     }
 
     public Scene getGameScene() {
