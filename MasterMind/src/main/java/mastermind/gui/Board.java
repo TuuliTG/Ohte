@@ -129,7 +129,7 @@ public class Board {
         return activeRow;
     }
     
-     public GameLogic getGame() {
+    public GameLogic getGame() {
         return game;
     }
      

@@ -24,7 +24,10 @@
 package mastermind.gui;
 
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Properties;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -44,8 +47,12 @@ public class MasterMindApplication2 extends Application {
     
     @Override
     public void init() throws Exception {
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream("config.properties");
+        
+        
         Properties properties = new Properties();
-        properties.load(new FileInputStream("config.properties"));
+        properties.load(new BufferedReader(new InputStreamReader(inputStream)));
         String playerFile = properties.getProperty("playerFile");
         String gameFile = properties.getProperty("gameFile");
         FilePlayerDao playerDao = new FilePlayerDao(playerFile);

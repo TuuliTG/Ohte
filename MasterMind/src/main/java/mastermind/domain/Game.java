@@ -27,13 +27,13 @@ package mastermind.domain;
  *
  * @author tgtuuli
  */
-public class Game implements Comparable<Game>{
+public class Game implements Comparable<Game> {
     private String playerName;
     private double time;
     private int guesses;
     private int score;
 
-    public Game(String playerName,int score, double time, int guesses) {
+    public Game(String playerName, int score, double time, int guesses) {
         this.playerName = playerName;
         this.time = time;
         this.guesses = guesses;
@@ -56,7 +56,7 @@ public class Game implements Comparable<Game>{
         System.out.println("time " + time);
         int points = 2000;
         int timePoints = getTimePoints();
-        int reduction = (guesses-1) * 150;  
+        int reduction = (guesses - 1) * 150;  
         points -= reduction;
         points = points + timePoints;
         

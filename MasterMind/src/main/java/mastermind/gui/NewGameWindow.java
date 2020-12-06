@@ -75,7 +75,6 @@ public class NewGameWindow {
     }
     
     private void setUpLabels() {
-        System.out.println("setting up labels");
         playerNameLabel.setText("Player Name:");
         playerNameLabel.setPadding(new Insets(20));
         hbox1.getChildren().add(playerNameLabel);
@@ -86,7 +85,6 @@ public class NewGameWindow {
         
     }
     private void setUpButtons() {
-        System.out.println("setting up buttons");
         newGameButton = new Button("Start New Game");
         newGameButton.setOnAction(e -> {
             String name = playernameInput.getText();
@@ -95,13 +93,6 @@ public class NewGameWindow {
             } else if (name.length() > 15) {
                 this.errorLabel.setText("Name too long");
             } else {
-                System.out.println("creating player");
-                if(this.playerService.getCurrentPlayer() != null) {
-                    System.out.println("current player " + this.playerService.getCurrentPlayer().getName());
-                } else {
-                    System.out.println("no current player");
-                }
-                
                 boolean created = this.playerService.createPlayer(name);
                 System.out.println("new player created : " + created);
                 this.playerService.login(name);

@@ -29,7 +29,7 @@ public class Player {
         this.name = name;
         this.bestTime = bestTime;
         this.bestScore = bestScore;
-        this.gamesPlayed = gamesPlayed;
+        this.gamesPlayed = new ArrayList<>();
         this.amountOfGamesWon = numberOfGamesWon;
     }
     

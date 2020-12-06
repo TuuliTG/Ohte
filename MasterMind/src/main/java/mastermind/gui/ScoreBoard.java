@@ -90,7 +90,6 @@ public class ScoreBoard {
             this.primaryStage.setScene(gameScene);
         });
         
-        closeButton.setPadding(new Insets(50));
         this.vbox.getChildren().add(closeButton);
     }
     

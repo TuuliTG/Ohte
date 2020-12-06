@@ -40,7 +40,6 @@ public class FileGameDao implements GameDao {
     
     private List<Game> gamesPlayed;
     private String file;
-    private PlayerDao playerDao;
 
     public FileGameDao(String file) throws Exception {
         gamesPlayed = new ArrayList<>();

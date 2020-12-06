@@ -121,7 +121,7 @@ public class OptionsWindow {
      * Displays the options window
      * @return boolean true if options have changed, else false
      */
-    public boolean displayOptions() {
+    public void displayOptions() {
         
         this.optionsScene = new Scene(optionsBPane, primaryStage.getWidth(), primaryStage.getHeight());
         setUpLabels();
@@ -137,7 +137,6 @@ public class OptionsWindow {
         vbox.getChildren().add(optionsBox);
         this.primaryStage.setScene(optionsScene);
         
-        return isNewGame;
         
     }
     

@@ -53,7 +53,6 @@ public class PlayerService {
     }
     
     public boolean createPlayer(String name) {
-        System.out.println("creating player");
         if (playerDao.findByName(name) != null) {
             return false;
         } 
@@ -78,37 +77,28 @@ public class PlayerService {
     }
     
     public void addGame(double time, int guesses) {
-        System.out.println("saving game...");
         Player player = getCurrentPlayer();
         Game game = new Game(player.getName(), time, guesses);
         game.setScore();
-        
         try {
             gameDao.create(game);
         } catch (Exception e) {
-            
         }
-        
         if(player.getAmountOfGamesWon() == 0 || player.getBestTime() > time) {
             try {
                 playerDao.setBestTime(player, time);
             } catch (Exception e) {
-                System.out.println("ajan tallennus ei onnistunut");
             }
         }
-        
         if (player.getAmountOfGamesWon() == 0 || player.getBestScore() < game.getScore()) {
             try {
                 playerDao.setBestScore(player, game.getScore());
             } catch (Exception e) {
-                System.out.println("pisteiden tallennus ei onnistunut");
             }
-            
         }
         try {
             playerDao.addOneGamePlayed(player);
         } catch (Exception e) {
-            System.out.println("pelin lisääminen ei onnistunut");
         }
     }
     

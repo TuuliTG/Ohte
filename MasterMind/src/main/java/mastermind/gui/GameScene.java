@@ -23,8 +23,12 @@
  */
 package mastermind.gui;
 
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Properties;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -45,6 +49,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javax.imageio.ImageIO;
 import mastermind.dao.FilePlayerDao;
 import mastermind.dao.PlayerDao;
 import mastermind.domain.Constants;
@@ -85,7 +90,7 @@ public class GameScene {
         board = new Board();
         newGameOptions = new Options();
         this.playerService = playerService;
-        if(gameIsStarting) {
+        if (gameIsStarting) {
             NewGameWindow newGameWindow = new NewGameWindow(playerService);
             newGameWindow.show(window);
         } else {
@@ -137,7 +142,7 @@ public class GameScene {
         MenuItem scores = new MenuItem("Score Board");
         scores.setOnAction(e -> {
             this.timer.getTimeline().pause();
-            ScoreBoard scoreBoard = new ScoreBoard(window, timer,playerService, gameScene);
+            ScoreBoard scoreBoard = new ScoreBoard(window, timer, playerService, gameScene);
             scoreBoard.displayScoreBoard();
         });
         gameMenu.getItems().add(scores);
@@ -210,9 +215,20 @@ public class GameScene {
     }
            
     private void setArrowSign() throws FileNotFoundException {
-        Image image = new Image(new FileInputStream("public/arrowLeft.png"));
+        BufferedImage image;
+        Image i;
+        arrow = new ImageView();
+        try {
+            ClassLoader classLoader = this.getClass().getClassLoader();
+            InputStream inputStream = classLoader.getResourceAsStream("public/arrowLeft.png");
+            String imageUrl = classLoader.getResource("public/arrowLeft.png").toExternalForm();
+            i = new Image(imageUrl);
+            arrow.setImage(i);
+        } catch (Exception e){
+            
+        }
         
-        arrow = new ImageView(image);
+         
         arrow.setX(Constants.TILE_SIZE * Constants.WIDTH + 10);
         arrow.setY(this.board.getPane().getLayoutY() - 10);
         arrow.setFitHeight(70);
@@ -243,7 +259,6 @@ public class GameScene {
         }
         this.bPane.setCenter(hBox);
         this.startTimer();
-        System.out.println("timer started");
         this.setUpGameScene();
         
     }
@@ -265,15 +280,8 @@ public class GameScene {
     private void optionsMenuActions() {
         this.timer.getTimeline().pause();
         OptionsWindow optionsWindow = new OptionsWindow(timer, window, gameScene, playerService);
-        boolean isNewGame = optionsWindow.displayOptions();
+        optionsWindow.displayOptions();
 
-        if (isNewGame) {
-            System.out.println("starting a new game");
-            this.newGameOptions = optionsWindow.getOptions();
-            this.window.close();
-            
-            this.newGame();
-        }
     }
     
     private void acceptButtonActions() {

@@ -93,7 +93,7 @@ public class FilePlayerDao implements PlayerDao {
     }
     
     @Override
-    public void setBestTime(Player p, double time) throws Exception{
+    public void setBestTime(Player p, double time) throws Exception {
         for (Player player : players) {
             if (player.equals(p)) {
                 player.setBestTime(time);
@@ -106,9 +106,7 @@ public class FilePlayerDao implements PlayerDao {
     public void addOneGamePlayed(Player p) throws Exception {
         for (Player player : players) {
             if (player.equals(p)) {
-                System.out.println("before " + player.getAmountOfGamesWon());
                 player.addGamesWon();
-                System.out.println("now games won " + player.getAmountOfGamesWon());
             }
         }
         save();
