@@ -8,6 +8,9 @@ This project is a part of a course *Ohjelmistotekniikka* in the University of He
 * [Work hours](https://github.com/TuuliTG/Ohte/blob/main/Documents/workhours.md)
 * [architecture](https://github.com/TuuliTG/Ohte/blob/main/Documents/arkkitehtuuri.md)
 
+### Releases
+[Week 6 release](https://github.com/TuuliTG/Ohte/releases/tag/v1.1)
+
 ### Command Line commands
 
 #### run tests:
