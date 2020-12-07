@@ -47,4 +47,11 @@ ti 1.12.
 tunteja 4
 * New Game -ikkuna, pelaajan nimen lisäys yms.
 
+### Viikko 6
+la 5.12.
+8 tuntia: DAO-toteutus, tallentaminen tiedostoon
+su 6.12.
+5 tuntia: Käyttäjän luominen ja kirjaaminen. Jar-tiedoton generointi niin että mukaan tulee configuraatiotiedostot ja kuvat ym.. Testejä
+ma: 4 tuntia: Javadoc, Uusia testejä, dokumentointi
+
 
