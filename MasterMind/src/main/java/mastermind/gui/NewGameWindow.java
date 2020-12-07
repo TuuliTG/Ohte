@@ -37,7 +37,7 @@ import mastermind.domain.Player;
 import mastermind.domain.PlayerService;
 
 /**
- *
+ * Shows the New Game window to the player.
  * @author tgtuuli
  */
 public class NewGameWindow {

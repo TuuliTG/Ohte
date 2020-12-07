@@ -8,7 +8,9 @@ package mastermind.domain;
 import java.util.ArrayList;
 
 /**
- *
+ * A player class for saving player data to the database. 
+ * Stores information about the player: name, best time, best score, amount of games won.
+ * The List of games played is not yet functional in the program.
  * @author tgtuuli
  */
 public class Player {

@@ -5,6 +5,7 @@ import java.util.Random;
 import mastermind.domain.Code;
 
 /**
+ * This class is responsible for interaction between the codemaker and the codebreaker.
  * 
  * 
  */
@@ -27,9 +28,11 @@ public class GameLogic {
         
     }
     /**
-     *  black (right color, right position) is marked 1 and 
-     * white (right color, wrong position) is marked 0
-     * wrong colour and wrong position is marked with 2
+     * Gives feedback for the player. 
+     * Black: (right color, right position) is marked 1. 
+     * White (right color, wrong position) is marked 0. 
+     * Wrong colour and wrong position is marked with 2.
+     * If all four colors are right, sets the boolean gameIsOver true. 
      * @return int[] feedback, array size is 4
      */
     public int[] getFeedback() {

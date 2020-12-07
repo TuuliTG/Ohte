@@ -24,12 +24,8 @@
 package mastermind.gui;
 
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Properties;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -49,19 +45,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javax.imageio.ImageIO;
-import mastermind.dao.FilePlayerDao;
-import mastermind.dao.PlayerDao;
 import mastermind.domain.Constants;
 import mastermind.domain.Options;
 import mastermind.domain.Piece;
-import mastermind.domain.Player;
 import mastermind.domain.PlayerService;
 import mastermind.domain.Tile;
 import mastermind.gamelogic.GameLogic;
 
 /**
- * 
+ * Shows the Main Game scene and interacts with other scenes.
  * @author tgtuuli
  */
 public class GameScene {
@@ -84,7 +76,13 @@ public class GameScene {
     private Scene gameScene, optionsScene;
     private Stage window;
     private StopWatch timer;
-
+    
+    /**
+     * Constructor for starting a new game with default options.
+     * @param stage
+     * @param playerService
+     * @param gameIsStarting 
+     */
     public GameScene(Stage stage, PlayerService playerService, boolean gameIsStarting) {
         this.window = stage;
         board = new Board();
@@ -98,7 +96,12 @@ public class GameScene {
         }
     }
     
-    
+    /**
+     * Constructor for setting up a new game with new options.
+     * @param stage
+     * @param options
+     * @param playerService 
+     */
     public GameScene(Stage stage, Options options, PlayerService playerService) {
         this.window = stage;
         board = new Board();

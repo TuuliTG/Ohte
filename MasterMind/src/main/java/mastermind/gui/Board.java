@@ -103,13 +103,19 @@ public class Board {
         p.add(piece4);
         return p;
     }
-    
+    /**
+     * Finds a tile which the mouse is pointing
+     * @param x coordinate
+     * @param y coordinate
+     * @return tile 
+     */
     public Tile findTile(double x, double y) {
-        Tile[][] tiles = this.getTiles();
+        
         int row = this.getActiveRow();
-        double boardsStartingPoint = this.getPane().getLayoutY();
-        if (y > boardsStartingPoint + row * Constants.TILE_SIZE && y < boardsStartingPoint + row * Constants.TILE_SIZE + Constants.TILE_SIZE) {
-            int tileNr = (int) x / Constants.TILE_SIZE;
+        double boardsStartingPointY = this.getPane().getLayoutY() + this.getPane().getInsets().getTop();
+        double boardStartingPointX = this.getPane().getLayoutX() + this.getPane().getInsets().getLeft();
+        if (y > boardsStartingPointY + row * Constants.TILE_SIZE && y < boardsStartingPointY + row * Constants.TILE_SIZE + Constants.TILE_SIZE) {
+            int tileNr = (int) (x - boardStartingPointX) / Constants.TILE_SIZE;
             if (tileNr < 4) {
                 return tiles[tileNr][row];
             }
@@ -138,7 +144,9 @@ public class Board {
     public Label getGameOver() {
         return gameOver;
     }
-    
+    /**
+     * Sets the feedback pieces black, white  or grey according to the codemakers feedback.
+     */
     public void giveFeedback() {
         int[] feedback = game.getFeedback();
         boolean gameIsOver = game.gameIsOver();
@@ -154,7 +162,10 @@ public class Board {
             } 
         }
     }
-    
+    /**
+     * Gets the color code that the player has guessed.
+     * @return guess array
+     */
     public String[] guessedColors() {
         String[] guess = new String[4];
         for (int i = 0; i < 4; i++) {
@@ -168,7 +179,9 @@ public class Board {
     }
     
     
-    
+    /**
+     * Sets the tile color back to brown
+     */
     public void setAllBrown() {
         for (int i = 0; i < 5; i++) {
             Tile t = tiles[i][activeRow];
@@ -185,7 +198,10 @@ public class Board {
         this.guessesLeft--;
         
     }
-    
+    /**
+     * The tile that the mouse is pointing is light and other are brown.
+     * @param activeTile 
+     */
     public void setOtherOnRowBrown(int activeTile) {
         for (int i = 0; i < 5; i++) {
             Tile t = tiles[i][activeRow];
@@ -194,7 +210,9 @@ public class Board {
             } 
         }
     }
-    
+    /**
+     * Sets up the scene that contains the board elements.
+     */
     public void setUpScene() {
         
         this.pane = new Pane();

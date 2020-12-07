@@ -4,6 +4,7 @@ package mastermind.domain;
 import java.util.Random;
 
 /**
+ * The "Codemaker".
  * 
  * 
  */

@@ -33,7 +33,7 @@ import mastermind.domain.Game;
 import mastermind.domain.Player;
 
 /**
- *
+ * Takes care of saving and retrieving game related information to/from database.
  * @author tgtuuli
  */
 public class FileGameDao implements GameDao {
@@ -57,14 +57,22 @@ public class FileGameDao implements GameDao {
             writer.close();
         }
     }
-    
+    /**
+     * Adds a game to the database
+     * @param game
+     * @return game
+     * @throws Exception 
+     */
     @Override
     public Game create(Game game) throws Exception {
         gamesPlayed.add(game);
         save();
         return game;
     }
-
+    /**
+     * Finds all games from the database and organizes them in descending order by score.
+     * @return List of games
+     */
     @Override
     public List<Game> findAllSortedByScore() {
         Collections.sort(gamesPlayed);

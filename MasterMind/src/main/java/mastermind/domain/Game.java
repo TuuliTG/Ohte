@@ -24,7 +24,7 @@
 package mastermind.domain;
 
 /**
- *
+ * A game that is won will be saved as Game-object. 
  * @author tgtuuli
  */
 public class Game implements Comparable<Game> {
@@ -49,18 +49,17 @@ public class Game implements Comparable<Game> {
     }
     
     
-    
+    /**
+     * Sets the score according to time amount of time and guesses spent.
+     */
     public void setScore() {
-        System.out.println("setting the score");
-        System.out.println("guesses " + guesses);
-        System.out.println("time " + time);
+        
         int points = 2000;
         int timePoints = getTimePoints();
         int reduction = (guesses - 1) * 150;  
         points -= reduction;
         points = points + timePoints;
         
-        System.out.println("points together " + points);
         this.score = points;
     }
     

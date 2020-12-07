@@ -37,7 +37,7 @@ import mastermind.domain.Player;
 import mastermind.domain.PlayerService;
 
 /**
- * Sets up the Options window
+ * Sets up and shows the Options window
  * @author tgtuuli
  */
 public class OptionsWindow {
@@ -119,7 +119,6 @@ public class OptionsWindow {
     
     /**
      * Displays the options window
-     * @return boolean true if options have changed, else false
      */
     public void displayOptions() {
         

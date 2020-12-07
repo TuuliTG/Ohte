@@ -28,7 +28,8 @@ import mastermind.dao.GameDao;
 import mastermind.dao.PlayerDao;
 
 /**
- *
+ * This class is a bridge between the user interface and the database. 
+ * 
  * @author tgtuuli
  */
 public class PlayerService {
@@ -41,7 +42,11 @@ public class PlayerService {
         this.playerDao = playerDao;
         this.gameDao = gameDao;
     }
-    
+    /**
+     * If player name exists in the database, logs the player in. 
+     * @param name player name
+     * @return true if log in successful, else false
+     */
     public boolean login(String name) {
         Player player = playerDao.findByName(name);
         if (player == null) {
@@ -51,7 +56,11 @@ public class PlayerService {
         currentPlayer = player;
         return true;
     }
-    
+    /**
+     * Creates a new player if name doesn't already exist in the database. 
+     * @param name player name
+     * @return true if player is created, else false
+     */
     public boolean createPlayer(String name) {
         if (playerDao.findByName(name) != null) {
             return false;
@@ -75,7 +84,13 @@ public class PlayerService {
         
         return currentPlayer;
     }
-    
+    /**
+     * Adds a new game to the player. 
+     * If the score or time is better that previous best scores/times
+     * a new best score/time will be added to the player.
+     * @param time 
+     * @param guesses amount of guesses 
+     */
     public void addGame(double time, int guesses) {
         Player player = getCurrentPlayer();
         Game game = new Game(player.getName(), time, guesses);
@@ -103,7 +118,6 @@ public class PlayerService {
     }
     
     public List<Game> getBestGames () {
-        System.out.println("getting games from database (playerService)");
         return gameDao.findAllSortedByScore();
     }
     

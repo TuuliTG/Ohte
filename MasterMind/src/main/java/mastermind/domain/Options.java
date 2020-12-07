@@ -24,7 +24,8 @@
 package mastermind.domain;
 
 /**
- *
+ * A class for setting various game options. 
+ * At the moment the only thing that the player can choose is the amount of guesses allowed (height).
  * @author tgtuuli
  */
 public class Options {

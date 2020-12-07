@@ -31,7 +31,7 @@ import java.util.Scanner;
 import mastermind.domain.Player;
 
 /**
- *
+ * Takes care of saving and retrieving player related information to/from database.
  * @author tgtuuli
  */
 public class FilePlayerDao implements PlayerDao {
@@ -61,12 +61,19 @@ public class FilePlayerDao implements PlayerDao {
             }
         }
     }
-    
+    /**
+     * Retrieves all players from the database.
+     * @return List of all players
+     */
     @Override
     public  List<Player> getAll() {
         return players;
     }
-    
+    /**
+     * Retrieves a player from database by name 
+     * @param name
+     * @return player or if not found, null
+     */
     @Override
     public Player findByName(String name) {
         return players.stream()
@@ -75,6 +82,12 @@ public class FilePlayerDao implements PlayerDao {
         
     }
     
+    /**
+     * Adds a player to the database.
+     * @param player
+     * @return
+     * @throws Exception 
+     */
     @Override
     public Player create(Player player) throws Exception {
         players.add(player);
@@ -82,6 +95,12 @@ public class FilePlayerDao implements PlayerDao {
         return player;
     }
     
+    /**
+     * Sets a new best score to the player p-
+     * @param p player
+     * @param score new best score
+     * @throws Exception 
+     */
     @Override
     public void setBestScore(Player p, int score) throws Exception {
         for (Player player : players) {
@@ -92,6 +111,12 @@ public class FilePlayerDao implements PlayerDao {
         save();
     }
     
+    /**
+     * Sets a new best time to the player.
+     * @param p player
+     * @param time new best time
+     * @throws Exception 
+     */
     @Override
     public void setBestTime(Player p, double time) throws Exception {
         for (Player player : players) {
@@ -102,6 +127,11 @@ public class FilePlayerDao implements PlayerDao {
         save();
     }
     
+    /**
+     * Increases the amount of games won for the player by one. 
+     * @param p player
+     * @throws Exception 
+     */
     @Override
     public void addOneGamePlayed(Player p) throws Exception {
         for (Player player : players) {

@@ -38,7 +38,7 @@ import mastermind.domain.Game;
 import mastermind.domain.PlayerService;
 
 /**
- *
+ * Shows the Score board to the player.
  * @author tgtuuli
  */
 public class ScoreBoard {
