@@ -48,6 +48,7 @@ tunteja 4
 * New Game -ikkuna, pelaajan nimen lisäys yms.
 
 ### Viikko 6
+YHTEENSÄ : 17 tuntia
 la 5.12.
 8 tuntia: DAO-toteutus, tallentaminen tiedostoon
 su 6.12.
