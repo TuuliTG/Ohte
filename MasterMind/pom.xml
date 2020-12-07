@@ -31,7 +31,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.3</version>
                 <configuration>
-                    <mainClass>mastermind.ui.MasterMindApplication2</mainClass>
+                    <mainClass>mastermind.gui.Main</mainClass>
                 </configuration>
             </plugin>
             <plugin>
@@ -40,8 +40,11 @@
                 <version>0.8.3</version>
                 <configuration>
                     <excludes>
-                        <exclude>mastermind.gui.*</exclude>
-                        <exclude>mastermind.domain.Constants.java</exclude>
+                        <exclude>mastermind/gui/*</exclude>
+                        <exclude>mastermind/domain/Constants.class</exclude>
+                        <exclude>mastermind/dao/GameDao.class</exclude>
+                        <exclude>mastermind/dao/PlayerDao.class</exclude>
+                        <exclude>mastermind/domain/Tile.class</exclude>
                     </excludes>
                 </configuration>
                 <executions>
