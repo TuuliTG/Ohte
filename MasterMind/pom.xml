@@ -41,10 +41,9 @@
                 <configuration>
                     <excludes>
                         <exclude>mastermind/gui/*</exclude>
-                        <exclude>mastermind/domain/Constants.class</exclude>
+                        <exclude>mastermind/util/*</exclude>
                         <exclude>mastermind/dao/GameDao.class</exclude>
                         <exclude>mastermind/dao/PlayerDao.class</exclude>
-                        <exclude>mastermind/domain/Tile.class</exclude>
                     </excludes>
                 </configuration>
                 <executions>
