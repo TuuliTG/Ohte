@@ -94,7 +94,6 @@ public class NewGameWindow {
                 this.errorLabel.setText("Name too long");
             } else {
                 boolean created = this.playerService.createPlayer(name);
-                System.out.println("new player created : " + created);
                 this.playerService.login(name);
                 Player p = playerService.getCurrentPlayer();
                 this.newGameWindow.close();

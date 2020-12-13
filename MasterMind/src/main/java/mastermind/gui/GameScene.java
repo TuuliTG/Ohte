@@ -40,16 +40,17 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import mastermind.domain.Constants;
+import util.Constants;
 import mastermind.domain.Options;
-import mastermind.domain.Piece;
 import mastermind.domain.PlayerService;
-import mastermind.domain.Tile;
 import mastermind.gamelogic.GameLogic;
 
 /**
@@ -70,12 +71,14 @@ public class GameScene {
     private Label guessesLeftLabel;
     private Label playerLabel;
     private Label gameOver; 
+    private Label blanksNotAllowed;
     private Options newGameOptions;
     private Pane pane;
     private PlayerService playerService;
     private Scene gameScene, optionsScene;
     private Stage window;
     private StopWatch timer;
+    private VBox vbox;
     
     /**
      * Constructor for starting a new game with default options.
@@ -171,41 +174,42 @@ public class GameScene {
             } else {
                 this.board.setAllBrown();
             }
+            if (!blanksNotAllowed.getText().equals("")) {
+                blanksNotAllowed.setText("");
+                blanksNotAllowed.setStyle("-fx-border-style:null; -fx-border-width: 0; "
+                + "-fx-border-color:null;-fx-background-color:null");
+            }
             
         });
         bPane.setOnMouseClicked(e -> {
             Tile t = this.board.findTile(e.getX(), e.getY());
-            Piece p = t.getPiece();
-            p.setNextColor();
+            if (t != null) {
+                Piece p = t.getPiece();
+                p.setNextColor();
+            }
+            
         });
     }
         
     private void setUpLabels() {
-        System.out.println("setting up labels");
+        blanksNotAllowed = new Label();
         roundLabel = new Label();
-        playerLabel = new Label(playerService.getCurrentPlayer().getName());
-        
+        playerLabel = new Label("PLAYER: " + playerService.getCurrentPlayer().getName());
+        playerLabel.setStyle("-fx-font-size: 2em;");
         guessesLeftLabel = new Label();
-       
         gameOver = new Label();
         roundLabel.setText("ROUND: " + 1);
         roundLabel.setPadding(new Insets(10));
-       
         hBox.getChildren().add(roundLabel);
-        
         guessesLeftLabel.setText("Guesses left: " + this.newGameOptions.getHeight());
         guessesLeftLabel.setPadding(new Insets(10));
         
         hBox.getChildren().add(guessesLeftLabel);
-        hBox.getChildren().add(playerLabel);
-        
         
         hBox.getChildren().add(gameOver);
-        
     }
           
     private void setUpButtons() {
-        System.out.println("setting up board buttons");
         this.acceptGuessButton = new Button();
         acceptGuessButton.setText("Accept Guess");
         acceptGuessButton.setPadding(new Insets(10));
@@ -217,18 +221,17 @@ public class GameScene {
         hBox.getChildren().add(acceptGuessButton);
     }
            
-    private void setArrowSign() throws FileNotFoundException {
-        BufferedImage image;
+    private void setArrowSign() {
+        
         Image i;
         arrow = new ImageView();
         try {
             ClassLoader classLoader = this.getClass().getClassLoader();
-            InputStream inputStream = classLoader.getResourceAsStream("public/arrowLeft.png");
             String imageUrl = classLoader.getResource("public/arrowLeft.png").toExternalForm();
             i = new Image(imageUrl);
             arrow.setImage(i);
         } catch (Exception e){
-            
+            System.out.println("file not found. " + e.getMessage());
         }
         
          
@@ -240,6 +243,14 @@ public class GameScene {
         this.board.getPane().getChildren().add(arrow);
         
     }
+    
+    private void setNoBlanksAllowedText() {
+        this.blanksNotAllowed.setText("Set color to every piece!");
+        blanksNotAllowed.setLayoutX(this.board.getPane().getTranslateX() + 50);
+        blanksNotAllowed.setLayoutY(this.board.getPane().getTranslateY() + (this.board.getActiveRow() * Constants.TILE_SIZE));
+        blanksNotAllowed.setStyle("-fx-font-size: 1em; -fx-border-style:solid; -fx-border-width: 1; "
+                + "-fx-border-color:black;-fx-background-color: white");
+    }
             
     private void newGame() {
         int height = newGameOptions.getHeight();
@@ -249,25 +260,25 @@ public class GameScene {
         Pane boardPane = board.getPane();
         Insets insets = new Insets(10);
         hBox = new HBox(8);
+        vbox = new VBox(8);
+        
         bPane = new BorderPane();
         this.bPane.setBottom(boardPane);
         BorderPane.setMargin(boardPane, insets);
         BorderPane.setMargin(hBox, insets);
         setUpButtons();
         this.setUpLabels();
-        try {
-            this.setArrowSign();
-        } catch (Exception e) {
-            System.out.println("Image not found");
-        }
-        this.bPane.setCenter(hBox);
+        vbox.getChildren().add(playerLabel);
+        vbox.getChildren().add(hBox);
+        boardPane.getChildren().add(blanksNotAllowed);
+        this.setArrowSign();
+        this.bPane.setCenter(vbox);
         this.startTimer();
         this.setUpGameScene();
         
     }
     
     private void startTimer() {
-        System.out.println("starting timer");
         if (timer.getTimeline() != null) {
             timer.setMinutes(Duration.ZERO);
             timer.getTimeSeconds().set((int) timer.getSeconds().toMinutes());
@@ -289,22 +300,37 @@ public class GameScene {
     
     private void acceptButtonActions() {
         String[] guess = this.board.guessedColors();
-        board.getGame().setGuess(guess);
-        this.board.giveFeedback();
-        this.board.setNextActiveRow();
-        this.roundLabel.setText("ROUND: " + (board.getActiveRow() + 1));
-        this.guessesLeftLabel.setText("Guesses left: " + board.getGuessesLeft());
-        
-        if (board.getGuessesLeft() == 0 || board.gameIsOver()) {
-            if (board.gameIsOver()) {
-                setScore();
-            }
-            this.timer.getTimeline().stop();
-            GameOverWindow gameOverWindow = new GameOverWindow(board.gameIsOver(), timer, playerService);
-            gameOverWindow.showGameOverWindow(window);
+        if (guessHasBlanks(guess)) {
+            this.setNoBlanksAllowedText();
+        } else {
+            board.getGame().setGuess(guess);
+            this.board.giveFeedback();
+            this.board.setNextActiveRow();
+            this.roundLabel.setText("ROUND: " + (board.getActiveRow() + 1));
+            this.guessesLeftLabel.setText("Guesses left: " + board.getGuessesLeft());
 
+            if (board.getGuessesLeft() == 0 || board.gameIsOver()) {
+                if (board.gameIsOver()) {
+                    setScore();
+                }
+                this.timer.getTimeline().stop();
+                GameOverWindow gameOverWindow = new GameOverWindow(board.gameIsOver(), timer, playerService);
+                gameOverWindow.showGameOverWindow(window);
+
+            }
+            moveArrowDown();
         }
-        moveArrowDown();
+        
+    }
+    
+    private boolean guessHasBlanks(String[] guess) {
+        boolean hasBlanks = false;
+        for (int i = 0; i < 4; i++) {
+            if (guess[i].equals("Grey")) {
+                hasBlanks = true;
+            } 
+        }
+        return hasBlanks;
     }
     
     private void handleTimer() {

@@ -11,9 +11,7 @@ import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import mastermind.domain.Constants;
-import mastermind.domain.Piece;
-import mastermind.domain.Tile;
+import util.Constants;
 import mastermind.gamelogic.GameLogic;
 
 /**
@@ -56,6 +54,7 @@ public class Board {
         Piece piece = new Piece(Constants.PIECE_SIZE, 
                             Color.GREY, x * Constants.TILE_SIZE + Constants.TILE_SIZE / 2, 
                             y * Constants.TILE_SIZE + Constants.TILE_SIZE / 2);
+        piece.setColorInText("Grey");
         return piece;
     }
     
@@ -92,10 +91,8 @@ public class Board {
         Piece piece2 = new Piece(5, Color.GREY, x * Constants.TILE_SIZE + Constants.TILE_SIZE - 10, y * Constants.TILE_SIZE + Constants.TILE_SIZE - 10);
         Piece piece3 = new Piece(5, Color.GREY, x * Constants.TILE_SIZE + 10, y * Constants.TILE_SIZE + Constants.TILE_SIZE - 10);
         Piece piece4 = new Piece(5, Color.GREY, x * Constants.TILE_SIZE + Constants.TILE_SIZE - 10, y * Constants.TILE_SIZE + 10);
-        feedBackPlaceGroup.getChildren().add(piece1);
-        feedBackPlaceGroup.getChildren().add(piece2);
-        feedBackPlaceGroup.getChildren().add(piece3);
-        feedBackPlaceGroup.getChildren().add(piece4);
+        feedBackPlaceGroup.getChildren().addAll(piece1, piece2, piece3, piece4);
+        
         ArrayList<Piece> p = new ArrayList<>();
         p.add(piece1);
         p.add(piece2);

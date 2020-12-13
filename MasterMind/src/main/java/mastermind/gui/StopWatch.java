@@ -45,7 +45,6 @@ public class StopWatch {
     
 
     public StopWatch() {
-        System.out.println("initializing a new stop watch");
         minutesLabel = new Label();
         secondsLabel = new Label();
         timeMinutes = new SimpleIntegerProperty();
