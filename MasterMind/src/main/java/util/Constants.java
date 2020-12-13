@@ -1,4 +1,4 @@
-package mastermind.domain;
+package util;
 
 /*
  * The MIT License
