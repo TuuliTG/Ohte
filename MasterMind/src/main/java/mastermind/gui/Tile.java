@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mastermind.domain;
+package mastermind.gui;
 
 import java.util.ArrayList;
 import javafx.scene.layout.Region;
+import util.Constants;
 
 
 /**
