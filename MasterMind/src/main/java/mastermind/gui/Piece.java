@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mastermind.domain;
+package mastermind.gui;
 
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -60,6 +60,12 @@ public class Piece extends Circle {
     public void setFeebackPieceColor(Color c) {
         this.setFill(c);
     }
+
+    public void setColorInText(String colorInText) {
+        this.colorInText = colorInText;
+    }
+    
+    
     
    
     
