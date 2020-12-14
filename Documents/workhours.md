@@ -55,4 +55,6 @@ su 6.12.
 5 tuntia: Käyttäjän luominen ja kirjaaminen. Jar-tiedoton generointi niin että mukaan tulee configuraatiotiedostot ja kuvat ym.. Testejä
 ma: 4 tuntia: Javadoc, Uusia testejä, dokumentointi
 
-
+### Viikko 7
+su 13.12.
+4 tuntia: koodikatselmuksesta saadun palautteen perusteella pieniä korjailuja. Dokumentointia.
