@@ -6,8 +6,9 @@ This project is a part of a course *Ohjelmistotekniikka* in the University of He
 
 * [Requirements analysis](https://github.com/TuuliTG/Ohte/blob/main/Documents/RequirementsAnalysis.md)
 * [Work hours](https://github.com/TuuliTG/Ohte/blob/main/Documents/workhours.md)
-* [architecture](https://github.com/TuuliTG/Ohte/blob/main/Documents/arkkitehtuuri.md)
+* [Architecture](https://github.com/TuuliTG/Ohte/blob/main/Documents/Architecture.md)
 * [Manual](https://github.com/TuuliTG/Ohte/blob/main/Documents/manual.md)
+* [Testing](https://github.com/TuuliTG/Ohte/blob/main/Documents/Testing.md)
 
 ### Releases
 [Week 6 release](https://github.com/TuuliTG/Ohte/releases/tag/v1.1)
