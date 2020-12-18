@@ -1,4 +1,4 @@
-# Ohjelmistotekniikka 2020
+# Mastermind
 
 This project is a part of a course *Ohjelmistotekniikka* in the University of Helsinki. The software is a classic Master Mind game. 
 
@@ -11,7 +11,9 @@ This project is a part of a course *Ohjelmistotekniikka* in the University of He
 * [Testing](https://github.com/TuuliTG/Ohte/blob/main/Documents/Testing.md)
 
 ### Releases
+
 [Final release](https://github.com/TuuliTG/Ohte/releases/tag/v.2.0)
+
 [Week 6 release](https://github.com/TuuliTG/Ohte/releases/tag/v1.1)
 
 ### Command Line commands
