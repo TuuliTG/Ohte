@@ -1,6 +1,6 @@
 # Testing
 
-Project has unit and integration tests. The graphic user interface was not included in the testing. Tests cover the dao (database-related classes) and domain packages.
+Project has unit and integration tests. The graphic user interface was not included in the automatic testing. Tests cover the dao (database-related classes) and domain packages. The GUI was tested manually.
 
 ## Unit and integration testing
 ### Domain
@@ -13,7 +13,7 @@ Project has unit and integration tests. The graphic user interface was not inclu
 
 ## Test coverage
 
-Test coverage is quite high. Most missed branches were in PlayerService class due to many try/catch segments where the error scenarios were not tested. 
+Test coverage for lines is 94% and for branches 82%. Most missed branches were in PlayerService class due to many try/catch segments where the error scenarios were not tested. 
 
 ![Test coverage](https://github.com/TuuliTG/Ohte/blob/main/Documents/misc/jacoco.png)
 
@@ -30,8 +30,8 @@ I have downloaded and installed the app on a linux machine according to the inst
 ### functionalities
 There was a peer review in the week 6 and the functionalities were tested by another student. Some bugs fixes and improvements were done after that. I have gone through all the functionalities listed in the Requirements Analysis and everything seem to work as wanted. 
 
-## What need to be improved
+## What needs to be improved
 
-The GUI is not tested programmatically at all and therefore a majority of the program is not tested. 
+The GUI is not tested programmatically at all and therefore a majority of the program is not tested. Also the error situations were not tested at all. 
 
 
