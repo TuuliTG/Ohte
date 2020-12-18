@@ -46,23 +46,36 @@ Game data is saved in this format:
 
 ### Creating a new player / log in
 
+The program validates the player name by length. If the length is under three or longer than 15, an error message will show  up. 
+
 ![Creating a new player](https://github.com/TuuliTG/Ohte/blob/main/Documents/misc/newGameWindow.png)
 ![Error](https://github.com/TuuliTG/Ohte/blob/main/Documents/misc/newGameError.png)
 
 ### Playing
 
+The player can click on the code tiles to change to color (left or right click depending on the direction the player wants).
+When the player is satisfied with the guess, he/she can press the accept button to get feedback. If there were blanks left in the guess, and error message will show up and no feedback will be given.
+
 ![Game Window](https://github.com/TuuliTG/Ohte/blob/main/Documents/misc/gameWindow.png)
+
+The following sequence diagram shows what happens when the player clicks the accept guess -button. 
+
 ![Arvauksen hyväksyminen](https://github.com/TuuliTG/Ohte/blob/main/Documents/MastermindSekvenssikaavio.png)
 
-The player can click on the code tiles to change to color (left or right click depending on the direction the player wants).
-When the player is satisfied with the guess, he/she can press the accept button to get feedback. If there were blanks left in the guess, and error message will show up and no feedback will be given. 
+ 
 
 ### Game Over
 
 The game ends either when the player runs out of guesses or if he/she solves the code. 
+
 ![Game Over Window](https://github.com/TuuliTG/Ohte/blob/main/Documents/misc/gameOverWindow.png)
 
 ## Weaknesses in the program 
 
-**Options** 
+The PlayerDao and the GameDao classes have repetitive code and it could be refactored. 
+The GameScene-class is quite big and it could be still split into smaller classes.
+ 
+
+**Options:** 
+
 It would be nice that the player could have more options to customize the game. For example allowing blanks or setting a time limit for each guess. 

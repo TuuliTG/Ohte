@@ -58,3 +58,8 @@ ma: 4 tuntia: Javadoc, Uusia testejä, dokumentointi
 ### Viikko 7
 su 13.12.
 4 tuntia: koodikatselmuksesta saadun palautteen perusteella pieniä korjailuja. Dokumentointia.
+ma 14.12. 
+5 tuntia dokumentointia ja pieniä viilauksia 
+to 17.12.
+1 tunti: dokumentointi
+pe 18.12.

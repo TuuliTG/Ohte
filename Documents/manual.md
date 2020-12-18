@@ -1,6 +1,6 @@
 # Manual
 
-Downloading and running the app:
+### Downloading and running the app:
 
 1) You can run the game by downloding the jar from [here](https://github.com/TuuliTG/Ohte/releases/tag/v1.1)
 
