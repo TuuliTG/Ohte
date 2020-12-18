@@ -25,11 +25,13 @@ The gui package includes the graphic user interface which is programmed using Ja
 
 The score board, options and game instructions are scenes that can be added to the primary stage. The new game and game over windows have their own stage. 
 
+The **GameScene**-class is the main class of the GUI. 
+
 The user interface is interacting with the GameLogic-class which is then sending tasks to other classes in the domain package. Besides that the gui is also interacting with UserService class for database functions and options class for setting new options. 
 
 ### The Program Logic
 
-The PlayerService is a bridge between the dao-classes and the domain classes.  The gui gives and receives information about players and game stats to/from the PlayerService-class. The GameLogic-class is in charge of the *codemakers* and the *codebreakers* tasks. GUI is divided into multiple classes, each handling their own scene, window or fuction. 
+The **PlayerService**-class acts as a bridge between the dao-classes and the domain classes.  The **GUI** gives and receives information about players and game stats to/from the PlayerService-class. The GameLogic-class is in charge of the *codemakers* and the *codebreakers* tasks. GUI is divided into multiple classes, each handling their own scene, window or fuction. 
 
 ![class diagram](https://github.com/TuuliTG/Ohte/blob/main/Documents/misc/MastermindLuokkakaavio.jpg)
 

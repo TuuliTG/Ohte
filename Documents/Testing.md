@@ -15,7 +15,7 @@ Project has unit and integration tests. The graphic user interface was not inclu
 
 Test coverage is quite high. Most missed branches were in PlayerService class due to many try/catch segments where the error scenarios were not tested. 
 
-[!Test coverage](https://github.com/TuuliTG/Ohte/blob/main/Documents/misc/jacoco.png)
+![Test coverage](https://github.com/TuuliTG/Ohte/blob/main/Documents/misc/jacoco.png)
 
 
 ## System testing
@@ -24,7 +24,7 @@ The system testing for this program has been done manually.
 
 ### Installing and configuration
 
-I have downloaded and installed the app on a linux machine according to the instructions in the manual. The app has successfully launched and created necessary files. 
+I have downloaded and installed the app on a linux machine according to the instructions in the [manual](https://github.com/TuuliTG/Ohte/blob/main/Documents/manual.md). The app has successfully launched and created necessary files. 
 
 
 ### functionalities
@@ -32,6 +32,6 @@ There was a peer review in the week 6 and the functionalities were tested by ano
 
 ## What need to be improved
 
-The gui is not tested programmatically at all and therefore a majority of the program is not tested. 
+The GUI is not tested programmatically at all and therefore a majority of the program is not tested. 
 
 
