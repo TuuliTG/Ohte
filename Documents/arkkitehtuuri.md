@@ -32,7 +32,7 @@ Käyttöliittymä keskustelee enimmäkseen GameLogic-luokan kanssa, joka sitten 
 
 Luokkakaaviossa on nähtävillä sovelluksen luokkarakenne. 
 
-![class diagram](https://github.com/TuuliTG/Ohte/blob/main/Documents/MastermindLuokkakaavio.jpg)
+![class diagram](https://github.com/TuuliTG/Ohte/blob/main/Documents/misc/MastermindLuokkakaavio.jpg)
 
 ## Tietojen tallentaminen tietokantaan
 
@@ -59,7 +59,7 @@ Kun käyttäjä kirjoittaa nimikenttään nimen, ohjelma tarkistaa, onko nimi jo
 Pelaaja asettaa arvauksen painamalla nappulan kohdalta niin monta kertaa, kunnes on saatu haluttu väri. Kun neljä väriä on valittu, pelaaja voi painaa "Accept guess" -nappia. 
 Alla siitä tilanteesta sekvenssikaavio:
 #### Sekvenssikaavio
-![Arvauksen hyväksyminen](https://github.com/TuuliTG/Ohte/blob/main/Documents/MastermindSekvenssikaavio.png)
+![Arvauksen hyväksyminen](https://github.com/TuuliTG/Ohte/blob/main/Documents/misc/MastermindSekvenssikaavio.png)
 
 #### Peli päättyy:
 Peli voi päättyä joko siihen, että arvaukset loppuvat kesken, tai että pelaaja arvaa oikean värisarjan. 

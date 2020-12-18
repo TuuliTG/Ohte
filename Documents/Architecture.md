@@ -31,7 +31,7 @@ The user interface is interacting with the GameLogic-class which is then sending
 
 The PlayerService is a bridge between the dao-classes and the domain classes.  The gui gives and receives information about players and game stats to/from the PlayerService-class. The GameLogic-class is in charge of the *codemakers* and the *codebreakers* tasks. GUI is divided into multiple classes, each handling their own scene, window or fuction. 
 
-![class diagram](https://github.com/TuuliTG/Ohte/blob/main/Documents/MastermindLuokkakaavio.jpg)
+![class diagram](https://github.com/TuuliTG/Ohte/blob/main/Documents/misc/MastermindLuokkakaavio.jpg)
 
 ### Saving data to database and local disk
 
@@ -62,7 +62,7 @@ When the player is satisfied with the guess, he/she can press the accept button 
 
 The following sequence diagram shows what happens when the player clicks the accept guess -button. 
 
-![Arvauksen hyväksyminen](https://github.com/TuuliTG/Ohte/blob/main/Documents/MastermindSekvenssikaavio.png)
+![Arvauksen hyväksyminen](https://github.com/TuuliTG/Ohte/blob/main/Documents/misc/MastermindSekvenssikaavio.png)
 
  
 
@@ -72,9 +72,11 @@ The game ends either when the player runs out of guesses or if he/she solves the
 
 ![Game Over Window](https://github.com/TuuliTG/Ohte/blob/main/Documents/misc/gameOverWindow.png)
 
-## Weaknesses in the program https://github.com/TuuliTG/Ohte/blob/main/Documents/
+## Weaknesses in the program
 
-The class and package structure could propably be still simplified and refactured. I had problems deciding how to delegate responsibilities between the gui, gamelogic, and some of the domain classes.  
+The class and package structure could propably be still simplified and refactured. I had problems deciding how to delegate responsibilities between the gui, gamelogic, and some of the domain classes. 
+
+I had some difficulties in the error handling. I got also feedback during the peer review about the multiple try/catch segments in the code. It should be refactored somehow but as of now I don't really have the clear picture how to do it in the correct way. I decided to leave it as it is for now. 
 
 The PlayerDao and the GameDao classes have repetitive code and it could be refactored. 
 The GameScene-class is quite big and it could be still split into smaller classes.
