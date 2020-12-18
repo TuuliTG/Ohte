@@ -40,13 +40,7 @@ public class PieceTest {
     public void setUp() {
         p = new Piece(20, Color.GREY, 10, 10);
     }
-    
-    @Test
-    public void createdPieceHasColorIndex0Test() {
-        int index = p.getColorIndex();
-        assertEquals(0, index);
-    }
-    
+   
     @Test
     public void nextColorIsBlackTest() {
         Color expected = Color.BLACK;
