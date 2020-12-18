@@ -50,7 +50,6 @@ public class MasterMindApplication2 extends Application {
         ClassLoader classLoader = this.getClass().getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream("config.properties");
         
-        
         Properties properties = new Properties();
         properties.load(new BufferedReader(new InputStreamReader(inputStream)));
         String playerFile = properties.getProperty("playerFile");

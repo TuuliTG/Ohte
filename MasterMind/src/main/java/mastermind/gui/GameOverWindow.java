@@ -42,7 +42,7 @@ public class GameOverWindow {
     
     private boolean codeSolved;
     private BorderPane layout;
-    private Button newGameButton, quitGameButton;
+    private Button newGameButton, quitGameButton, closeWindowButton;
     private HBox gameOverBox;
     private Label gameWonLabel, noGuessesLeftLabel, timeLabel;
     private PlayerService playerService;
@@ -118,15 +118,19 @@ public class GameOverWindow {
             primaryStage.close();
             GameScene newGameScene = new GameScene(new Stage(), playerService, false);
         });
-        
         quitGameButton = new Button("Quit");
         quitGameButton.setPadding(new Insets(10));
         quitGameButton.setOnAction(e -> {
             gameOverWindow.close();
             primaryStage.close();
         });
-        
+        closeWindowButton = new Button("Close");
+        closeWindowButton.setPadding(new Insets(10));
+        closeWindowButton.setOnAction(e -> {
+            gameOverWindow.close();
+        });
         gameOverBox.getChildren().add(newGameButton);
+        gameOverBox.getChildren().add(closeWindowButton);
         gameOverBox.getChildren().add(quitGameButton);
     }
 }

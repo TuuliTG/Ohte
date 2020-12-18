@@ -72,11 +72,16 @@ public class NewGameWindow {
         vbox.getChildren().add(errorLabel);
         vbox.getChildren().add(hbox2);
         layout.setCenter(vbox);
+        layout.setPadding(new Insets(10));
+        vbox.setPadding(new Insets(10));
+        hbox1.setPadding(new Insets(10));
+        hbox2.setPadding(new Insets(10));
+        errorLabel.setPadding(new Insets(10));
     }
     
     private void setUpLabels() {
         playerNameLabel.setText("Player Name:");
-        playerNameLabel.setPadding(new Insets(20));
+        playerNameLabel.setPadding(new Insets(5, 30, 0, 0));
         hbox1.getChildren().add(playerNameLabel);
     }
     
@@ -112,7 +117,7 @@ public class NewGameWindow {
     public void show(Stage primaryStage) {
         System.out.println("showing window");
         this.primaryStage = primaryStage;
-        Scene newGameScene = new Scene(layout, 300, 300);
+        Scene newGameScene = new Scene(layout, 500, 400);
         newGameWindow.setScene(newGameScene);
         newGameWindow.setTitle("New Game");
         newGameWindow.initModality(Modality.APPLICATION_MODAL);

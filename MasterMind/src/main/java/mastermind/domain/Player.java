@@ -19,19 +19,16 @@ public class Player {
     private double bestTime;
     private int bestScore;
     private int amountOfGamesWon;
-    private ArrayList<Game> gamesPlayed;
 
     public Player(String name) {
         this.name = name;
         this.amountOfGamesWon = 0;
-        this.gamesPlayed = new ArrayList<>();
     }
 
     public Player(String name, double bestTime, int bestScore, int numberOfGamesWon) {
         this.name = name;
         this.bestTime = bestTime;
         this.bestScore = bestScore;
-        this.gamesPlayed = new ArrayList<>();
         this.amountOfGamesWon = numberOfGamesWon;
     }
     
@@ -43,9 +40,6 @@ public class Player {
         return bestTime;
     }
 
-    public ArrayList<Game> getGamesPlayed() {
-        return gamesPlayed;
-    }
 
     public void setBestTime(double bestTime) {
         this.bestTime = bestTime;

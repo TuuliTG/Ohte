@@ -42,7 +42,6 @@ import mastermind.domain.PlayerService;
  */
 public class OptionsWindow {
     
-    private Boolean isNewGame;
     private BorderPane optionsBPane;
     private Button startGameButton, closeButton;
     private ChoiceBox<Integer> guessesChoicebox;
@@ -63,11 +62,11 @@ public class OptionsWindow {
         this.primaryStage = primaryStage;
         optionsBPane = new BorderPane();
         this.gameScene = gameScene;
-        this.timer = timer;
         options = new Options();
         vbox = new VBox();
         optionsBox = new HBox();
         buttonsBox = new HBox();
+        this.timer = timer;
     }
     
     private void setNewOptions() {
@@ -83,7 +82,6 @@ public class OptionsWindow {
         
         titleLabel = new Label("OPTIONS");
         vbox.getChildren().add(titleLabel);
-        
     }
     
     private void setUpChoiceBox() {
@@ -99,13 +97,11 @@ public class OptionsWindow {
         closeButton = new Button("Close");
         closeButton.setPadding(new Insets(10));
         closeButton.setOnAction(e -> {
-            this.isNewGame = false;
-            timer.getTimeline().play();
+            this.timer.getTimeline().play();
             primaryStage.setScene(gameScene);
         });
         startGameButton.setOnAction(e -> {
             setNewOptions();
-            this.isNewGame = true;
             this.primaryStage.close();
             new GameScene(new Stage(), options, playerService);
         });

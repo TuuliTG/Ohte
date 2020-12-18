@@ -38,6 +38,7 @@ import javafx.util.Duration;
  */
 public class StopWatch {
     
+    private boolean gameIsOver;
     private Timeline timeline;
     private Label minutesLabel, secondsLabel;
     private IntegerProperty timeMinutes, timeSeconds;
@@ -53,6 +54,7 @@ public class StopWatch {
         seconds = Duration.ZERO;
         milliSeconds = Duration.ZERO;
         configLabel();
+        this.gameIsOver = false;
         
         
     }
@@ -66,7 +68,6 @@ public class StopWatch {
         secondsLabel.setTextFill(Color.BLACK);
         secondsLabel.setMinWidth(80);
         secondsLabel.setStyle("-fx-font-size: 4em; -fx-border-style:solid; -fx-border-width: 2; -fx-border-color:black;");
-        
         
     }
     
@@ -118,5 +119,15 @@ public class StopWatch {
     public void setMilliSeconds(Duration milliSeconds) {
         this.milliSeconds = milliSeconds;
     }
+
+    public void setGameIsOver(boolean gameIsOver) {
+        this.gameIsOver = gameIsOver;
+    }
+
+    public boolean gameIsOver() {
+        return gameIsOver;
+    }
+    
+    
     
 }

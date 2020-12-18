@@ -34,9 +34,9 @@ import mastermind.dao.PlayerDao;
  */
 public class PlayerService {
     
-    private PlayerDao playerDao;
+    private final PlayerDao playerDao;
     private Player currentPlayer;
-    private GameDao gameDao;
+    private final GameDao gameDao;
 
     public PlayerService(PlayerDao playerDao, GameDao gameDao) {
         this.playerDao = playerDao;
@@ -99,7 +99,7 @@ public class PlayerService {
             gameDao.create(game);
         } catch (Exception e) {
         }
-        if(player.getAmountOfGamesWon() == 0 || player.getBestTime() > time) {
+        if (player.getAmountOfGamesWon() == 0 || player.getBestTime() > time) {
             try {
                 playerDao.setBestTime(player, time);
             } catch (Exception e) {
@@ -117,7 +117,7 @@ public class PlayerService {
         }
     }
     
-    public List<Game> getBestGames () {
+    public List<Game> getBestGames() {
         return gameDao.findAllSortedByScore();
     }
     

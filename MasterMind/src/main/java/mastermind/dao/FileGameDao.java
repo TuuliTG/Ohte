@@ -30,7 +30,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import mastermind.domain.Game;
-import mastermind.domain.Player;
 
 /**
  * Takes care of saving and retrieving game related information to/from database.

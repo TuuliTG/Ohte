@@ -1,4 +1,4 @@
-package util;
+package mastermind.util;
 
 /*
  * The MIT License

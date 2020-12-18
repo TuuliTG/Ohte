@@ -12,7 +12,6 @@ public class Code {
     
     private String[] code;
     private String[] colors = {"Red", "Green", "Yellow", "Blue", "Black", "White"};
-    private boolean blanksAreAllowed;
 
     public Code() {
         this.code = new String[4];

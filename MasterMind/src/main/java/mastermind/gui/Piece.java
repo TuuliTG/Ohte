@@ -16,6 +16,8 @@ import javafx.scene.shape.Circle;
 public class Piece extends Circle {
     
     private Color color;
+    private Color[] colors = {Color.GREY, Color.BLACK, Color.WHITE, Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW};
+    private String[] colorsWritten = {"Grey", "Black",  "White", "Blue", "Red", "Green", "Yellow"};
     private int colorIndex;
     private String colorInText;
     
@@ -32,17 +34,13 @@ public class Piece extends Circle {
         return this.color;
     }
     
-    public void setNextColor() {
-        this.setFill(nextColor());
-    }
 
     public int getColorIndex() {
         return colorIndex;
     }
     
-    private Color nextColor() {
-        Color[] colors = {Color.GREY, Color.BLACK, Color.WHITE, Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW};
-        String[] colorsWritten = {"Grey", "Black",  "White", "Blue", "Red", "Green", "Yellow"};
+    public void setNextColor() {
+        
         if (colorIndex < colors.length - 1) {
             colorIndex++;
         } else {
@@ -50,7 +48,18 @@ public class Piece extends Circle {
         }
         this.color = colors[colorIndex];
         this.colorInText = colorsWritten[colorIndex];
-        return this.color;
+        setFill(this.color);
+    }
+    
+    public void setPreviousColor() {
+        if (colorIndex == 0) {
+            colorIndex = colors.length - 1;
+        } else {
+            colorIndex--;
+        }
+        this.color = colors[colorIndex];
+        this.colorInText = colorsWritten[colorIndex];
+        setFill(this.color);
     }
 
     public String getColorInText() {

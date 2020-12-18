@@ -23,9 +23,6 @@
  */
 package mastermind.gui;
 
-import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -40,15 +37,14 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.Border;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import util.Constants;
+import mastermind.util.Constants;
 import mastermind.domain.Options;
 import mastermind.domain.PlayerService;
 import mastermind.gamelogic.GameLogic;
@@ -72,6 +68,8 @@ public class GameScene {
     private Label playerLabel;
     private Label gameOver; 
     private Label blanksNotAllowed;
+    private Menu gameMenu, helpMenu;
+    private MenuItem newGame, endGame, scores, help, options;
     private Options newGameOptions;
     private Pane pane;
     private PlayerService playerService;
@@ -119,11 +117,8 @@ public class GameScene {
     }
     
     private void setUpGameScene() {
-        System.out.println("showing scene");
-        
         setMenuBar();
         mouseEvents();
-        
         gameScene = new Scene(bPane);
         window.setTitle("MASTERMIND");
         window.setScene(gameScene);
@@ -132,42 +127,91 @@ public class GameScene {
     }
     
     private void setMenuBar() {
-        Menu gameMenu = new Menu("Game");
-        MenuItem newGame = new MenuItem("New Game");
+        gameMenu = new Menu("Game");
+        helpMenu = new Menu("Help");
+        setNewGameMenu();
+        setOptionsMenu();
+        setScoreMenu();
+        setEndGame();
+        setHelpMenu();
+        MenuBar menuBar = new MenuBar();
+        menuBar.getMenus().addAll(gameMenu, helpMenu);
+        this.bPane.setTop(menuBar);
+    }
+    
+    private void setOptionsMenu() {
+        this.options = new MenuItem("Options...");
+        options.setOnAction(e -> {
+            this.timer.getTimeline().pause();
+            OptionsWindow optionsWindow = new OptionsWindow(timer, window, gameScene, playerService);
+            optionsWindow.displayOptions();
+        });
+        gameMenu.getItems().add(options);
+    }
+    
+    private void setNewGameMenu() {
+        newGame = new MenuItem("New Game");
         newGame.setOnAction(e -> {
             this.timer.getTimeline().stop();
             NewGameWindow newGameWindow = new NewGameWindow(playerService);
             newGameWindow.show(window);
         });
         gameMenu.getItems().add(newGame);
-        MenuItem endGame = new MenuItem("End Game");
+    }
+    private void setEndGame() {
+        
+        this.endGame = new MenuItem("End Game");
         endGame.setOnAction(e -> {
             window.close();
         });
-        
-        MenuItem scores = new MenuItem("Score Board");
+        gameMenu.getItems().add(endGame);
+    }
+    
+    private void setScoreMenu() {
+        this.scores = new MenuItem("Score Board");
         scores.setOnAction(e -> {
-            this.timer.getTimeline().pause();
+            timer.getTimeline().pause();
             ScoreBoard scoreBoard = new ScoreBoard(window, timer, playerService, gameScene);
             scoreBoard.displayScoreBoard();
         });
         gameMenu.getItems().add(scores);
+    }
+    
+    private void setHelpMenu() {
+        this.help = new MenuItem("game instructions");
         
-        gameMenu.getItems().add(endGame);
-        MenuItem options = new MenuItem("Options...");
-        
-        options.setOnAction(e -> optionsMenuActions());
-        gameMenu.getItems().add(options);
-        
-        MenuBar menuBar = new MenuBar();
-        menuBar.getMenus().addAll(gameMenu);
-        this.bPane.setTop(menuBar);
+        help.setOnAction(e -> {
+            this.timer.getTimeline().pause();
+            HelpWindow helpWindow = new HelpWindow(this.window, this.gameScene, timer);
+            helpWindow.show();
+        });
+        helpMenu.getItems().add(help);
     }
        
     private void mouseEvents() {
-        
+          
         bPane.setOnMouseMoved(e -> {
-            Tile t = board.findTile(e.getX(), e.getY());
+            this.mouseMoved(e.getX(), e.getY());
+        });
+
+        bPane.setOnMouseClicked(e -> {
+            if (!this.board.gameIsOver()) {
+                Tile t = this.board.findTile(e.getX(), e.getY());
+                if (t != null) {
+                    Piece p = t.getPiece();
+                    if (e.getButton() == MouseButton.PRIMARY) {
+                        p.setNextColor();
+                    } else if (e.getButton() == MouseButton.SECONDARY) {
+                        p.setPreviousColor();
+                    }
+                }
+            }
+        });
+    }
+    
+    private void mouseMoved(double x, double y) {
+        if (!this.board.gameIsOver()) {
+            Tile t = board.findTile(x, y);
             if (t != null) {
                 t.setFillLight();
                 this.board.setOtherOnRowBrown(t.getPlace());
@@ -177,18 +221,9 @@ public class GameScene {
             if (!blanksNotAllowed.getText().equals("")) {
                 blanksNotAllowed.setText("");
                 blanksNotAllowed.setStyle("-fx-border-style:null; -fx-border-width: 0; "
-                + "-fx-border-color:null;-fx-background-color:null");
+                    + "-fx-border-color:null;-fx-background-color:null");
             }
-            
-        });
-        bPane.setOnMouseClicked(e -> {
-            Tile t = this.board.findTile(e.getX(), e.getY());
-            if (t != null) {
-                Piece p = t.getPiece();
-                p.setNextColor();
-            }
-            
-        });
+        }
     }
         
     private void setUpLabels() {
@@ -196,6 +231,7 @@ public class GameScene {
         roundLabel = new Label();
         playerLabel = new Label("PLAYER: " + playerService.getCurrentPlayer().getName());
         playerLabel.setStyle("-fx-font-size: 2em;");
+        playerLabel.setPadding(new Insets(10));
         guessesLeftLabel = new Label();
         gameOver = new Label();
         roundLabel.setText("ROUND: " + 1);
@@ -217,7 +253,6 @@ public class GameScene {
         
         acceptGuessButton.setLayoutX(Constants.WIDTH * Constants.TILE_SIZE + 100);
         acceptGuessButton.setLayoutY(20);
-        //root.getChildren().add(acceptGuessButton);
         hBox.getChildren().add(acceptGuessButton);
     }
            
@@ -230,11 +265,9 @@ public class GameScene {
             String imageUrl = classLoader.getResource("public/arrowLeft.png").toExternalForm();
             i = new Image(imageUrl);
             arrow.setImage(i);
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("file not found. " + e.getMessage());
         }
-        
-         
         arrow.setX(Constants.TILE_SIZE * Constants.WIDTH + 10);
         arrow.setY(this.board.getPane().getLayoutY() - 10);
         arrow.setFitHeight(70);
@@ -259,7 +292,8 @@ public class GameScene {
         board.setUpScene();
         Pane boardPane = board.getPane();
         Insets insets = new Insets(10);
-        hBox = new HBox(8);
+        hBox = new HBox();
+        hBox.setPadding(new Insets(10));
         vbox = new VBox(8);
         
         bPane = new BorderPane();
@@ -292,35 +326,43 @@ public class GameScene {
     }
     
     private void optionsMenuActions() {
+        
         this.timer.getTimeline().pause();
+        
         OptionsWindow optionsWindow = new OptionsWindow(timer, window, gameScene, playerService);
         optionsWindow.displayOptions();
 
     }
     
     private void acceptButtonActions() {
-        String[] guess = this.board.guessedColors();
-        if (guessHasBlanks(guess)) {
-            this.setNoBlanksAllowedText();
-        } else {
-            board.getGame().setGuess(guess);
-            this.board.giveFeedback();
-            this.board.setNextActiveRow();
-            this.roundLabel.setText("ROUND: " + (board.getActiveRow() + 1));
-            this.guessesLeftLabel.setText("Guesses left: " + board.getGuessesLeft());
+        if (!this.board.gameIsOver()) {
+            String[] guess = this.board.guessedColors();
+            if (guessHasBlanks(guess)) {
+                this.setNoBlanksAllowedText();
+            } else {
+                board.getGame().setGuess(guess);
+                this.board.giveFeedback();
+                this.board.setNextActiveRow();
+                this.roundLabel.setText("ROUND: " + (board.getActiveRow() + 1));
+                this.guessesLeftLabel.setText("Guesses left: " + board.getGuessesLeft());
 
-            if (board.getGuessesLeft() == 0 || board.gameIsOver()) {
-                if (board.gameIsOver()) {
-                    setScore();
-                }
-                this.timer.getTimeline().stop();
-                GameOverWindow gameOverWindow = new GameOverWindow(board.gameIsOver(), timer, playerService);
-                gameOverWindow.showGameOverWindow(window);
-
-            }
-            moveArrowDown();
+                if (board.getGuessesLeft() == 0 || board.gameIsOver()) {
+                    this.endGameActions();
+                } else {
+                    moveArrowDown();
+                }        
+            }   
         }
-        
+    }
+    
+    private void endGameActions() {
+        if (board.gameIsOver()) {
+            setScore();
+        }
+        this.timer.getTimeline().stop();
+        this.timer.setGameIsOver(true);
+        GameOverWindow gameOverWindow = new GameOverWindow(board.gameIsOver(), timer, playerService);
+        gameOverWindow.showGameOverWindow(window);    
     }
     
     private boolean guessHasBlanks(String[] guess) {
@@ -338,11 +380,12 @@ public class GameScene {
                 new KeyFrame(Duration.millis(1), new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent t) {
+                        
                         Duration duration = ((KeyFrame) t.getSource()).getTime();
                         timer.setMinutes(timer.getMinutes().add(duration));
                         timer.setSeconds(timer.getSeconds().add(duration));
                         timer.setMilliSeconds(timer.getMilliSeconds().add(duration));
-                        
+
                         if (timer.getSeconds().greaterThan(Duration.seconds(60))) {
                             timer.setSeconds(Duration.ZERO);
                         }

@@ -11,7 +11,7 @@ import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import util.Constants;
+import mastermind.util.Constants;
 import mastermind.gamelogic.GameLogic;
 
 /**
@@ -213,7 +213,7 @@ public class Board {
     public void setUpScene() {
         
         this.pane = new Pane();
-        pane.setPrefSize(Constants.WIDTH * Constants.TILE_SIZE * 2 ,  this.height * Constants.TILE_SIZE * 1.5);
+        pane.setPrefSize(Constants.WIDTH * Constants.TILE_SIZE * 2 ,  this.height * Constants.TILE_SIZE);
         
         this.guessesLeft = this.height;
         

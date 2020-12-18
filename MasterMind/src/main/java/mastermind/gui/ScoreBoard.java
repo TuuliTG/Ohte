@@ -86,7 +86,11 @@ public class ScoreBoard {
     private void setUpButton() {
         closeButton = new Button("BackTo Game");
         closeButton.setOnAction(e -> {
-            this.timer.getTimeline().play();
+            System.out.println("closing");
+            if (!this.timer.gameIsOver()) {
+                this.timer.getTimeline().play();
+            }
+            System.out.println("showing gameScene");
             this.primaryStage.setScene(gameScene);
         });
         
@@ -106,8 +110,6 @@ public class ScoreBoard {
         this.primaryStage.setScene(scoreBoardScene);
         
     }
-    
-    
     
     
 }

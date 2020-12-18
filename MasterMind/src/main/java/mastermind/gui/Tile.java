@@ -7,7 +7,7 @@ package mastermind.gui;
 
 import java.util.ArrayList;
 import javafx.scene.layout.Region;
-import util.Constants;
+import mastermind.util.Constants;
 
 
 /**
