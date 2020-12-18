@@ -29,6 +29,8 @@ The user interface is interacting with the GameLogic-class which is then sending
 
 ### The Program Logic
 
+The PlayerService is a bridge between the dao-classes and the domain classes.  The gui gives and receives information about players and game stats to/from the PlayerService-class. The GameLogic-class is in charge of the *codemakers* and the *codebreakers* tasks. GUI is divided into multiple classes, each handling their own scene, window or fuction. 
+
 ![class diagram](https://github.com/TuuliTG/Ohte/blob/main/Documents/MastermindLuokkakaavio.jpg)
 
 ### Saving data to database and local disk
@@ -70,7 +72,9 @@ The game ends either when the player runs out of guesses or if he/she solves the
 
 ![Game Over Window](https://github.com/TuuliTG/Ohte/blob/main/Documents/misc/gameOverWindow.png)
 
-## Weaknesses in the program 
+## Weaknesses in the program https://github.com/TuuliTG/Ohte/blob/main/Documents/
+
+The class and package structure could propably be still simplified and refactured. I had problems deciding how to delegate responsibilities between the gui, gamelogic, and some of the domain classes.  
 
 The PlayerDao and the GameDao classes have repetitive code and it could be refactored. 
 The GameScene-class is quite big and it could be still split into smaller classes.
@@ -78,4 +82,6 @@ The GameScene-class is quite big and it could be still split into smaller classe
 
 **Options:** 
 
-It would be nice that the player could have more options to customize the game. For example allowing blanks or setting a time limit for each guess. 
+It would be nice that the player could have more options to customize the game. For example allowing blanks or setting a time limit for each guess. Also a game difficulty setting would be nice. 
+
+In the  **No guesses left** situation it would be nice to have an opportunity to see the right answer. 
