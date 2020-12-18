@@ -3,7 +3,7 @@
 ## Structure
 The program is build in four layers and packages implement those layers:
 
-mastermind.gui -> mastermind.gamelogic -> mastermind.domain -> mastermind.dao
+**mastermind.gui -> mastermind.gamelogic -> mastermind.domain -> mastermind.dao**
 
 The gui package includes the graphic user interface which is programmed using JavaFx. Mastermind.gamelogic acts as a bridge between the user interface and the program logic (domain and dao). Domain-package has all the basic program logic and dao-package is responsible for saving data to databases and to local disk.
 
@@ -37,14 +37,20 @@ The **PlayerService**-class acts as a bridge between the dao-classes and the dom
 
 ### Saving data to database and local disk
 
+The classes FilePlayerDao and FileGameDao in the package mastermind.dao are responsible for saving data to files and local disk. The dao classes are designed in the [Data Access Object](https://en.wikipedia.org/wiki/Data_access_object) design pattern. The FilePlayerDao and FileGameDao implement the PlayerDao and GameDao interfaces and the program logic uses those interfaces. 
+
 ### Files
 The program saves player and game data to separate files on the local disk. The file names are spesified in a config.properties file which is located in Mastermind/src/main/resources. Currently the file names are set to players.txt and games.txt.
 
 Player data is saved in this format:
 `name;best time;best score;amount of games won;`
 
+The player attributes are separated by a semicolon.
+
 Game data is saved in this format:
 `player name;score;time;number of guesses`
+
+Also here the game attributes are separated by a semicolon.
 
 ## The main functions in the program
 

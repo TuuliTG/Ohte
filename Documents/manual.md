@@ -2,7 +2,7 @@
 
 ### Downloading and running the app:
 
-1) You can run the game by downloding the jar from [here](https://github.com/TuuliTG/Ohte/releases/tag/v1.1)
+1) You can run the game by downloding the jar from [here](https://github.com/TuuliTG/Ohte/releases/tag/v.2.0)
 
 Go to the directory where you downloaded the jar and open the game with command `java -jar Mastermind-1.0-SNAPSHOT.jar`
 

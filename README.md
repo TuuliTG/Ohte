@@ -11,6 +11,7 @@ This project is a part of a course *Ohjelmistotekniikka* in the University of He
 * [Testing](https://github.com/TuuliTG/Ohte/blob/main/Documents/Testing.md)
 
 ### Releases
+[Final release](https://github.com/TuuliTG/Ohte/releases/tag/v.2.0)
 [Week 6 release](https://github.com/TuuliTG/Ohte/releases/tag/v1.1)
 
 ### Command Line commands
@@ -19,7 +20,7 @@ This project is a part of a course *Ohjelmistotekniikka* in the University of He
 
 `mvn test`
 
-#### get test codecoverage reports
+#### JaCoCo code coverage reports
 
 `mvn jacoco:report`
 
@@ -28,6 +29,7 @@ you can view the report by opening the file `target/site/jacoco/index.html` on y
 #### Generate excecutable jar
 Command for creating jar: 
 `mvn package`
+
 Jar file will be created in target folder. Jar file will be named  Mastermind-1.0-SNAPSHOT.jar
 
 You can run the jar file on the command line by `java -jar Mastermind.10-SNAPSHOT.jar`
