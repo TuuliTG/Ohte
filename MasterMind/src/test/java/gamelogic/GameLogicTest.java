@@ -49,11 +49,12 @@ public class GameLogicTest {
         String[] g = {"Blue", "Blue", "Blue", "Blue"};
         game.setGuess(g);
         int[] feedback = game.getFeedback();
-        int[] expectedFeedback = {1,1,1,1};
+        int[] expectedFeedback = {1, 1, 1, 1};
         assertArrayEquals(expectedFeedback, feedback);
+        assertTrue(game.gameIsOver());
     }
     
-     @Test
+    @Test
     public void feedbackTest2() {
         String[] c = {"Blue", "Red", "Yellow", "Black"};
         game.setCode(c);
@@ -79,6 +80,30 @@ public class GameLogicTest {
          assertEquals(onesExp, ones);
          assertEquals(twosExp, twos);
          assertEquals(zerosExp, zeros);
+    }
+    
+    @Test
+    public void feedbackTest3() {
+        String[] c = {"Blue", "Blue", "Blue", "Blue"};
+        game.setCode(c);
+        String[] g = {"White", "White", "Black", "Red"};
+        game.setGuess(g);
+        int[] feedback = game.getFeedback();
+        int[] expectedFeedback = {2, 2, 2, 2};
+        assertArrayEquals(expectedFeedback, feedback);
+        assertFalse(game.gameIsOver());
+    }
+    
+    @Test
+    public void feedbackTest4() {
+        String[] c = {"Blue", "Green", "Yellow", "Red"};
+        game.setCode(c);
+        String[] g = {"Green", "Yellow", "Red", "Blue"};
+        game.setGuess(g);
+        int[] feedback = game.getFeedback();
+        int[] expectedFeedback = {0, 0, 0, 0};
+        assertArrayEquals(expectedFeedback, feedback);
+        assertFalse(game.gameIsOver());
     }
     
 }

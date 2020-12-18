@@ -21,10 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package mastermind.domain;
+package gui;
 
 import javafx.scene.paint.Color;
-import mastermind.domain.Piece;
+import mastermind.gui.Piece;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;

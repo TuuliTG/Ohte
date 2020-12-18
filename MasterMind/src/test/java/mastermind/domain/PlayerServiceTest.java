@@ -79,7 +79,13 @@ public class PlayerServiceTest {
         List<Game> games = playerService.getBestGames();
         assertEquals(10000, games.get(0).getScore());
         
+    }
+    
+    @Test
+    public void setCurrentPlayerSetsPlayer() {
         
+        playerService.setCurrentPlayer(new Player("new player"));
+        assertEquals("new player", playerService.getCurrentPlayer().getName());
     }
     
 }

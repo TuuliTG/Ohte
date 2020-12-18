@@ -19,7 +19,6 @@ public class PlayerTest {
         Player p = new Player("AA");
         assertEquals("AA", p.getName());
         assertEquals(0, p.getAmountOfGamesWon());
-        assertTrue(p.getGamesPlayed().isEmpty());
     }
     
     @Test

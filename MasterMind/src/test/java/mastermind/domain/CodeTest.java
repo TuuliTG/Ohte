@@ -46,7 +46,6 @@ public class CodeTest {
     @Test
     public void getCodeGivesRightSizeArray() {
         
-        
         assertEquals(4, code.getCode().length);
     }
     
@@ -61,6 +60,14 @@ public class CodeTest {
         assertTrue(hasColors);
     }
     
+    @Test
+    public void twoCodesAreNotSame() {
+        Code code2 = new Code();
+        code2.setRandomCode();
+        
+        assertFalse(arraysAreSame(code2.getCode(), code.getCode()));
+    }
+    
     private boolean isColor(String s) {
         boolean isColor = false;
         String[] colors = {"Red", "Green", "Yellow", "Blue", "Black", "White"};
@@ -73,5 +80,20 @@ public class CodeTest {
         }
         return isColor;
     }
+    
+    private boolean arraysAreSame(String[] a, String[] b) {
+        boolean equals = true;
+        if (a.length != b.length) {
+            equals = false;
+        }
+        for (int i = 0; i < a.length; i++) {
+            if (!a[i].equals(b[i])) {
+                equals = false;
+            }
+        }
+        return equals;
+    }
+    
+     
     
 }
