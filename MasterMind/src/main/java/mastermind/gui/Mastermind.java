@@ -25,7 +25,6 @@ package mastermind.gui;
 
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Properties;
@@ -33,18 +32,21 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import mastermind.dao.FileGameDao;
 import mastermind.dao.FilePlayerDao;
-import mastermind.domain.Player;
 import mastermind.domain.PlayerService;
 
 
 /**
- *
+ * A class which initialises the files for saving data to the disk and starts the program.
  * @author tgtuuli
  */
-public class MasterMindApplication2 extends Application {
+public class Mastermind extends Application {
            
     private PlayerService playerService;
-    
+    /**
+     * Gets the files names from the config.properties file.
+     * Sets up the DAO classes and the playerService-class. 
+     * @throws Exception 
+     */
     @Override
     public void init() throws Exception {
         ClassLoader classLoader = this.getClass().getClassLoader();
@@ -56,14 +58,12 @@ public class MasterMindApplication2 extends Application {
         String gameFile = properties.getProperty("gameFile");
         FilePlayerDao playerDao = new FilePlayerDao(playerFile);
         FileGameDao fileGameDao = new FileGameDao(gameFile);
-        playerService = new PlayerService(playerDao, fileGameDao);
-        
-        
+        playerService = new PlayerService(playerDao, fileGameDao);        
     }
     
     @Override
     public void start(Stage primaryStage) {
-        GameScene gameScene = new GameScene(primaryStage, playerService, true);
+        new GameScene(primaryStage, playerService, true);
         
     }
    

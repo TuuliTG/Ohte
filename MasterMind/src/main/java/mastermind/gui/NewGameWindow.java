@@ -111,7 +111,7 @@ public class NewGameWindow {
     }
     
     /**
-     * Shows the new Game Window
+     * Shows the new Game Window.
      * @param primaryStage 
      */
     public void show(Stage primaryStage) {
@@ -122,7 +122,5 @@ public class NewGameWindow {
         newGameWindow.setTitle("New Game");
         newGameWindow.initModality(Modality.APPLICATION_MODAL);
         newGameWindow.showAndWait();
-    }
-    
-    
+    } 
 }

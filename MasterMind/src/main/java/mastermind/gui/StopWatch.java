@@ -24,9 +24,7 @@
 package mastermind.gui;
 
 import javafx.animation.Timeline;
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
@@ -40,8 +38,8 @@ public class StopWatch {
     
     private boolean gameIsOver;
     private Timeline timeline;
-    private Label minutesLabel, secondsLabel;
-    private IntegerProperty timeMinutes, timeSeconds;
+    private final Label minutesLabel, secondsLabel;
+    private final IntegerProperty timeMinutes, timeSeconds;
     private Duration minutes, seconds, milliSeconds;
     
 
@@ -55,8 +53,6 @@ public class StopWatch {
         milliSeconds = Duration.ZERO;
         configLabel();
         this.gameIsOver = false;
-        
-        
     }
     
     private void configLabel() {
@@ -68,7 +64,6 @@ public class StopWatch {
         secondsLabel.setTextFill(Color.BLACK);
         secondsLabel.setMinWidth(80);
         secondsLabel.setStyle("-fx-font-size: 4em; -fx-border-style:solid; -fx-border-width: 2; -fx-border-color:black;");
-        
     }
     
     public Timeline getTimeline() {
@@ -127,7 +122,4 @@ public class StopWatch {
     public boolean gameIsOver() {
         return gameIsOver;
     }
-    
-    
-    
 }

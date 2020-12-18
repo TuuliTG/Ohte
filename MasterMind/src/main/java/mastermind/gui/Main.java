@@ -29,6 +29,6 @@ package mastermind.gui;
  */
 public class Main {
     public static void main(String[] args) {
-        MasterMindApplication2.main(args);
+        Mastermind.main(args);
     }
 }

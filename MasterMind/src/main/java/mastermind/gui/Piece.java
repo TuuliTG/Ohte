@@ -10,14 +10,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 /**
- *
+ * Sets up the piece layout and functions.
  * @author tgtuuli
  */
 public class Piece extends Circle {
     
     private Color color;
-    private Color[] colors = {Color.GREY, Color.BLACK, Color.WHITE, Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW};
-    private String[] colorsWritten = {"Grey", "Black",  "White", "Blue", "Red", "Green", "Yellow"};
+    private final Color[] colors = {Color.GREY, Color.BLACK, Color.WHITE, Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW};
+    private final String[] colorsWritten = {"Grey", "Black",  "White", "Blue", "Red", "Green", "Yellow"};
     private int colorIndex;
     private String colorInText;
     
@@ -30,15 +30,17 @@ public class Piece extends Circle {
         this.colorIndex = 0;
     }
     
+    private int getColorIndex() {
+        return colorIndex;
+    }
+    
     public Color getColor() {
         return this.color;
     }
     
-
-    public int getColorIndex() {
-        return colorIndex;
-    }
-    
+    /**
+     * Sets the piece to next color when the player clicks on it (left mouse click).
+     */
     public void setNextColor() {
         
         if (colorIndex < colors.length - 1) {
@@ -51,6 +53,9 @@ public class Piece extends Circle {
         setFill(this.color);
     }
     
+    /**
+     * Sets the piece to previous color when the player clicks on it (right mouse click).
+     */
     public void setPreviousColor() {
         if (colorIndex == 0) {
             colorIndex = colors.length - 1;
@@ -61,7 +66,11 @@ public class Piece extends Circle {
         this.colorInText = colorsWritten[colorIndex];
         setFill(this.color);
     }
-
+    
+    /**
+     * returns the color in String.
+     * @return String color
+     */
     public String getColorInText() {
         return colorInText;
     }
@@ -73,11 +82,6 @@ public class Piece extends Circle {
     public void setColorInText(String colorInText) {
         this.colorInText = colorInText;
     }
-    
-    
-    
-   
-    
     
     
 }

@@ -109,9 +109,6 @@ public class OptionsWindow {
         buttonsBox.getChildren().add(closeButton);
     }
     
-    public Options getOptions() {
-        return options;
-    }
     
     /**
      * Displays the options window
@@ -131,8 +128,6 @@ public class OptionsWindow {
         
         vbox.getChildren().add(optionsBox);
         this.primaryStage.setScene(optionsScene);
-        
-        
     }
     
 }
