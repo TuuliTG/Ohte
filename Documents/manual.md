@@ -8,7 +8,7 @@ Go to the directory where you downloaded the jar and open the game with command 
 
 2) You can also downlad the project zip file from [here]
 Go to the downloaded folder and from there to folder "Mastermind". 
-Run the game from command line with command `compile exec:java -Dexec.mainClass=mastermind.gui.Main` 
+Run the game from command line with command `mvn compile exec:java -Dexec.mainClass=mastermind.gui.Main` 
 
 
 ### New Game
