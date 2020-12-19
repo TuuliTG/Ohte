@@ -26,5 +26,10 @@
 * Settings: 
   * how many guesses are allowed
 
+## Improvement ideas:
+* It would be nice that the player could have more options to customize the game. For example allowing blanks or setting a time limit for each guess. Also a game difficulty setting would be nice. 
+
+* In the  **No guesses left** situation it would be nice to have an opportunity to see the right answer.
+
 ## References
 https://en.wikipedia.org/wiki/Mastermind_(board_game)
