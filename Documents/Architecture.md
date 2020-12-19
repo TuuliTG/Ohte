@@ -72,7 +72,12 @@ The following sequence diagram shows what happens when the player clicks the acc
 
 ![Arvauksen hyväksyminen](https://github.com/TuuliTG/Ohte/blob/main/Documents/misc/MastermindSekvenssikaavio.png)
 
- 
+1) The guess is retrieved from the *board* and saved to String array. 
+2) The program checks wheather the guess is valid (has no blanks in it).
+3) GameLogic: Setting the guess and getting feedback
+4) Set feedback pieces accordingly
+5) Check if the game ends (no guesses left or code is broken)
+6) If the game doesn't end, set active row to next and label texts accordingly
 
 ### Game Over
 

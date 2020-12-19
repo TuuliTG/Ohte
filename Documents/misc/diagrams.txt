@@ -1,6 +1,91 @@
 Sequence diagram: Accept guess
 (https://www.websequencediagrams.com/)
+Code not solved:
 
+title Mastermind:Accept guess
+gameScene-->acceptButton: setOnAction(e-> acceptButtonActions())
+acceptButton-->board: gameIsOver()
+board-->acceptButton: gameIsOver: false
+acceptButton-->board: guessedColors()
+board-->tile: for(1..4):getPiece()
+tile-->piece: getColorInText()
+piece-->tile: "Red","Blue", "Black", "Black"
+tile-->board: "Red","Blue", "Black", "Black"
+board-->acceptButton: String[] guess = ["Red,"Blue","Black","Black"]
+acceptButton-->gameScene: guessHasBlanks(guess)
+gameScene-->acceptButton: false
+acceptButton-->board: getGame()
+board-->gameLogic: setGuess()
+gameLogic-->gameLogic: guess = ["Red,"Blue","Black","Black"]
+acceptButton-->board: giveFeedback()
+board-->gameLogic: getFeedback()
+gameLogic-->board: int[] feedback = [1,2,0,1]
+board-->gameLogic: gameIsOver()
+gameLogic-->board: gameIsOver = false
+board-->board: getCurrentActiveFeedbackTile()
+board-->feedbackTile: setFillLight()
+board-->board: setting feedback pieces on the board
+acceptButton-->board: getGuessesLeft()
+board-->acceptButton: guessesLeft = 2
+acceptButton-->board: gameIsOver()
+board-->acceptButton: gameIsOver = false
+acceptButton-->board: setNextActiveRow()
+board-->board: activeRow++, guessesLeft--
+acceptButton-->gameScene: setting labels according to guessesLeft, and round number
+
+
+Code solved:
+
+title Mastermind:Accept guess
+
+gameScene-->acceptButton: setOnAction(e-> acceptButtonActions())
+acceptButton-->board: gameIsOver()
+board-->acceptButton: gameIsOver: false
+acceptButton-->board: guessedColors()
+board-->tile: for(1..4):getPiece()
+tile-->piece: getColorInText()
+piece-->tile: "Red","Blue", "Black", "Black"
+tile-->board: "Red","Blue", "Black", "Black"
+board-->acceptButton: String[] guess = ["Red,"Blue","Black","Black"]
+acceptButton-->gameScene: guessHasBlanks(guess)
+gameScene-->acceptButton: false
+acceptButton-->board: getGame()
+board-->gameLogic: setGuess()
+gameLogic-->gameLogic: guess = ["Red,"Blue","Black","Black"]
+acceptButton-->board: giveFeedback()
+board-->gameLogic: getFeedback()
+gameLogic-->board: int[] feedback = [1,1,1,1]
+board-->gameLogic: gameIsOver()
+gameLogic-->board: gameIsOver = false
+board-->board: getCurrentActiveFeedbackTile()
+board-->feedbackTile: setFillLight()
+board-->board: setting feedback pieces on the board
+acceptButton-->board: setNextActiveRow()
+board-->board: activeRow++, guessesLeft--
+acceptButton-->gameScene: setting labels according to guessesLeft, and round number
+acceptButton-->board: getGuessesLeft()
+board-->acceptButton: guessesLeft = 2
+acceptButton-->board: gameIsOver()
+board-->acceptButton: gameIsOver = true
+acceptButton-->gameScene: setScore()
+gameScene-->timer: getMilliseconds()
+gameScene-->board: getActiveRow()
+gameScene-->playerService: addGame(time, guesses)
+playerService-->player:player = getCurrentPlayer()
+playerService-->game: new Game(player.name, time, guesses)
+playerService-->game: setScore()
+game-->game: setting score
+playerService-->gameDao: create(game)
+playerService-->playerDao: setBestTime()
+playerService--> playerDao: setBestScore()
+playerService-->playerDao: addOneGamePlayed()
+acceptButton-->timer: getTimeline().stop()
+timer-->timer: timeline.stop()
+acceptButton-->gameOverWindow: new GameOverWindow()
+acceptButton-->gameOverWindow: showGameOverWindow()
+gameOverWindow-->newGameButton: setOnAction(e->...)
+newGameButton-->gameScene: new GameScene(new Stage)
+gameScene-->gameScene: starting a new game
 title Mastermind:Accept guess
 gameScene-->acceptButton: setOnAction(e-> acceptButtonActions())
 acceptButton-->board: guessedColors()
@@ -26,7 +111,7 @@ acceptButton-->board: giveFeedback()
 board-->gameLogic: getFeedback()
 gameLogic-->board: int[] feedback = [1,1,1,1]
 board-->gameLogic: gameIsOver()
-gameLogic-->board: gameIsOver = false
+GameLogic-->board: gameIsOver = false
 board-->board: getCurrentActiveFeedbackTile()
 board-->feedbackTile: setFillLight()
 board-->board: setting feedback pieces on the board
