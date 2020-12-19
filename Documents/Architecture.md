@@ -72,7 +72,7 @@ The following sequence diagram shows what happens when the player clicks the acc
 
 ![Arvauksen hyväksyminen](https://github.com/TuuliTG/Ohte/blob/main/Documents/misc/MastermindSekvenssikaavio.png)
 
-1) The guess is retrieved from the *board* and saved to String array. 
+1) The guess is retrieved from the *board* and saved to a String array. 
 2) The program checks wheather the guess is valid (has no blanks in it).
 3) GameLogic: Setting the guess and getting feedback
 4) Set feedback pieces accordingly
@@ -85,7 +85,7 @@ The game ends either when the player runs out of guesses or if he/she solves the
 
 ![Game Over Window](https://github.com/TuuliTG/Ohte/blob/main/Documents/misc/gameOverWindow.png)
 
-## Weaknesses in the program
+## Weaknesses in the program code and design
 
 The class and package structure could propably be still simplified and refactured. I had problems deciding how to delegate responsibilities between the gui, gamelogic, and some of the domain classes. 
 
@@ -93,10 +93,3 @@ I had some difficulties in the error handling. I got also feedback during the pe
 
 The PlayerDao and the GameDao classes have repetitive code and it could be refactored. 
 The GameScene-class is quite big and it could be still split into smaller classes.
- 
-
-**Options:** 
-
-It would be nice that the player could have more options to customize the game. For example allowing blanks or setting a time limit for each guess. Also a game difficulty setting would be nice. 
-
-In the  **No guesses left** situation it would be nice to have an opportunity to see the right answer. 
