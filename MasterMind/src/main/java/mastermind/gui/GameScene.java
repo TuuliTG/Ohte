@@ -342,13 +342,12 @@ public class GameScene {
             } else {
                 board.getGame().setGuess(guess);
                 this.board.giveFeedback();
-                this.board.setNextActiveRow();
-                this.roundLabel.setText("ROUND: " + (board.getActiveRow() + 1));
-                this.guessesLeftLabel.setText("Guesses left: " + board.getGuessesLeft());
-
                 if (board.getGuessesLeft() == 0 || board.gameIsOver()) {
                     this.endGameActions();
                 } else {
+                    this.board.setNextActiveRow();
+                    this.roundLabel.setText("ROUND: " + (board.getActiveRow() + 1));
+                    this.guessesLeftLabel.setText("Guesses left: " + board.getGuessesLeft());
                     moveArrowDown();
                 }        
             }   

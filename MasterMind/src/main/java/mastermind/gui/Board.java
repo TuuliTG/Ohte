@@ -145,9 +145,7 @@ public class Board {
      * Sets the feedback pieces black, white  or grey according to the codemakers feedback.
      */
     public void giveFeedback() {
-        int[] feedback = game.getFeedback();
-        boolean gameIsOver = game.gameIsOver();
-       
+        int[] feedback = game.getFeedback();       
         Tile t = getCurrentActiveFeedbackTile();
         t.setFillLight();
         Piece[] feedbackPieces = t.getFeedbackPieces();
