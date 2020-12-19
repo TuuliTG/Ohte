@@ -27,11 +27,11 @@ The system testing for this program has been done manually.
 I have downloaded and installed the app on a linux machine according to the instructions in the [manual](https://github.com/TuuliTG/Ohte/blob/main/Documents/manual.md). The app has successfully launched and created necessary files. 
 
 
-### functionalities
-There was a peer review in the week 6 and the functionalities were tested by another student. Some bugs fixes and improvements were done after that. I have gone through all the functionalities listed in the Requirements Analysis and everything seem to work as wanted. 
+### Functionalities
+There was a peer review in the week 6 and the functionalities were manually tested by another student. Some bugs fixes and improvements were done after that. I have gone through all the functionalities listed in the Requirements Analysis and everything seem to work as wanted. 
 
 ## What needs to be improved
 
-The GUI is not tested programmatically at all and therefore a majority of the program is not tested. Also the error situations were not tested at all. 
+The GUI is not tested programmatically at all and therefore a majority of the program is not tested. The error situations were not tested at all either. 
 
 
